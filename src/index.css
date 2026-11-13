@@ -1,0 +1,148 @@
+:root {
+  /* === LUNA VIVA — PALETA OFICIAL === */
+  --rosa-luna: #FEDDE6;
+  --rosa-blush: #EFC4D2;
+  --rosa-suave: #F9EEF2;
+  --dorado-luna: #B58B3A;
+  --dorado-claro: #D8B86A;
+  --crema: #FFF9F5;
+  --cafe-rosado: #8D6A5A;
+  --carbon: #3B3537;
+  
+  /* Derivados funcionales */
+  --bg-primary: var(--crema);
+  --bg-section-alt: var(--rosa-suave);
+  --text-primary: var(--carbon);
+  --text-secondary: var(--cafe-rosado);
+  --accent: var(--dorado-luna);
+  --accent-light: var(--dorado-claro);
+  --highlight: var(--rosa-luna);
+  --highlight-strong: var(--rosa-blush);
+  
+  /* === TIPOGRAFÍA === */
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Montserrat', system-ui, sans-serif;
+  
+  --text-xs: 0.75rem;    /* 12px */
+  --text-sm: 0.875rem;   /* 14px */
+  --text-base: 1rem;     /* 16px */
+  --text-lg: 1.125rem;   /* 18px */
+  --text-xl: 1.25rem;    /* 20px */
+  --text-2xl: 1.5rem;    /* 24px */
+  --text-3xl: 1.875rem;  /* 30px */
+  --text-4xl: 2.25rem;   /* 36px */
+  --text-5xl: 3rem;      /* 48px */
+  --text-6xl: 3.75rem;   /* 60px */
+  
+  /* === ESPACIADO (escala spacious) === */
+  --space-1: 0.25rem;    /* 4px */
+  --space-2: 0.5rem;     /* 8px */
+  --space-3: 0.75rem;    /* 12px */
+  --space-4: 1rem;       /* 16px */
+  --space-6: 1.5rem;     /* 24px */
+  --space-8: 2rem;       /* 32px */
+  --space-10: 2.5rem;    /* 40px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+  --space-20: 5rem;      /* 80px */
+  --space-24: 6rem;      /* 96px */
+  
+  /* === BORDES Y SOMBRAS === */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  
+  --shadow-sm: 0 1px 3px rgba(59,53,55,0.06);
+  --shadow-md: 0 4px 12px rgba(59,53,55,0.08);
+  --shadow-lg: 0 8px 24px rgba(59,53,55,0.10);
+  --shadow-glow: 0 0 20px rgba(254,221,230,0.4);
+  
+  /* === TRANSICIONES === */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  
+  /* === LAYOUT === */
+  --container-max: 1280px;
+  --header-height: 72px;
+}
+
+/* Reset Base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: var(--space-4);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: var(--font-body);
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+/* ===== RESPONSIVE MEDIA QUERIES ===== */
+
+/* Hide/show utilities */
+.desktop-only { display: flex !important; }
+.mobile-only { display: none !important; }
+
+/* Tablet (768px and below) */
+@media (max-width: 768px) {
+  :root {
+    --header-height: 60px;
+    --text-5xl: 2.25rem;
+    --text-6xl: 2.75rem;
+    --text-4xl: 1.875rem;
+    --text-3xl: 1.5rem;
+  }
+
+  .desktop-only { display: none !important; }
+  .mobile-only { display: flex !important; }
+
+  .container {
+    padding: 0 var(--space-4);
+  }
+}
+
+/* Mobile (480px and below) */
+@media (max-width: 480px) {
+  :root {
+    --text-5xl: 1.875rem;
+    --text-6xl: 2.25rem;
+    --text-4xl: 1.5rem;
+    --text-3xl: 1.25rem;
+    --space-16: 2.5rem;
+    --space-20: 3rem;
+    --space-12: 2rem;
+  }
+}
