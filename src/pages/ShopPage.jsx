@@ -228,19 +228,29 @@ export function ShopPage() {
 
       <style>{`
         @media (max-width: 768px) {
+          .shop-title {
+            font-size: 1.65rem !important;
+            line-height: 1.25 !important;
+            padding: 0 8px;
+          }
           .shop-layout {
             grid-template-columns: 1fr !important;
+            gap: 16px !important;
           }
           .products-grid {
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 10px !important;
           }
           .category-chips-scroll {
             justify-content: flex-start !important;
             overflow-x: auto !important;
             flex-wrap: nowrap !important;
-            padding: 8px 6px !important;
+            padding: 8px 4px !important;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
           }
           .category-chips-scroll::-webkit-scrollbar {
             display: none;
@@ -248,6 +258,11 @@ export function ShopPage() {
           .category-chips-scroll button {
             white-space: nowrap !important;
             flex-shrink: 0 !important;
+          }
+        }
+        @media (max-width: 340px) {
+          .products-grid {
+            grid-template-columns: 1fr !important;
           }
         }
       `}</style>

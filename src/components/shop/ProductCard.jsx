@@ -92,7 +92,7 @@ export function ProductCard({ product }) {
       </div>
 
       {/* Imagen */}
-      <Link to={`/product/${product.id}`} style={{ display: 'block', height: '240px', overflow: 'hidden', position: 'relative' }}>
+      <Link to={`/product/${product.id}`} className="product-card-img-link">
         <div style={{
           height: '100%',
           backgroundImage: `url('${product.mainImage}')`,
@@ -113,9 +113,9 @@ export function ProductCard({ product }) {
             <span style={{
               backgroundColor: 'rgba(225, 29, 72, 0.9)',
               color: 'white',
-              fontSize: '12px',
+              fontSize: '11px',
               fontWeight: '700',
-              padding: '6px 14px',
+              padding: '4px 10px',
               borderRadius: 'var(--radius-full)',
               textTransform: 'uppercase',
               letterSpacing: '0.06em'
@@ -127,30 +127,18 @@ export function ProductCard({ product }) {
       </Link>
 
       {/* Contenido */}
-      <div style={{
-        padding: 'var(--space-4)',
-        display: 'flex',
-        flexDirection: 'column',
-        flexGrow: 1
-      }}>
+      <div className="product-card-content">
         <span style={{
-          fontSize: 'var(--text-xs)',
+          fontSize: '11px',
           color: 'var(--text-secondary)',
           textTransform: 'uppercase',
           letterSpacing: '0.05em',
-          marginBottom: '4px'
+          marginBottom: '3px'
         }}>
           {product.brand}
         </span>
-        
-        <h3 style={{
-          fontSize: 'var(--text-base)',
-          fontWeight: '500',
-          margin: '0 0 var(--space-2)',
-          lineHeight: '1.4',
-          height: '44px',
-          overflow: 'hidden'
-        }}>
+
+        <h3 className="product-card-title">
           <Link to={`/product/${product.id}`} style={{ color: 'var(--text-primary)' }}>
             {product.name}
           </Link>
@@ -160,38 +148,36 @@ export function ProductCard({ product }) {
           marginTop: 'auto',
           display: 'flex',
           flexDirection: 'column',
-          gap: 'var(--space-3)'
+          gap: 'var(--space-2)'
         }}>
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center'
           }}>
-            <span style={{
-              fontWeight: '600',
-              fontSize: 'var(--text-lg)',
+            <span className="product-card-price" style={{
               color: product.stock <= 0 ? 'var(--text-secondary)' : 'var(--text-primary)',
               textDecoration: product.stock <= 0 ? 'line-through' : 'none'
             }}>
               {product.price ? `$ ${product.price.toLocaleString('es-CO')}` : '[PRECIO POR DEFINIR]'}
             </span>
             {product.stock <= 0 ? (
-              <span style={{ fontSize: '11px', color: '#e11d48', fontWeight: '700' }}>
+              <span style={{ fontSize: '10px', color: '#e11d48', fontWeight: '700' }}>
                 Agotado
               </span>
             ) : product.stock === 1 ? (
-              <span style={{ fontSize: '11px', color: '#ea580c', fontWeight: '700' }}>
+              <span style={{ fontSize: '10px', color: '#ea580c', fontWeight: '700' }}>
                 ¡Última!
               </span>
             ) : null}
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+          <div className="product-card-actions">
             <Link to={`/product/${product.id}`} style={{ width: '100%' }}>
               <Button variant="secondary" size="sm" fullWidth>Detalles</Button>
             </Link>
             {product.stock <= 0 ? (
-              <a 
+              <a
                 href={`https://wa.me/${phoneNumber}?text=${encodeURIComponent(`¡Hola Luna Viva! Me gustaría consultar cuándo vuelve a estar disponible: ${product.name} (${product.brand})`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -202,20 +188,75 @@ export function ProductCard({ product }) {
                 </Button>
               </a>
             ) : (
-              <a 
+              <a
                 href={`https://wa.me/${phoneNumber}?text=${waMessage}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ width: '100%' }}
               >
-                <Button variant="primary" size="sm" fullWidth style={{ display: 'flex', gap: '4px', backgroundColor: '#25D366', color: 'white' }}>
-                  <MessageCircle size={14} /> Asesoría
+                <Button variant="primary" size="sm" fullWidth style={{ display: 'flex', gap: '3px', backgroundColor: '#25D366', color: 'white' }}>
+                  <MessageCircle size={13} /> Asesoría
                 </Button>
               </a>
             )}
           </div>
         </div>
       </div>
+
+      <style>{`
+        .product-card-img-link {
+          display: block;
+          height: 230px;
+          overflow: hidden;
+          position: relative;
+        }
+        .product-card-content {
+          padding: var(--space-4);
+          display: flex;
+          flex-direction: column;
+          flex-grow: 1;
+        }
+        .product-card-title {
+          font-size: var(--text-base);
+          font-weight: 500;
+          margin: 0 0 var(--space-2);
+          line-height: 1.4;
+          height: 44px;
+          overflow: hidden;
+        }
+        .product-card-price {
+          font-weight: 600;
+          font-size: var(--text-lg);
+        }
+        .product-card-actions {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 8px;
+        }
+        @media (max-width: 768px) {
+          .product-card-img-link {
+            height: 165px !important;
+          }
+          .product-card-content {
+            padding: 10px 8px !important;
+          }
+          .product-card-title {
+            font-size: 13px !important;
+            height: 34px !important;
+            line-height: 1.3 !important;
+          }
+          .product-card-price {
+            font-size: 14px !important;
+          }
+          .product-card-actions {
+            gap: 4px !important;
+          }
+          .product-card-actions button {
+            padding: 6px 2px !important;
+            font-size: 11px !important;
+          }
+        }
+      `}</style>
     </motion.div>
   );
 }

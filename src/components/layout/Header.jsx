@@ -85,17 +85,17 @@ export function Header() {
   );
 
   const RightIcons = () => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
       <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
         <AnimatePresence>
           {isSearchOpen && (
             <motion.form
               initial={{ width: 0, opacity: 0 }}
-              animate={{ width: 180, opacity: 1 }}
+              animate={{ width: 140, opacity: 1 }}
               exit={{ width: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.25 }}
               onSubmit={handleSearch}
-              style={{ overflow: 'hidden', marginRight: '8px' }}
+              style={{ overflow: 'hidden', marginRight: '6px' }}
             >
               <input
                 type="text"
@@ -105,18 +105,18 @@ export function Header() {
                 autoFocus
                 style={{
                   width: '100%',
-                  padding: '6px 12px',
+                  padding: '5px 10px',
                   borderRadius: 'var(--radius-full)',
                   border: '1px solid #ddd',
                   outline: 'none',
-                  fontSize: '13px'
+                  fontSize: '12px'
                 }}
               />
             </motion.form>
           )}
         </AnimatePresence>
         <div onClick={() => setIsSearchOpen(!isSearchOpen)} style={{ display: 'flex', alignItems: 'center' }}>
-          <img src="/img/buscador.png" alt="Buscar" style={{ height: '70px', cursor: 'pointer' }} />
+          <img src="/img/buscador.png" alt="Buscar" className="header-search-icon" />
         </div>
 
         {/* Search Dropdown Results */}
@@ -128,14 +128,14 @@ export function Header() {
               exit={{ opacity: 0, y: -10 }}
               style={{
                 position: 'absolute',
-                top: 'calc(100% + 15px)',
+                top: 'calc(100% + 12px)',
                 right: 0,
-                width: '380px',
-                maxWidth: '90vw',
+                width: '320px',
+                maxWidth: 'calc(100vw - 32px)',
                 backgroundColor: 'white',
                 boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
                 borderRadius: '8px',
-                maxHeight: '450px',
+                maxHeight: '400px',
                 overflowY: 'auto',
                 zIndex: 99
               }}
@@ -212,17 +212,17 @@ export function Header() {
 
       <div
         onClick={() => setIsCartOpen(true)}
-        style={{ position: 'relative', cursor: 'pointer', display: 'flex' }}
+        style={{ position: 'relative', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
       >
-        <img src="/img/bolsa.webp" alt="Carrito" style={{ height: '32px', cursor: 'pointer' }} />
+        <img src="/img/bolsa.webp" alt="Carrito" className="header-cart-icon" />
         {totalItems > 0 && (
           <span style={{
             position: 'absolute',
-            top: '-2px',
-            right: '-6px',
+            top: '-4px',
+            right: '-8px',
             backgroundColor: '#EAA3C7',
             color: 'white',
-            fontSize: '11px',
+            fontSize: '10px',
             fontWeight: 'bold',
             borderRadius: '50%',
             width: '18px',
@@ -254,7 +254,7 @@ export function Header() {
           height: '100%'
         }}>
           {/* Mobile: Hamburger Button */}
-          <div className="mobile-only" onClick={() => setIsMobileMenuOpen(true)} style={{ cursor: 'pointer', flex: 1 }}>
+          <div className="mobile-only" onClick={() => setIsMobileMenuOpen(true)} style={{ cursor: 'pointer', flex: '0 0 auto', padding: '6px 0' }}>
             <Menu size={24} color="#3B3537" />
           </div>
 
@@ -276,14 +276,13 @@ export function Header() {
           </div>
 
           {/* Icons (Right) */}
-          <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+          <div style={{ flex: '0 0 auto', display: 'flex', justifyContent: 'flex-end' }}>
             <RightIcons />
           </div>
         </div>
       </header>
 
       {/* ===== STICKY HEADER (Fixed, layout from screenshot) ===== */}
-      {/* Aparece con transición al bajar, desaparece sin transición al subir para no superponerse */}
       <header style={{
         height: '65px',
         backgroundColor: 'white',
@@ -303,17 +302,17 @@ export function Header() {
           height: '100%'
         }}>
           {/* Mobile: Hamburger Button */}
-          <div className="mobile-only" onClick={() => setIsMobileMenuOpen(true)} style={{ cursor: 'pointer', flex: 1 }}>
+          <div className="mobile-only" onClick={() => setIsMobileMenuOpen(true)} style={{ cursor: 'pointer', flex: '0 0 auto', padding: '6px 0' }}>
             <Menu size={24} color="#3B3537" />
           </div>
 
           {/* Logo (Left/Center) */}
-          <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start' }} className="mobile-center-logo">
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }} className="mobile-center-logo">
             <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
               <img
                 src="/img/Logo luna sin fondo.png"
                 alt="Luna Viva Beauty Logo"
-                style={{ height: '45px', objectFit: 'contain' }}
+                style={{ height: '42px', objectFit: 'contain' }}
               />
             </Link>
           </div>
@@ -324,7 +323,7 @@ export function Header() {
           </div>
 
           {/* Icons (Right) */}
-          <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+          <div style={{ flex: '0 0 auto', display: 'flex', justifyContent: 'flex-end' }}>
             <RightIcons />
           </div>
         </div>
@@ -409,8 +408,20 @@ export function Header() {
         .desktop-nav-link:hover {
           color: #EAA3C7;
         }
+        .header-search-icon {
+          height: 32px;
+          cursor: pointer;
+          display: block;
+        }
+        .header-cart-icon {
+          height: 28px;
+          cursor: pointer;
+          display: block;
+        }
         @media (max-width: 768px) {
-          .header-logo { height: 50px !important; }
+          .header-logo { height: 42px !important; }
+          .header-search-icon { height: 24px !important; }
+          .header-cart-icon { height: 22px !important; }
           .mobile-center-logo { justify-content: center !important; }
         }
       `}</style>

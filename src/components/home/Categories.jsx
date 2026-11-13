@@ -40,10 +40,11 @@ export function Categories() {
                 textAlign: 'center'
               }}
             >
-              <div style={{
-                height: '160px',
+              <div className="category-icon-wrapper" style={{
+                height: '140px',
                 margin: '0 auto',
-                width: '160px',
+                width: '140px',
+                maxWidth: '100%',
                 backgroundImage: `url('${cat.img}')`,
                 backgroundSize: 'contain',
                 backgroundRepeat: 'no-repeat',
@@ -62,12 +63,21 @@ export function Categories() {
         @media (max-width: 768px) {
           .categories-grid {
             grid-template-columns: repeat(2, 1fr) !important;
+            gap: 12px !important;
+          }
+          .category-icon-wrapper {
+            height: 110px !important;
+            width: 110px !important;
           }
         }
         @media (max-width: 480px) {
           .categories-grid {
             grid-template-columns: 1fr 1fr !important;
-            gap: var(--space-4) !important;
+            gap: 10px !important;
+          }
+          .category-icon-wrapper {
+            height: 95px !important;
+            width: 95px !important;
           }
         }
       `}</style>
