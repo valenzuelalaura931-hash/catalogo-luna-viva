@@ -41,11 +41,11 @@ export function FilterSidebar({
               <input 
                 type="radio" 
                 name="category" 
-                checked={selectedCategory === cat} 
+                checked={selectedCategory === cat || (cat === 'Accesorios de Maquillaje' && selectedCategory === 'Accesorios')} 
                 onChange={() => setSelectedCategory(cat)}
                 style={{ accentColor: 'var(--accent)' }}
               />
-              {cat}
+              {cat === 'Accesorios de Maquillaje' ? 'Accesorios' : cat}
             </label>
           ))}
         </div>

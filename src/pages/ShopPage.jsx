@@ -37,7 +37,11 @@ export function ShopPage() {
 
   // Filtrar productos
   const filteredProducts = products.filter(product => {
-    const matchesCategory = selectedCategory === 'Todas' || product.category === selectedCategory;
+    const matchesCategory = selectedCategory === 'Todas' ||
+      product.category === selectedCategory ||
+      (selectedCategory === 'Accesorios' && (product.category === 'Accesorios de Maquillaje' || product.category === 'Accesorios')) ||
+      (selectedCategory === 'Accesorios de Maquillaje' && (product.category === 'Accesorios' || product.category === 'Accesorios de Maquillaje')) ||
+      (selectedCategory === 'Cabello' && product.category === 'Capilar');
     const matchesBrand = selectedBrand === 'Todas' || product.brand === selectedBrand;
     const matchesSearch = !searchQuery ||
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -61,30 +65,65 @@ export function ShopPage() {
           </p>
         </div>
 
-        {/* Banner de la categoría */}
+        {/* Categorías (Limpio, sin fondo rosa) */}
         <div style={{
-          backgroundColor: '#FFEBF1', // Fondo rosa pálido inspirado en la imagen
-          backgroundImage: 'radial-gradient(circle, #FDE0E9 20%, transparent 20%), radial-gradient(circle, #FDE0E9 20%, transparent 20%)',
-          backgroundSize: '60px 60px',
-          backgroundPosition: '0 0, 30px 30px',
-          padding: 'var(--space-10) var(--space-4)',
           marginBottom: 'var(--space-8)',
           textAlign: 'center',
-          position: 'relative',
-          borderRadius: '4px'
+          padding: 'var(--space-2) 0'
         }}>
-          <h1 style={{
-            fontSize: '24px',
-            color: '#8A5B66',
+          <h2 style={{
+            fontSize: '28px',
+            color: '#3B3537',
             textTransform: 'uppercase',
-            letterSpacing: '0.1em',
+            letterSpacing: '0.12em',
             fontWeight: '600',
-            margin: 0,
-            position: 'relative',
-            zIndex: 1
+            margin: '0 0 var(--space-5) 0',
+            fontFamily: 'serif'
           }}>
-            {selectedCategory === 'Todas' ? 'TODOS LOS PRODUCTOS' : selectedCategory}
-          </h1>
+            {selectedCategory === 'Todas' ? 'TODOS LOS PRODUCTOS' : selectedCategory.toUpperCase()}
+          </h2>
+
+          {/* Selector de Categorías (Pills limpias) */}
+          <div className="category-chips-scroll" style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '10px',
+            flexWrap: 'wrap',
+            padding: '4px 0'
+          }}>
+            {['Todas', 'Maquillaje', 'Skincare', 'Capilar', 'Accesorios', 'Corporal'].map((cat) => {
+              const isSelected = selectedCategory === cat || 
+                (cat === 'Accesorios' && (selectedCategory === 'Accesorios de Maquillaje' || selectedCategory === 'Accesorios')) ||
+                (cat === 'Capilar' && selectedCategory === 'Cabello');
+              return (
+                <button
+                  key={cat}
+                  onClick={() => {
+                    const targetCategory = cat === 'Accesorios' ? 'Accesorios' : cat;
+                    setSelectedCategory(targetCategory);
+                    setSearchParams(targetCategory === 'Todas' ? {} : { category: targetCategory });
+                  }}
+                  style={{
+                    padding: '9px 20px',
+                    borderRadius: '24px',
+                    fontSize: '13px',
+                    fontWeight: isSelected ? '600' : '500',
+                    border: isSelected ? '1px solid #3B3537' : '1px solid #E5E0E2',
+                    backgroundColor: isSelected ? '#3B3537' : '#FFFFFF',
+                    color: isSelected ? '#FFFFFF' : '#555555',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.06em',
+                    boxShadow: isSelected ? '0 2px 8px rgba(0,0,0,0.12)' : '0 1px 3px rgba(0,0,0,0.03)'
+                  }}
+                >
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Buscador removed as per user request */}
@@ -194,6 +233,21 @@ export function ShopPage() {
           }
           .products-grid {
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
+          }
+          .category-chips-scroll {
+            justify-content: flex-start !important;
+            overflow-x: auto !important;
+            flex-wrap: nowrap !important;
+            padding: 8px 6px !important;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+          }
+          .category-chips-scroll::-webkit-scrollbar {
+            display: none;
+          }
+          .category-chips-scroll button {
+            white-space: nowrap !important;
+            flex-shrink: 0 !important;
           }
         }
       `}</style>
