@@ -112,29 +112,29 @@ export function ProductPage() {
                   fontSize: 'var(--text-xs)',
                   letterSpacing: '0.04em'
                 }}>
-                  🔴 AGOTADO EN BOUTIQUE
+                  🔴 AGOTADO
                 </span>
-              ) : product.stock <= 2 ? (
+              ) : product.stock === 1 ? (
                 <span style={{
-                  backgroundColor: '#fef3c7',
-                  color: '#92400e',
+                  backgroundColor: '#ffedd5',
+                  color: '#c2410c',
                   padding: '4px 12px',
                   borderRadius: 'var(--radius-full)',
                   fontWeight: '700',
                   fontSize: 'var(--text-xs)'
                 }}>
-                  ⚡ ¡Solo quedan {product.stock} unidades!
+                  ⚡ ¡Última unidad disponible!
                 </span>
               ) : (
                 <span style={{
-                  backgroundColor: '#dcfce7',
-                  color: '#166534',
+                  backgroundColor: '#f0fdf4',
+                  color: '#15803d',
                   padding: '4px 12px',
                   borderRadius: 'var(--radius-full)',
                   fontWeight: '600',
                   fontSize: 'var(--text-xs)'
                 }}>
-                  ✓ Disponible ({product.stock} en stock)
+                  ✓ Disponible
                 </span>
               )}
             </div>

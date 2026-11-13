@@ -49,16 +49,16 @@ export function ProductCard({ product }) {
           }}>
             🔴 AGOTADO
           </span>
-        ) : product.stock <= 2 ? (
+        ) : product.stock === 1 ? (
           <span style={{
-            backgroundColor: '#d97706',
+            backgroundColor: '#ea580c',
             color: 'white',
             fontSize: '10px',
             fontWeight: 'bold',
             padding: '2px 8px',
             borderRadius: 'var(--radius-full)'
           }}>
-            ⚡ ¡Últimas {product.stock}!
+            ⚡ ¡Última unidad!
           </span>
         ) : null}
 
@@ -175,15 +175,15 @@ export function ProductCard({ product }) {
             }}>
               {product.price ? `$ ${product.price.toLocaleString('es-CO')}` : '[PRECIO POR DEFINIR]'}
             </span>
-            {product.stock > 0 ? (
-              <span style={{ fontSize: '11px', color: '#16a34a', fontWeight: '600' }}>
-                Stock: {product.stock}
+            {product.stock <= 0 ? (
+              <span style={{ fontSize: '11px', color: '#e11d48', fontWeight: '700' }}>
+                Agotado
               </span>
-            ) : (
-              <span style={{ fontSize: '11px', color: '#e11d48', fontWeight: '600' }}>
-                Sin stock
+            ) : product.stock === 1 ? (
+              <span style={{ fontSize: '11px', color: '#ea580c', fontWeight: '700' }}>
+                ¡Última!
               </span>
-            )}
+            ) : null}
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
