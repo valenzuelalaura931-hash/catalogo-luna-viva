@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '../ui/Button';
+// Button removed as per user request
 // no icons needed
 import { Link, useLocation } from 'react-router-dom';
 
@@ -350,11 +350,7 @@ export function ProductCard({ product }) {
             ) : null}
           </div>
 
-          <div className="product-card-actions">
-            <Link to={`/product/${currentId}`} state={{ from: location.pathname + location.search }} onClick={handleProductClick} style={{ width: '100%', display: 'block' }}>
-              <Button variant="secondary" size="sm" fullWidth>Detalles</Button>
-            </Link>
-          </div>
+
         </div>
       </div>
 
@@ -389,10 +385,6 @@ export function ProductCard({ product }) {
           font-weight: 600;
           font-size: var(--text-lg);
         }
-        .product-card-actions {
-          display: flex;
-          width: 100%;
-        }
         .product-card-tones-scroll::-webkit-scrollbar {
           display: none;
         }
@@ -410,13 +402,6 @@ export function ProductCard({ product }) {
           }
           .product-card-price {
             font-size: 14px !important;
-          }
-          .product-card-actions {
-            gap: 4px !important;
-          }
-          .product-card-actions button {
-            padding: 6px 2px !important;
-            font-size: 11px !important;
           }
         }
       `}</style>
