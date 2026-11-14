@@ -516,12 +516,7 @@ export function ProductPage() {
       </div>
 
       <style>{`
-        @media (max-width: 768px) {
-          .product-detail {
-            grid-template-columns: 1fr !important;
-            padding: var(--space-4) !important;
-          }
-          
+        /* Flechas de navegación circulares en la página de producto (segunda foto) */
         .gallery-nav-arrow {
           position: absolute;
           top: 50%;
@@ -532,14 +527,14 @@ export function ProductPage() {
           background: #E5E7EB;
           color: #1F2937;
           border: none;
-          display: flex;
+          display: flex !important;
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.14);
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16);
           transition: all 0.2s ease;
           opacity: 0.92;
-          z-index: 5;
+          z-index: 10;
         }
         .gallery-nav-arrow:hover {
           background: #D1D5DB;
@@ -548,22 +543,24 @@ export function ProductPage() {
           transform: translateY(-50%) scale(1.08);
           box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
         }
-        .gallery-prev { left: 10px; }
-        .gallery-next { right: 10px; }
+        .gallery-prev { left: 14px; }
+        .gallery-next { right: 14px; }
+
         .gallery-counter-badge {
           position: absolute;
-          top: 12px;
-          right: 12px;
-          background: rgba(26, 26, 26, 0.72);
+          top: 14px;
+          right: 14px;
+          background: rgba(0, 0, 0, 0.65);
           backdrop-filter: blur(4px);
           color: white;
           font-size: 11px;
           font-weight: 600;
           padding: 4px 10px;
           border-radius: 20px;
-          z-index: 5;
+          z-index: 10;
           letter-spacing: 0.03em;
         }
+
         .gallery-thumbnails-strip::-webkit-scrollbar {
           height: 6px;
         }
@@ -572,12 +569,23 @@ export function ProductPage() {
           border-radius: 4px;
         }
 
-        .product-image-container {
-            height: 300px !important;
+        @media (max-width: 768px) {
+          .product-detail {
+            grid-template-columns: 1fr !important;
+            padding: var(--space-4) !important;
+          }
+          .product-image-container {
+            height: 320px !important;
           }
           .product-title {
             font-size: var(--text-2xl) !important;
           }
+          .gallery-nav-arrow {
+            width: 32px !important;
+            height: 32px !important;
+          }
+          .gallery-prev { left: 8px !important; }
+          .gallery-next { right: 8px !important; }
           .product-ctas {
             flex-direction: column !important;
           }

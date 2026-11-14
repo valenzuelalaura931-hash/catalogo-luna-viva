@@ -206,7 +206,7 @@ export function ProductCard({ product }) {
       </div>
 
       {/* Imagen del Producto con Slider Multi-Foto */}
-      <div className="product-card-img-wrapper" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} style={{ position: 'relative', height: '230px', overflow: 'hidden' }}>
+      <div className="product-card-img-wrapper" style={{ position: 'relative', height: '230px', overflow: 'hidden' }}>
         <Link to={`/product/${currentId}`} state={{ from: location.pathname + location.search }} onClick={handleProductClick} className="product-card-img-link" style={{ height: '100%', display: 'block' }}>
           <div
             key={activeImage}
@@ -244,50 +244,7 @@ export function ProductCard({ product }) {
           )}
         </Link>
 
-        {/* Flechas de Navegación de Fotos */}
-        {hasMultipleImages && (
-          <>
-            <button
-              type="button"
-              className="card-photo-nav-arrow card-photo-prev"
-              onClick={handlePrevImage}
-              aria-label="Foto anterior"
-              title="Foto anterior"
-            >
-              <ChevronLeft size={16} strokeWidth={2.5} />
-            </button>
-            <button
-              type="button"
-              className="card-photo-nav-arrow card-photo-next"
-              onClick={handleNextImage}
-              aria-label="Foto siguiente"
-              title="Foto siguiente"
-            >
-              <ChevronRight size={16} strokeWidth={2.5} />
-            </button>
-
-            {/* Contador de fotos (ej: 1/4) */}
-            <div className="card-photo-counter-badge">
-              📷 {currentImgIndex + 1}/{allImages.length}
-            </div>
-
-            {/* Indicador de Puntos (Dots) */}
-            <div className="card-photo-dots-row">
-              {allImages.slice(0, 6).map((_, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  className={`card-photo-dot-item ${idx === currentImgIndex ? 'active' : ''}`}
-                  onClick={(e) => handleDotClick(e, idx)}
-                  aria-label={`Foto ${idx + 1}`}
-                />
-              ))}
-              {allImages.length > 6 && (
-                <span style={{ color: 'white', fontSize: '9px', fontWeight: 'bold' }}>+</span>
-              )}
-            </div>
-          </>
-        )}
+        
       </div>
 
       {/* Contenido */}
