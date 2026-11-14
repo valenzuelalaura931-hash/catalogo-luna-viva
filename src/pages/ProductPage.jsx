@@ -226,10 +226,7 @@ export function ProductPage() {
                     <ChevronRight size={20} strokeWidth={2.5} />
                   </button>
 
-                  {/* Contador de Fotos */}
-                  <div className="gallery-counter-badge">
-                    📷 {currentImgIndex + 1} / {allImages.length}
-                  </div>
+
                 </>
               )}
             </motion.div>
@@ -456,21 +453,23 @@ export function ProductPage() {
               >
                 <ShoppingBag size={20} /> {product.stock <= 0 ? 'Agotado' : 'Añadir a la Bolsa'}
               </Button>
-              <a 
-                href={`https://wa.me/${phoneNumber}?text=${waMessage}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ flexGrow: 1 }}
-              >
-                <Button variant="primary" size="lg" fullWidth style={{
-                  display: 'flex',
-                  gap: '8px',
-                  backgroundColor: product.stock <= 0 ? '#4b5563' : '#25D366',
-                  color: 'white'
-                }}>
-                  <MessageCircle size={20} /> {product.stock <= 0 ? 'Consultar reposición por WhatsApp' : 'Comprar por WhatsApp'}
-                </Button>
-              </a>
+              {product.stock > 0 && (
+                <a 
+                  href={`https://wa.me/${phoneNumber}?text=${waMessage}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ flexGrow: 1 }}
+                >
+                  <Button variant="primary" size="lg" fullWidth style={{
+                    display: 'flex',
+                    gap: '8px',
+                    backgroundColor: '#25D366',
+                    color: 'white'
+                  }}>
+                    <MessageCircle size={20} /> Comprar por WhatsApp
+                  </Button>
+                </a>
+              )}
             </div>
 
           </div>
