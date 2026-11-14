@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useProducts } from '../context/ProductsContext';
 import { ProductCard } from '../components/shop/ProductCard';
 import { FilterSidebar } from '../components/shop/FilterSidebar';
 import { Button } from '../components/ui/Button';
 import { Search, SlidersHorizontal, X } from 'lucide-react';
+import { groupProducts } from '../utils/productGrouping';
 
 export function ShopPage() {
   const { products } = useProducts();
@@ -31,23 +32,37 @@ export function ShopPage() {
     setVisibleLimit(24);
   }, [selectedCategory, selectedBrand, searchQuery]);
 
-  // Extraer categorías y marcas únicas de los datos
-  const categories = [...new Set(products.map(p => p.category))].filter(Boolean);
-  const brands = [...new Set(products.map(p => p.brand))].filter(Boolean).sort();
+  // Agrupar productos que tengan el mismo nombre y pertenezcan a la misma marca en un solo card con tonos
+  const groupedProducts = useMemo(() => {
+    return groupProducts(products);
+  }, [products]);
 
-  // Filtrar productos
-  const filteredProducts = products.filter(product => {
-    const matchesCategory = selectedCategory === 'Todas' ||
-      product.category === selectedCategory ||
-      (selectedCategory === 'Accesorios' && (product.category === 'Accesorios de Maquillaje' || product.category === 'Accesorios')) ||
-      (selectedCategory === 'Accesorios de Maquillaje' && (product.category === 'Accesorios' || product.category === 'Accesorios de Maquillaje')) ||
-      (selectedCategory === 'Cabello' && product.category === 'Capilar');
-    const matchesBrand = selectedBrand === 'Todas' || product.brand === selectedBrand;
-    const matchesSearch = !searchQuery ||
-      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.brand.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesBrand && matchesSearch;
-  });
+  // Extraer categorías y marcas únicas de los datos agrupados
+  const categories = useMemo(() => {
+    return [...new Set(products.map(p => p.category))].filter(Boolean);
+  }, [products]);
+
+  const brands = useMemo(() => {
+    return [...new Set(products.map(p => p.brand))].filter(Boolean).sort();
+  }, [products]);
+
+  // Filtrar productos agrupados
+  const filteredProducts = useMemo(() => {
+    return groupedProducts.filter(group => {
+      const matchesCategory = selectedCategory === 'Todas' ||
+        group.category === selectedCategory ||
+        (selectedCategory === 'Accesorios' && (group.category === 'Accesorios de Maquillaje' || group.category === 'Accesorios')) ||
+        (selectedCategory === 'Accesorios de Maquillaje' && (group.category === 'Accesorios' || group.category === 'Accesorios de Maquillaje')) ||
+        (selectedCategory === 'Cabello' && group.category === 'Capilar');
+      const matchesBrand = selectedBrand === 'Todas' || group.brand === selectedBrand;
+      const q = searchQuery.toLowerCase().trim();
+      const matchesSearch = !q ||
+        group.name.toLowerCase().includes(q) ||
+        group.brand.toLowerCase().includes(q) ||
+        group.variants.some(v => (v.name && v.name.toLowerCase().includes(q)) || (v.toneName && v.toneName.toLowerCase().includes(q)));
+      return matchesCategory && matchesBrand && matchesSearch;
+    });
+  }, [groupedProducts, selectedCategory, selectedBrand, searchQuery]);
 
   const visibleProducts = filteredProducts.slice(0, visibleLimit);
 
@@ -198,7 +213,7 @@ export function ShopPage() {
                   gap: 'var(--space-6)'
                 }}>
                   {visibleProducts.map((product) => (
-                    <ProductCard key={product.id} product={product} />
+                    <ProductCard key={product.groupKey || product.id} product={product} />
                   ))}
                 </div>
                 {filteredProducts.length > visibleLimit && (

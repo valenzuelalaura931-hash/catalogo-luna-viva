@@ -1,13 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../ui/Button';
-import { Sparkles, MessageCircle } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export function ProductCard({ product }) {
-  // Generar el mensaje de WhatsApp para este producto
-  const phoneNumber = "573218839425"; // Número oficial
-  const waMessage = encodeURIComponent(`¡Hola! Me interesa obtener información del producto: ${product.name} (${product.brand})`);
+  // Manejo de variantes de tono si el producto está agrupado
+  const [selectedVariant, setSelectedVariant] = useState(() => {
+    return product.defaultVariant || (product.variants && product.variants.length > 0 ? product.variants[0] : product);
+  });
+
+  // Sincronizar si cambia la prop
+  useEffect(() => {
+    setSelectedVariant(product.defaultVariant || (product.variants && product.variants.length > 0 ? product.variants[0] : product));
+  }, [product]);
+
+  const currentStock = Number(selectedVariant?.stock) || 0;
+  const currentPrice = Number(selectedVariant?.price) || Number(product.price) || 0;
+  const currentImage = selectedVariant?.mainImage || product.mainImage;
+  const currentId = selectedVariant?.id || product.id;
+  const hasMultipleTones = Boolean(product.hasMultipleTones && product.variants && product.variants.length > 1);
+
+  // Mensaje de WhatsApp dinámico con el tono seleccionado
+  const phoneNumber = "573218839425";
+  const toneText = hasMultipleTones && selectedVariant?.toneName ? ` - Tono: ${selectedVariant.toneName}` : '';
+  const waMessage = encodeURIComponent(
+    `¡Hola! Me interesa obtener información del producto: ${product.name}${toneText} (${product.brand})`
+  );
 
   return (
     <motion.div
@@ -27,7 +46,7 @@ export function ProductCard({ product }) {
         position: 'relative'
       }}
     >
-      {/* Badges */}
+      {/* Badges de Estado */}
       <div style={{
         position: 'absolute',
         top: 'var(--space-2)',
@@ -37,7 +56,7 @@ export function ProductCard({ product }) {
         gap: '4px',
         zIndex: 10
       }}>
-        {product.stock <= 0 ? (
+        {currentStock <= 0 ? (
           <span style={{
             backgroundColor: '#e11d48',
             color: 'white',
@@ -49,7 +68,7 @@ export function ProductCard({ product }) {
           }}>
             🔴 AGOTADO
           </span>
-        ) : product.stock === 1 ? (
+        ) : currentStock === 1 ? (
           <span style={{
             backgroundColor: '#ea580c',
             color: 'white',
@@ -60,9 +79,21 @@ export function ProductCard({ product }) {
           }}>
             ⚡ ¡Última unidad!
           </span>
+        ) : hasMultipleTones ? (
+          <span style={{
+            backgroundColor: '#8A5B66',
+            color: 'white',
+            fontSize: '9.5px',
+            fontWeight: '600',
+            padding: '2px 8px',
+            borderRadius: 'var(--radius-full)',
+            letterSpacing: '0.03em'
+          }}>
+            {product.variants.length} Tonos
+          </span>
         ) : null}
 
-        {product.lunaRecommends && product.stock > 0 && (
+        {product.lunaRecommends && currentStock > 0 && (
           <span style={{
             backgroundColor: 'var(--dorado-luna)',
             color: 'white',
@@ -77,31 +108,19 @@ export function ProductCard({ product }) {
             🌙 Recomienda
           </span>
         )}
-        {product.isNew && product.stock > 0 && (
-          <span style={{
-            backgroundColor: 'var(--rosa-blush)',
-            color: 'var(--text-primary)',
-            fontSize: '10px',
-            fontWeight: 'bold',
-            padding: '2px 8px',
-            borderRadius: 'var(--radius-full)'
-          }}>
-            Nuevo
-          </span>
-        )}
       </div>
 
-      {/* Imagen */}
-      <Link to={`/product/${product.id}`} className="product-card-img-link">
+      {/* Imagen del Producto */}
+      <Link to={`/product/${currentId}`} className="product-card-img-link">
         <div style={{
           height: '100%',
-          backgroundImage: `url('${product.mainImage}')`,
+          backgroundImage: `url('${currentImage}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           transition: 'transform var(--duration-normal) var(--ease-smooth)',
-          filter: product.stock <= 0 ? 'grayscale(80%) opacity(0.65)' : 'none'
+          filter: currentStock <= 0 ? 'grayscale(80%) opacity(0.65)' : 'none'
         }} />
-        {product.stock <= 0 && (
+        {currentStock <= 0 && (
           <div style={{
             position: 'absolute',
             inset: 0,
@@ -139,10 +158,67 @@ export function ProductCard({ product }) {
         </span>
 
         <h3 className="product-card-title">
-          <Link to={`/product/${product.id}`} style={{ color: 'var(--text-primary)' }}>
+          <Link to={`/product/${currentId}`} style={{ color: 'var(--text-primary)' }}>
             {product.name}
           </Link>
         </h3>
+
+        {/* Selector de Tonos dentro del Card */}
+        {hasMultipleTones && (
+          <div style={{ marginBottom: '8px', marginTop: '2px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+              <span style={{ fontSize: '10px', color: '#777', fontWeight: '500' }}>
+                Tono: <strong style={{ color: '#8A5B66' }}>{selectedVariant?.toneName}</strong>
+              </span>
+              <span style={{ fontSize: '9.5px', color: '#999' }}>
+                {product.variants.filter(v => (v.stock || 0) > 0).length} de {product.variants.length} disponibles
+              </span>
+            </div>
+            
+            <div className="product-card-tones-scroll" style={{
+              display: 'flex',
+              gap: '4px',
+              overflowX: 'auto',
+              paddingBottom: '4px',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none'
+            }}>
+              {product.variants.map((v) => {
+                const isSelected = selectedVariant?.id === v.id;
+                const isOutOfStock = (Number(v.stock) || 0) <= 0;
+                return (
+                  <button
+                    key={v.id}
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setSelectedVariant(v);
+                    }}
+                    title={`${v.toneName} ${isOutOfStock ? '(Agotado)' : ''}`}
+                    style={{
+                      padding: '3px 7px',
+                      borderRadius: '12px',
+                      fontSize: '10px',
+                      fontWeight: isSelected ? '700' : '500',
+                      border: isSelected ? '1.5px solid #8A5B66' : '1px solid #E5E0E2',
+                      backgroundColor: isSelected ? '#8A5B66' : isOutOfStock ? '#F7F7F7' : '#FFFFFF',
+                      color: isSelected ? '#FFFFFF' : isOutOfStock ? '#999999' : '#444444',
+                      textDecoration: isOutOfStock && !isSelected ? 'line-through' : 'none',
+                      opacity: isOutOfStock && !isSelected ? 0.6 : 1,
+                      cursor: 'pointer',
+                      whiteSpace: 'nowrap',
+                      flexShrink: 0,
+                      transition: 'all 0.15s ease'
+                    }}
+                  >
+                    {v.toneName}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         <div style={{
           marginTop: 'auto',
@@ -156,16 +232,16 @@ export function ProductCard({ product }) {
             alignItems: 'center'
           }}>
             <span className="product-card-price" style={{
-              color: product.stock <= 0 ? 'var(--text-secondary)' : 'var(--text-primary)',
-              textDecoration: product.stock <= 0 ? 'line-through' : 'none'
+              color: currentStock <= 0 ? 'var(--text-secondary)' : 'var(--text-primary)',
+              textDecoration: currentStock <= 0 ? 'line-through' : 'none'
             }}>
-              {product.price ? `$ ${product.price.toLocaleString('es-CO')}` : '[PRECIO POR DEFINIR]'}
+              {currentPrice ? `$ ${currentPrice.toLocaleString('es-CO')}` : '[PRECIO POR DEFINIR]'}
             </span>
-            {product.stock <= 0 ? (
+            {currentStock <= 0 ? (
               <span style={{ fontSize: '10px', color: '#e11d48', fontWeight: '700' }}>
                 Agotado
               </span>
-            ) : product.stock === 1 ? (
+            ) : currentStock === 1 ? (
               <span style={{ fontSize: '10px', color: '#ea580c', fontWeight: '700' }}>
                 ¡Última!
               </span>
@@ -173,12 +249,12 @@ export function ProductCard({ product }) {
           </div>
 
           <div className="product-card-actions">
-            <Link to={`/product/${product.id}`} style={{ width: '100%' }}>
+            <Link to={`/product/${currentId}`} style={{ width: '100%' }}>
               <Button variant="secondary" size="sm" fullWidth>Detalles</Button>
             </Link>
-            {product.stock <= 0 ? (
+            {currentStock <= 0 ? (
               <a
-                href={`https://wa.me/${phoneNumber}?text=${encodeURIComponent(`¡Hola Luna Viva! Me gustaría consultar cuándo vuelve a estar disponible: ${product.name} (${product.brand})`)}`}
+                href={`https://wa.me/${phoneNumber}?text=${encodeURIComponent(`¡Hola Luna Viva! Me gustaría consultar cuándo vuelve a estar disponible: ${product.name}${toneText} (${product.brand})`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ width: '100%' }}
@@ -221,8 +297,11 @@ export function ProductCard({ product }) {
           font-weight: 500;
           margin: 0 0 var(--space-2);
           line-height: 1.4;
-          height: 44px;
+          height: 40px;
           overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
         }
         .product-card-price {
           font-weight: 600;
@@ -232,6 +311,9 @@ export function ProductCard({ product }) {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 8px;
+        }
+        .product-card-tones-scroll::-webkit-scrollbar {
+          display: none;
         }
         @media (max-width: 768px) {
           .product-card-img-link {

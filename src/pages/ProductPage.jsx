@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useProducts } from '../context/ProductsContext';
 import { Button } from '../components/ui/Button';
 import { ArrowLeft, MessageCircle, ShoppingBag } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useCart } from '../context/CartContext';
+import { findProductVariants, parseProductVariant } from '../utils/productGrouping';
 
 export function ProductPage() {
   const { id } = useParams();
@@ -28,15 +29,26 @@ export function ProductPage() {
     );
   }
 
-  // Productos relacionados (misma categoría, excluyendo el actual)
-  const relatedProducts = products
-    .filter(p => p.category === product.category && p.id !== product.id)
-    .slice(0, 4);
+  // Variantes de tono para este producto
+  const productVariantsInfo = useMemo(() => {
+    return findProductVariants(products, id);
+  }, [products, id]);
+
+  const { baseName: cleanBaseTitle, toneName: currentToneName } = parseProductVariant(product);
+
+  // Productos relacionados (misma categoría, excluyendo el actual y sus variantes hermanas)
+  const relatedProducts = useMemo(() => {
+    const siblingIds = productVariantsInfo ? new Set(productVariantsInfo.variants.map(v => v.id)) : new Set([product.id]);
+    return products
+      .filter(p => p.category === product.category && !siblingIds.has(p.id))
+      .slice(0, 4);
+  }, [products, product, productVariantsInfo]);
 
   const phoneNumber = "573218839425"; // Número oficial
+  const toneSuffix = currentToneName ? ` (Tono: ${currentToneName})` : '';
   const waMessage = product.stock <= 0
-    ? encodeURIComponent(`¡Hola Luna Viva! Me gustaría consultar cuándo vuelve a estar disponible: ${product.name} (SKU: ${product.sku})`)
-    : encodeURIComponent(`¡Hola Luna Viva! Me gustaría comprar el producto: ${product.name} (SKU: ${product.sku})`);
+    ? encodeURIComponent(`¡Hola Luna Viva! Me gustaría consultar cuándo vuelve a estar disponible: ${product.name}${toneSuffix} (SKU: ${product.sku})`)
+    : encodeURIComponent(`¡Hola Luna Viva! Me gustaría comprar el producto: ${product.name}${toneSuffix} (SKU: ${product.sku})`);
 
   return (
     <div style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', padding: 'var(--space-10) 0' }}>
@@ -138,6 +150,56 @@ export function ProductPage() {
                 </span>
               )}
             </div>
+
+            {/* Selector de Tonos en Ficha de Producto */}
+            {productVariantsInfo && productVariantsInfo.variants.length > 1 && (
+              <div style={{
+                marginBottom: 'var(--space-6)',
+                backgroundColor: '#FFF9F5',
+                padding: '14px 16px',
+                borderRadius: 'var(--radius-lg)',
+                border: '1px solid #F3E5EB'
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                  <label style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-primary)' }}>
+                    Tono seleccionado: <strong style={{ color: '#8A5B66' }}>{currentToneName || 'Original'}</strong>
+                  </label>
+                  <span style={{ fontSize: '11px', color: '#888' }}>
+                    {productVariantsInfo.variants.filter(v => (v.stock || 0) > 0).length} de {productVariantsInfo.variants.length} disponibles
+                  </span>
+                </div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                  {productVariantsInfo.variants.map((v) => {
+                    const isSelected = v.id === product.id;
+                    const isOut = (Number(v.stock) || 0) <= 0;
+                    return (
+                      <Link
+                        key={v.id}
+                        to={`/product/${v.id}`}
+                        style={{
+                          padding: '6px 14px',
+                          borderRadius: '16px',
+                          fontSize: '12px',
+                          fontWeight: isSelected ? '700' : '500',
+                          border: isSelected ? '2px solid #8A5B66' : '1px solid #E5E0E2',
+                          backgroundColor: isSelected ? '#8A5B66' : isOut ? '#F5F5F5' : '#FFFFFF',
+                          color: isSelected ? '#FFFFFF' : isOut ? '#999999' : '#444444',
+                          textDecoration: isOut && !isSelected ? 'line-through' : 'none',
+                          opacity: isOut && !isSelected ? 0.65 : 1,
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '4px',
+                          transition: 'all 0.15s ease'
+                        }}
+                      >
+                        {v.toneName}
+                        {isOut && <span style={{ fontSize: '9px', color: isSelected ? '#FFF' : '#C00' }}>(Agotado)</span>}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             {/* Tabs de Información */}
             <div style={{ marginBottom: 'var(--space-6)' }}>
