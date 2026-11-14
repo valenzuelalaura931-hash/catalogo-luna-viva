@@ -6,13 +6,40 @@ const ProductsContext = createContext();
 const SUPABASE_URL = "https://oytdvgeyvuxqafxmgtcp.supabase.co/rest/v1";
 const SUPABASE_KEY = "sb_publishable__oG8sW5N2U7Bg018wfPL3w_3xWijWth";
 
+// Mapa canónico de productos desde el JSON oficial (fotos y metadatos actualizados del build)
+const canonicalMap = new Map();
+initialProductsData.forEach(p => {
+  canonicalMap.set(p.id, p);
+});
+
+// Función para asegurar que el producto siempre use las imágenes y datos canónicos del build
+function enrichWithCanonical(p) {
+  const canon = canonicalMap.get(p.id);
+  if (!canon) return p;
+  return {
+    ...p,
+    mainImage: canon.mainImage,
+    images: (canon.images && canon.images.length > 0) ? canon.images : [canon.mainImage],
+    description: canon.description || p.description,
+    benefits: canon.benefits || p.benefits,
+    howToUse: canon.howToUse || p.howToUse
+  };
+}
+
 export function ProductsProvider({ children }) {
   const [products, setProducts] = useState(() => {
     try {
-      const cached = localStorage.getItem('luna_viva_live_products_v1');
-      if (cached) {
-        const parsed = JSON.parse(cached);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      if (typeof window !== 'undefined' && window.localStorage) {
+        // Purgar versiones antiguas de caché para que ningún cliente quede con fotos viejas
+        localStorage.removeItem('luna_viva_live_products_v1');
+        localStorage.removeItem('luna_viva_live_products_v2');
+        const cached = localStorage.getItem('luna_viva_live_products_v3');
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            return parsed.map(enrichWithCanonical);
+          }
+        }
       }
     } catch (e) {}
     return initialProductsData;
@@ -38,27 +65,31 @@ export function ProductsProvider({ children }) {
           remoteList.forEach(p => remoteMap.set(p.id, p));
 
           setProducts(prevProducts => {
-            // Actualizar stock y precio en tiempo real de cada producto conocido
+            // Actualizar stock y precio en tiempo real de cada producto conocido, ASEGURANDO fotos canónicas
             const updated = prevProducts.map(prod => {
               const remote = remoteMap.get(prod.id);
-              if (!remote) return prod;
-              const stock = Number(remote.stock) || 0;
-              const price = Number(remote.price) || prod.price;
+              const canon = canonicalMap.get(prod.id);
+              const stock = remote ? (Number(remote.stock) || 0) : prod.stock;
+              const price = remote ? (Number(remote.price) || prod.price) : prod.price;
               return {
                 ...prod,
-                name: remote.name || prod.name,
-                brand: remote.brand || prod.brand,
-                category: remote.category || prod.category,
+                name: remote?.name || prod.name,
+                brand: remote?.brand || prod.brand,
+                category: remote?.category || prod.category,
                 price: price,
                 stock: stock,
                 available: stock > 0,
-                isOut: stock <= 0
+                isOut: stock <= 0,
+                // Garantizar siempre la foto canónica del build
+                mainImage: canon?.mainImage || prod.mainImage,
+                images: (canon?.images && canon.images.length > 0) ? canon.images : (prod.images || [prod.mainImage])
               };
             });
 
             // Si hay productos nuevos en Supabase que no estaban en initialProductsData, agregarlos
             remoteList.forEach(r => {
               if (!prevProducts.some(p => p.id === r.id)) {
+                const canon = canonicalMap.get(r.id);
                 const stock = Number(r.stock) || 0;
                 updated.push({
                   id: r.id,
@@ -72,20 +103,22 @@ export function ProductsProvider({ children }) {
                   stock: stock,
                   available: stock > 0,
                   isOut: stock <= 0,
-                  description: `${r.name} de la marca ${r.brand}. Producto 100% original en Luna Viva Boutique.`,
-                  benefits: 'Fórmula certificada de alta fijación y calidad.',
-                  howToUse: 'Aplicar según tu rutina de belleza.',
-                  mainImage: '/img/Logo luna.png',
-                  images: ['/img/Logo luna.png'],
-                  lunaRecommends: false,
-                  isNew: true,
-                  isBestseller: false
+                  description: canon?.description || `${r.name} de la marca ${r.brand}. Producto 100% original en Luna Viva Boutique.`,
+                  benefits: canon?.benefits || 'Fórmula certificada de alta fijación y calidad.',
+                  howToUse: canon?.howToUse || 'Aplicar según tu rutina de belleza.',
+                  mainImage: canon?.mainImage || '/img/Logo luna.png',
+                  images: (canon?.images && canon.images.length > 0) ? canon.images : ['/img/Logo luna.png'],
+                  lunaRecommends: canon?.lunaRecommends ?? false,
+                  isNew: canon?.isNew ?? true,
+                  isBestseller: canon?.isBestseller ?? false
                 });
               }
             });
 
             try {
-              localStorage.setItem('luna_viva_live_products_v1', JSON.stringify(updated));
+              if (typeof window !== 'undefined' && window.localStorage) {
+                localStorage.setItem('luna_viva_live_products_v3', JSON.stringify(updated));
+              }
             } catch (e) {}
 
             return updated;
