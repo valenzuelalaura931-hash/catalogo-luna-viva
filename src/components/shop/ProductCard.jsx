@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../ui/Button';
-import { MessageCircle } from 'lucide-react';
+import { MessageCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 export function ProductCard({ product }) {
@@ -254,7 +254,7 @@ export function ProductCard({ product }) {
               aria-label="Foto anterior"
               title="Foto anterior"
             >
-              ‹
+              <ChevronLeft size={16} strokeWidth={2.5} />
             </button>
             <button
               type="button"
@@ -263,7 +263,7 @@ export function ProductCard({ product }) {
               aria-label="Foto siguiente"
               title="Foto siguiente"
             >
-              ›
+              <ChevronRight size={16} strokeWidth={2.5} />
             </button>
 
             {/* Contador de fotos (ej: 1/4) */}
@@ -438,18 +438,15 @@ export function ProductCard({ product }) {
           width: 30px;
           height: 30px;
           border-radius: 50%;
-          background: rgba(255, 255, 255, 0.92);
-          color: #333;
+          background: #E5E7EB;
+          color: #1F2937;
           border: none;
-          box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 20px;
-          font-weight: bold;
-          line-height: 1;
           cursor: pointer;
-          opacity: 0;
+          opacity: 0.88;
           transition: all 0.2s ease;
           z-index: 5;
         }
@@ -457,15 +454,17 @@ export function ProductCard({ product }) {
           opacity: 1;
         }
         .card-photo-nav-arrow:hover {
-          background: white;
-          color: #8A5B66;
-          transform: translateY(-50%) scale(1.12);
+          background: #D1D5DB;
+          color: #111827;
+          opacity: 1;
+          transform: translateY(-50%) scale(1.08);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
         }
         .card-photo-prev {
-          left: 6px;
+          left: 8px;
         }
         .card-photo-next {
-          right: 6px;
+          right: 8px;
         }
         .card-photo-counter-badge {
           position: absolute;

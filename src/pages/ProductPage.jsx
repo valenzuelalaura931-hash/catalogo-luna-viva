@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useProducts } from '../context/ProductsContext';
 import { Button } from '../components/ui/Button';
-import { ArrowLeft, MessageCircle, ShoppingBag } from 'lucide-react';
+import { ArrowLeft, MessageCircle, ShoppingBag, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useCart } from '../context/CartContext';
 import { findProductVariants, parseProductVariant } from '../utils/productGrouping';
@@ -214,7 +214,7 @@ export function ProductPage() {
                     aria-label="Foto anterior"
                     title="Foto anterior"
                   >
-                    ‹
+                    <ChevronLeft size={20} strokeWidth={2.5} />
                   </button>
                   <button
                     type="button"
@@ -223,7 +223,7 @@ export function ProductPage() {
                     aria-label="Foto siguiente"
                     title="Foto siguiente"
                   >
-                    ›
+                    <ChevronRight size={20} strokeWidth={2.5} />
                   </button>
 
                   {/* Contador de Fotos */}
@@ -526,26 +526,27 @@ export function ProductPage() {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
-          width: 38px;
-          height: 38px;
+          width: 36px;
+          height: 36px;
           border-radius: 50%;
-          background: rgba(255, 255, 255, 0.92);
-          color: #8A5B66;
-          border: 1px solid rgba(138, 91, 102, 0.2);
-          font-size: 24px;
-          line-height: 1;
+          background: #E5E7EB;
+          color: #1F2937;
+          border: none;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.14);
           transition: all 0.2s ease;
+          opacity: 0.92;
           z-index: 5;
         }
         .gallery-nav-arrow:hover {
-          background: #8A5B66;
-          color: white;
-          transform: translateY(-50%) scale(1.1);
+          background: #D1D5DB;
+          color: #111827;
+          opacity: 1;
+          transform: translateY(-50%) scale(1.08);
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
         }
         .gallery-prev { left: 10px; }
         .gallery-next { right: 10px; }
