@@ -1,36 +1,130 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useProducts } from '../context/ProductsContext';
 import { ProductCard } from '../components/shop/ProductCard';
 import { FilterSidebar } from '../components/shop/FilterSidebar';
 import { Button } from '../components/ui/Button';
-import { Search, SlidersHorizontal, X } from 'lucide-react';
+import { SlidersHorizontal, X } from 'lucide-react';
 import { groupProducts } from '../utils/productGrouping';
 
 export function ShopPage() {
   const { products } = useProducts();
   const [searchParams, setSearchParams] = useSearchParams();
-  const categoryParam = searchParams.get('category');
-  const brandParam = searchParams.get('brand');
-  const searchParam = searchParams.get('search');
 
-  const [selectedCategory, setSelectedCategory] = useState(categoryParam || 'Todas');
-  const [selectedBrand, setSelectedBrand] = useState(brandParam || 'Todas');
-  const [searchQuery, setSearchQuery] = useState(searchParam || '');
+  // Función para obtener filtros iniciales de la URL o recuperarlos de sessionStorage
+  const getInitialFilters = () => {
+    const urlCat = searchParams.get('category');
+    const urlBrand = searchParams.get('brand');
+    const urlSearch = searchParams.get('search');
+    const urlLimit = searchParams.get('limit');
+
+    let saved = null;
+    try {
+      saved = JSON.parse(sessionStorage.getItem('lv_shop_filters') || 'null');
+    } catch (e) {}
+
+    const hasUrlParams = urlCat !== null || urlBrand !== null || urlSearch !== null || urlLimit !== null;
+
+    if (hasUrlParams) {
+      return {
+        category: urlCat || 'Todas',
+        brand: urlBrand || 'Todas',
+        search: urlSearch || '',
+        limit: urlLimit ? parseInt(urlLimit, 10) : 24
+      };
+    }
+
+    if (saved) {
+      return {
+        category: saved.category || 'Todas',
+        brand: saved.brand || 'Todas',
+        search: saved.search || '',
+        limit: saved.limit || 24
+      };
+    }
+
+    return { category: 'Todas', brand: 'Todas', search: '', limit: 24 };
+  };
+
+  const initial = useMemo(getInitialFilters, []);
+  const [selectedCategory, setSelectedCategory] = useState(initial.category);
+  const [selectedBrand, setSelectedBrand] = useState(initial.brand);
+  const [searchQuery, setSearchQuery] = useState(initial.search);
+  const [visibleLimit, setVisibleLimit] = useState(initial.limit);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
-  const [visibleLimit, setVisibleLimit] = useState(24);
+  const scrollRestoredRef = useRef(false);
 
-  // Sincronizar los estados si cambian los parámetros en la URL
+  // Sincronizar si cambian los parámetros en la URL (ej: clics en header nav)
   useEffect(() => {
-    if (categoryParam) setSelectedCategory(categoryParam);
-    if (brandParam) setSelectedBrand(brandParam);
-    if (searchParam !== null) setSearchQuery(searchParam);
-  }, [categoryParam, brandParam, searchParam]);
+    const urlCat = searchParams.get('category');
+    const urlBrand = searchParams.get('brand');
+    const urlSearch = searchParams.get('search');
+    const urlLimit = searchParams.get('limit');
 
-  // Reiniciar paginación al cambiar filtros
-  useEffect(() => {
-    setVisibleLimit(24);
-  }, [selectedCategory, selectedBrand, searchQuery]);
+    if (urlCat !== null && urlCat !== selectedCategory) {
+      setSelectedCategory(urlCat);
+    }
+    if (urlBrand !== null && urlBrand !== selectedBrand) {
+      setSelectedBrand(urlBrand);
+    }
+    if (urlSearch !== null && urlSearch !== searchQuery) {
+      setSearchQuery(urlSearch);
+    }
+    if (urlLimit && parseInt(urlLimit, 10) !== visibleLimit) {
+      setVisibleLimit(parseInt(urlLimit, 10));
+    }
+  }, [searchParams]);
+
+  // Actualizador centralizado de filtros que sincroniza URL y sessionStorage
+  const updateFilters = (newCat, newBrand, newSearch, newLimit) => {
+    const nextCat = newCat !== undefined ? newCat : selectedCategory;
+    const nextBrand = newBrand !== undefined ? newBrand : selectedBrand;
+    const nextSearch = newSearch !== undefined ? newSearch : searchQuery;
+    const nextLimit = newLimit !== undefined ? newLimit : visibleLimit;
+
+    setSelectedCategory(nextCat);
+    setSelectedBrand(nextBrand);
+    setSearchQuery(nextSearch);
+    if (newLimit !== undefined) {
+      setVisibleLimit(nextLimit);
+    } else if (newCat !== undefined || newBrand !== undefined || newSearch !== undefined) {
+      setVisibleLimit(24);
+    }
+
+    const params = new URLSearchParams();
+    if (nextCat && nextCat !== 'Todas') params.set('category', nextCat);
+    if (nextBrand && nextBrand !== 'Todas') params.set('brand', nextBrand);
+    if (nextSearch && nextSearch.trim()) params.set('search', nextSearch.trim());
+    if (nextLimit && nextLimit > 24) params.set('limit', nextLimit.toString());
+
+    setSearchParams(params, { replace: true });
+
+    try {
+      sessionStorage.setItem('lv_shop_filters', JSON.stringify({
+        category: nextCat,
+        brand: nextBrand,
+        search: nextSearch,
+        limit: nextLimit
+      }));
+      sessionStorage.setItem('lv_shop_filters_query', params.toString());
+    } catch (e) {}
+  };
+
+  const handleCategoryChange = (cat) => {
+    updateFilters(cat, undefined, undefined);
+  };
+
+  const handleBrandChange = (brand) => {
+    updateFilters(undefined, brand, undefined);
+  };
+
+  const handleClearAll = () => {
+    try {
+      sessionStorage.removeItem('lv_shop_filters');
+      sessionStorage.removeItem('lv_shop_filters_query');
+    } catch (e) {}
+    updateFilters('Todas', 'Todas', '', 24);
+  };
 
   // Agrupar productos que tengan el mismo nombre y pertenezcan a la misma marca en un solo card con tonos
   const groupedProducts = useMemo(() => {
@@ -66,6 +160,46 @@ export function ShopPage() {
 
   const visibleProducts = filteredProducts.slice(0, visibleLimit);
 
+  // Restauración de scroll al regresar a la tienda
+  useEffect(() => {
+    const savedScroll = sessionStorage.getItem('lv_shop_scroll');
+    if (savedScroll && !scrollRestoredRef.current) {
+      const scrollY = parseInt(savedScroll, 10);
+      if (!isNaN(scrollY) && scrollY > 0) {
+        scrollRestoredRef.current = true;
+        const t1 = setTimeout(() => {
+          window.scrollTo({ top: scrollY, behavior: 'instant' });
+        }, 50);
+        const t2 = setTimeout(() => {
+          window.scrollTo({ top: scrollY, behavior: 'instant' });
+          sessionStorage.removeItem('lv_shop_scroll');
+        }, 220);
+        return () => {
+          clearTimeout(t1);
+          clearTimeout(t2);
+        };
+      }
+    }
+  }, [visibleProducts.length]);
+
+  // Guardar posición al salir
+  useEffect(() => {
+    const saveCurrentScroll = () => {
+      if (window.scrollY > 0) {
+        try {
+          sessionStorage.setItem('lv_shop_scroll', window.scrollY.toString());
+        } catch (e) {}
+      }
+    };
+    window.addEventListener('scroll', saveCurrentScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', saveCurrentScroll);
+      saveCurrentScroll();
+    };
+  }, []);
+
+  const hasActiveFilters = selectedCategory !== 'Todas' || selectedBrand !== 'Todas' || Boolean(searchQuery);
+
   return (
     <div style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', padding: 'var(--space-10) 0' }}>
       <div className="container">
@@ -80,9 +214,9 @@ export function ShopPage() {
           </p>
         </div>
 
-        {/* Categorías (Limpio, sin fondo rosa) */}
+        {/* Categorías (Pills limpias) */}
         <div style={{
-          marginBottom: 'var(--space-8)',
+          marginBottom: 'var(--space-6)',
           textAlign: 'center',
           padding: 'var(--space-2) 0'
         }}>
@@ -98,7 +232,7 @@ export function ShopPage() {
             {selectedCategory === 'Todas' ? 'TODOS LOS PRODUCTOS' : selectedCategory.toUpperCase()}
           </h2>
 
-          {/* Selector de Categorías (Pills limpias) */}
+          {/* Selector de Categorías (Pills) */}
           <div className="category-chips-scroll" style={{
             display: 'flex',
             justifyContent: 'center',
@@ -116,8 +250,7 @@ export function ShopPage() {
                   key={cat}
                   onClick={() => {
                     const targetCategory = cat === 'Accesorios' ? 'Accesorios' : cat;
-                    setSelectedCategory(targetCategory);
-                    setSearchParams(targetCategory === 'Todas' ? {} : { category: targetCategory });
+                    handleCategoryChange(targetCategory);
                   }}
                   style={{
                     padding: '9px 20px',
@@ -140,8 +273,6 @@ export function ShopPage() {
             })}
           </div>
         </div>
-
-        {/* Buscador removed as per user request */}
 
         {/* Mobile: Filter toggle button */}
         <div className="mobile-only" style={{
@@ -176,11 +307,12 @@ export function ShopPage() {
           }}>
             <FilterSidebar
               selectedCategory={selectedCategory}
-              setSelectedCategory={setSelectedCategory}
+              setSelectedCategory={handleCategoryChange}
               selectedBrand={selectedBrand}
-              setSelectedBrand={setSelectedBrand}
+              setSelectedBrand={handleBrandChange}
               categories={categories}
               brands={brands}
+              onClearFilters={handleClearAll}
             />
           </div>
         )}
@@ -195,16 +327,123 @@ export function ShopPage() {
           <div className="desktop-only" style={{ display: 'block' }}>
             <FilterSidebar
               selectedCategory={selectedCategory}
-              setSelectedCategory={setSelectedCategory}
+              setSelectedCategory={handleCategoryChange}
               selectedBrand={selectedBrand}
-              setSelectedBrand={setSelectedBrand}
+              setSelectedBrand={handleBrandChange}
               categories={categories}
               brands={brands}
+              onClearFilters={handleClearAll}
             />
           </div>
 
           {/* Grid de productos */}
           <div>
+            {/* Barra de Filtros Activos (Fácil de ver y limpiar) */}
+            {hasActiveFilters && (
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                flexWrap: 'wrap',
+                marginBottom: '18px',
+                padding: '10px 14px',
+                backgroundColor: '#FFF8FA',
+                borderRadius: '10px',
+                border: '1px solid #F3E5EB'
+              }}>
+                <span style={{ fontSize: '12px', color: '#8A5B66', fontWeight: '700' }}>Filtros activos:</span>
+                
+                {selectedCategory !== 'Todas' && (
+                  <span style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    backgroundColor: '#FFFFFF',
+                    padding: '4px 10px',
+                    borderRadius: '16px',
+                    fontSize: '12px',
+                    border: '1px solid #E5E0E2',
+                    color: '#333'
+                  }}>
+                    Categoría: <strong>{selectedCategory}</strong>
+                    <button
+                      type="button"
+                      onClick={() => handleCategoryChange('Todas')}
+                      style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#888', fontSize: '12px', padding: 0 }}
+                      title="Quitar filtro de categoría"
+                    >
+                      ✕
+                    </button>
+                  </span>
+                )}
+
+                {selectedBrand !== 'Todas' && (
+                  <span style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    backgroundColor: '#FFFFFF',
+                    padding: '4px 10px',
+                    borderRadius: '16px',
+                    fontSize: '12px',
+                    border: '1px solid #E5E0E2',
+                    color: '#333'
+                  }}>
+                    Marca: <strong>{selectedBrand}</strong>
+                    <button
+                      type="button"
+                      onClick={() => handleBrandChange('Todas')}
+                      style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#888', fontSize: '12px', padding: 0 }}
+                      title="Quitar filtro de marca"
+                    >
+                      ✕
+                    </button>
+                  </span>
+                )}
+
+                {searchQuery && (
+                  <span style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    backgroundColor: '#FFFFFF',
+                    padding: '4px 10px',
+                    borderRadius: '16px',
+                    fontSize: '12px',
+                    border: '1px solid #E5E0E2',
+                    color: '#333'
+                  }}>
+                    Búsqueda: <strong>"{searchQuery}"</strong>
+                    <button
+                      type="button"
+                      onClick={() => updateFilters(undefined, undefined, '')}
+                      style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#888', fontSize: '12px', padding: 0 }}
+                      title="Quitar búsqueda"
+                    >
+                      ✕
+                    </button>
+                  </span>
+                )}
+
+                <button
+                  type="button"
+                  onClick={handleClearAll}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#D9537F',
+                    fontSize: '11px',
+                    fontWeight: '700',
+                    cursor: 'pointer',
+                    textDecoration: 'underline',
+                    marginLeft: 'auto'
+                  }}
+                >
+                  Limpiar todo
+                </button>
+              </div>
+            )}
+
             {visibleProducts.length > 0 ? (
               <>
                 <div className="products-grid" style={{
@@ -218,7 +457,7 @@ export function ShopPage() {
                 </div>
                 {filteredProducts.length > visibleLimit && (
                   <div style={{ textAlign: 'center', marginTop: 'var(--space-8)' }}>
-                    <Button variant="primary" onClick={() => setVisibleLimit(prev => prev + 24)}>
+                    <Button variant="primary" onClick={() => updateFilters(undefined, undefined, undefined, visibleLimit + 24)}>
                       Mostrar más productos ({visibleLimit} de {filteredProducts.length})
                     </Button>
                   </div>
@@ -233,7 +472,10 @@ export function ShopPage() {
                 boxShadow: 'var(--shadow-sm)'
               }}>
                 <h3 style={{ color: 'var(--text-primary)', marginBottom: 'var(--space-2)' }}>No se encontraron productos</h3>
-                <p style={{ color: 'var(--text-secondary)' }}>Intenta ajustar los filtros o el término de búsqueda.</p>
+                <p style={{ color: 'var(--text-secondary)', marginBottom: 'var(--space-4)' }}>Intenta ajustar los filtros o el término de búsqueda.</p>
+                <Button variant="secondary" onClick={handleClearAll}>
+                  Ver todos los productos
+                </Button>
               </div>
             )}
           </div>

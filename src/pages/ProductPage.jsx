@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useProducts } from '../context/ProductsContext';
 import { Button } from '../components/ui/Button';
 import { ArrowLeft, MessageCircle, ShoppingBag } from 'lucide-react';
@@ -9,6 +9,20 @@ import { findProductVariants, parseProductVariant } from '../utils/productGroupi
 
 export function ProductPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleGoBack = (e) => {
+    if (e) e.preventDefault();
+    if (location.state?.from) {
+      navigate(location.state.from);
+    } else if (window.history.length > 2) {
+      navigate(-1);
+    } else {
+      const savedQuery = sessionStorage.getItem('lv_shop_filters_query');
+      navigate(savedQuery ? `/shop?${savedQuery}` : '/shop');
+    }
+  };
   const [activeTab, setActiveTab] = useState('description');
   const { addToCart } = useCart();
   const { products } = useProducts();
@@ -120,10 +134,27 @@ export function ProductPage() {
     <div style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', padding: 'var(--space-10) 0' }}>
       <div className="container">
         
-        {/* Botón de retroceso */}
-        <Link to="/shop" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'var(--text-secondary)', marginBottom: 'var(--space-8)', fontSize: 'var(--text-sm)', fontWeight: '500' }}>
+        {/* Botón de retroceso inteligente (mantiene filtros, búsqueda y scroll) */}
+        <button 
+          type="button" 
+          onClick={handleGoBack}
+          style={{ 
+            display: 'inline-flex', 
+            alignItems: 'center', 
+            gap: '8px', 
+            color: 'var(--text-secondary)', 
+            marginBottom: 'var(--space-8)', 
+            fontSize: 'var(--text-sm)', 
+            fontWeight: '500',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            padding: 0
+          }}
+          title="Regresar conservando tu búsqueda y filtros"
+        >
           <ArrowLeft size={16} /> Volver a la Tienda
-        </Link>
+        </button>
 
         {/* Ficha del Producto */}
         <div className="product-detail" style={{

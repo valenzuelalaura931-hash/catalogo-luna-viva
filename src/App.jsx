@@ -25,6 +25,10 @@ function ScrollToTop() {
   const { pathname } = useLocation();
   
   useEffect(() => {
+    // Si regresamos a /shop y hay una posición de scroll guardada, no forzar (0, 0)
+    if (pathname === '/shop' && sessionStorage.getItem('lv_shop_scroll')) {
+      return;
+    }
     window.scrollTo(0, 0);
   }, [pathname]);
   

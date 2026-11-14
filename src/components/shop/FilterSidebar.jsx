@@ -6,8 +6,11 @@ export function FilterSidebar({
   selectedBrand, 
   setSelectedBrand,
   categories,
-  brands
+  brands,
+  onClearFilters
 }) {
+  const hasActiveFilters = selectedCategory !== 'Todas' || selectedBrand !== 'Todas';
+
   return (
     <aside style={{
       padding: 'var(--space-6)',
@@ -18,9 +21,36 @@ export function FilterSidebar({
       position: 'sticky',
       top: 'calc(var(--header-height) + var(--space-4))'
     }}>
-      <h3 style={{ fontSize: 'var(--text-xl)', marginBottom: 'var(--space-6)', borderBottom: '1px solid var(--rosa-suave)', paddingBottom: 'var(--space-2)' }}>
-        Filtros
-      </h3>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderBottom: '1px solid var(--rosa-suave)',
+        paddingBottom: 'var(--space-2)',
+        marginBottom: 'var(--space-6)'
+      }}>
+        <h3 style={{ fontSize: 'var(--text-xl)', margin: 0, color: 'var(--text-primary)' }}>
+          Filtros
+        </h3>
+        {hasActiveFilters && onClearFilters && (
+          <button
+            type="button"
+            onClick={onClearFilters}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: '#D9537F',
+              fontSize: '11px',
+              fontWeight: '600',
+              cursor: 'pointer',
+              textDecoration: 'underline',
+              padding: 0
+            }}
+          >
+            Limpiar todo
+          </button>
+        )}
+      </div>
 
       {/* Categorías */}
       <div style={{ marginBottom: 'var(--space-8)' }}>

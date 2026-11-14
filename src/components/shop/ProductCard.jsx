@@ -2,9 +2,19 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../ui/Button';
 import { MessageCircle } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export function ProductCard({ product }) {
+  const location = useLocation();
+
+  const handleProductClick = () => {
+    try {
+      if (window.scrollY > 0) {
+        sessionStorage.setItem('lv_shop_scroll', window.scrollY.toString());
+      }
+    } catch (e) {}
+  };
+
   // Manejo de variantes de tono si el producto está agrupado
   const [selectedVariant, setSelectedVariant] = useState(() => {
     return product.defaultVariant || (product.variants && product.variants.length > 0 ? product.variants[0] : product);
@@ -197,7 +207,7 @@ export function ProductCard({ product }) {
 
       {/* Imagen del Producto con Slider Multi-Foto */}
       <div className="product-card-img-wrapper" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} style={{ position: 'relative', height: '230px', overflow: 'hidden' }}>
-        <Link to={`/product/${currentId}`} className="product-card-img-link" style={{ height: '100%', display: 'block' }}>
+        <Link to={`/product/${currentId}`} state={{ from: location.pathname + location.search }} onClick={handleProductClick} className="product-card-img-link" style={{ height: '100%', display: 'block' }}>
           <div
             key={activeImage}
             style={{
@@ -293,7 +303,7 @@ export function ProductCard({ product }) {
         </span>
 
         <h3 className="product-card-title">
-          <Link to={`/product/${currentId}`} style={{ color: 'var(--text-primary)' }}>
+          <Link to={`/product/${currentId}`} state={{ from: location.pathname + location.search }} onClick={handleProductClick} style={{ color: 'var(--text-primary)' }}>
             {product.name}
           </Link>
         </h3>
@@ -384,7 +394,7 @@ export function ProductCard({ product }) {
           </div>
 
           <div className="product-card-actions">
-            <Link to={`/product/${currentId}`} style={{ width: '100%' }}>
+            <Link to={`/product/${currentId}`} state={{ from: location.pathname + location.search }} onClick={handleProductClick} style={{ width: '100%' }}>
               <Button variant="secondary" size="sm" fullWidth>Detalles</Button>
             </Link>
             {currentStock <= 0 ? (
