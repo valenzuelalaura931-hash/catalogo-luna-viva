@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../ui/Button';
-import { MessageCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+// no icons needed
 import { Link, useLocation } from 'react-router-dom';
 
 export function ProductCard({ product }) {
@@ -351,32 +351,9 @@ export function ProductCard({ product }) {
           </div>
 
           <div className="product-card-actions">
-            <Link to={`/product/${currentId}`} state={{ from: location.pathname + location.search }} onClick={handleProductClick} style={{ width: '100%' }}>
+            <Link to={`/product/${currentId}`} state={{ from: location.pathname + location.search }} onClick={handleProductClick} style={{ width: '100%', display: 'block' }}>
               <Button variant="secondary" size="sm" fullWidth>Detalles</Button>
             </Link>
-            {currentStock <= 0 ? (
-              <a
-                href={`https://wa.me/${phoneNumber}?text=${encodeURIComponent(`¡Hola Luna Viva! Me gustaría consultar cuándo vuelve a estar disponible: ${product.name}${toneText} (${product.brand})`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ width: '100%' }}
-              >
-                <Button variant="outline" size="sm" fullWidth style={{ fontSize: '11px', color: '#666', border: '1px solid #ddd' }}>
-                  Avisarme
-                </Button>
-              </a>
-            ) : (
-              <a
-                href={`https://wa.me/${phoneNumber}?text=${waMessage}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ width: '100%' }}
-              >
-                <Button variant="primary" size="sm" fullWidth style={{ display: 'flex', gap: '3px', backgroundColor: '#25D366', color: 'white' }}>
-                  <MessageCircle size={13} /> Asesoría
-                </Button>
-              </a>
-            )}
           </div>
         </div>
       </div>
@@ -413,9 +390,8 @@ export function ProductCard({ product }) {
           font-size: var(--text-lg);
         }
         .product-card-actions {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 8px;
+          display: flex;
+          width: 100%;
         }
         .product-card-tones-scroll::-webkit-scrollbar {
           display: none;
