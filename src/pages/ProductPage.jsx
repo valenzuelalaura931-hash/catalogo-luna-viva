@@ -545,21 +545,6 @@ export function ProductPage() {
         .gallery-prev { left: 14px; }
         .gallery-next { right: 14px; }
 
-        .gallery-counter-badge {
-          position: absolute;
-          top: 14px;
-          right: 14px;
-          background: rgba(0, 0, 0, 0.65);
-          backdrop-filter: blur(4px);
-          color: white;
-          font-size: 11px;
-          font-weight: 600;
-          padding: 4px 10px;
-          border-radius: 20px;
-          z-index: 10;
-          letter-spacing: 0.03em;
-        }
-
         .gallery-thumbnails-strip::-webkit-scrollbar {
           height: 6px;
         }
