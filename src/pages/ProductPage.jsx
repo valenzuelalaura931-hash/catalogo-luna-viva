@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useProducts } from '../context/ProductsContext';
 import { Button } from '../components/ui/Button';
@@ -36,6 +36,72 @@ export function ProductPage() {
 
   const { baseName: cleanBaseTitle, toneName: currentToneName } = parseProductVariant(product);
 
+  // Galería multi-foto completa: recopilar fotos del producto actual, galería adicional y fotos de sus tonos hermanos
+  const allImages = useMemo(() => {
+    const list = [];
+    if (product.images && Array.isArray(product.images)) {
+      product.images.forEach(img => {
+        if (img && !list.includes(img)) list.push(img);
+      });
+    }
+    if (product.mainImage && !list.includes(product.mainImage)) {
+      list.unshift(product.mainImage);
+    }
+    if (productVariantsInfo && productVariantsInfo.variants) {
+      productVariantsInfo.variants.forEach(v => {
+        if (v.mainImage && !list.includes(v.mainImage)) list.push(v.mainImage);
+        if (Array.isArray(v.images)) {
+          v.images.forEach(img => {
+            if (img && !list.includes(img)) list.push(img);
+          });
+        }
+      });
+    }
+    return list.length > 0 ? list : [product.mainImage || '/img/Logo luna sin fondo.png'];
+  }, [product, productVariantsInfo]);
+
+  const [currentImgIndex, setCurrentImgIndex] = useState(0);
+  const touchStartX = useRef(null);
+
+  // Sincronizar foto activa si cambia el producto
+  useEffect(() => {
+    if (product.mainImage) {
+      const idx = allImages.indexOf(product.mainImage);
+      setCurrentImgIndex(idx >= 0 ? idx : 0);
+    } else {
+      setCurrentImgIndex(0);
+    }
+  }, [product.id, product.mainImage, allImages]);
+
+  const activeImage = allImages[currentImgIndex] || allImages[0] || product.mainImage;
+  const hasMultipleImages = allImages.length > 1;
+
+  const handlePrevImg = (e) => {
+    if (e) e.stopPropagation();
+    setCurrentImgIndex(prev => (prev === 0 ? allImages.length - 1 : prev - 1));
+  };
+
+  const handleNextImg = (e) => {
+    if (e) e.stopPropagation();
+    setCurrentImgIndex(prev => (prev === allImages.length - 1 ? 0 : prev + 1));
+  };
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - touchEndX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) handleNextImg();
+      else handlePrevImg();
+    }
+    touchStartX.current = null;
+  };
+
+
   // Productos relacionados (misma categoría, excluyendo el actual y sus variantes hermanas)
   const relatedProducts = useMemo(() => {
     const siblingIds = productVariantsInfo ? new Set(productVariantsInfo.variants.map(v => v.id)) : new Set([product.id]);
@@ -71,32 +137,122 @@ export function ProductPage() {
           marginBottom: 'var(--space-16)'
         }}>
           
-          {/* Imagen (Izquierda) */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="product-image-container"
-            style={{
-              borderRadius: 'var(--radius-lg)',
-              overflow: 'hidden',
-              backgroundColor: 'var(--rosa-suave)',
-              height: '450px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
-            <img 
-              src={product.mainImage} 
-              alt={product.name} 
+          {/* Galería de Fotos Interactiva (Izquierda) */}
+          <div className="product-gallery-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="product-image-container"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
               style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover'
+                borderRadius: 'var(--radius-lg)',
+                overflow: 'hidden',
+                backgroundColor: '#FAF5F7',
+                height: '450px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                position: 'relative',
+                boxShadow: 'inset 0 0 20px rgba(0,0,0,0.02)',
+                border: '1px solid #F3E5EB'
               }}
-            />
-          </motion.div>
+            >
+              <img 
+                key={activeImage}
+                src={activeImage} 
+                alt={`${product.name} - Foto ${currentImgIndex + 1}`} 
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
+                  padding: '12px',
+                  transition: 'opacity 0.25s ease'
+                }}
+                onError={(e) => { e.target.src = '/img/Logo luna sin fondo.png'; }}
+              />
+
+              {/* Flechas de Navegación */}
+              {hasMultipleImages && (
+                <>
+                  <button
+                    type="button"
+                    className="gallery-nav-arrow gallery-prev"
+                    onClick={handlePrevImg}
+                    aria-label="Foto anterior"
+                    title="Foto anterior"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    type="button"
+                    className="gallery-nav-arrow gallery-next"
+                    onClick={handleNextImg}
+                    aria-label="Foto siguiente"
+                    title="Foto siguiente"
+                  >
+                    ›
+                  </button>
+
+                  {/* Contador de Fotos */}
+                  <div className="gallery-counter-badge">
+                    📷 {currentImgIndex + 1} / {allImages.length}
+                  </div>
+                </>
+              )}
+            </motion.div>
+
+            {/* Tira de Miniaturas (Thumbnails) */}
+            {hasMultipleImages && (
+              <div 
+                className="gallery-thumbnails-strip"
+                style={{
+                  display: 'flex',
+                  gap: '8px',
+                  overflowX: 'auto',
+                  padding: '4px 2px',
+                  scrollbarWidth: 'thin'
+                }}
+              >
+                {allImages.map((imgUrl, idx) => {
+                  const isActive = idx === currentImgIndex;
+                  return (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setCurrentImgIndex(idx)}
+                      style={{
+                        flex: '0 0 64px',
+                        height: '64px',
+                        padding: '2px',
+                        borderRadius: '8px',
+                        border: isActive ? '2px solid #8A5B66' : '1px solid #E5E0E2',
+                        backgroundColor: '#FFFFFF',
+                        cursor: 'pointer',
+                        overflow: 'hidden',
+                        transition: 'all 0.2s ease',
+                        transform: isActive ? 'scale(1.05)' : 'scale(1)',
+                        boxShadow: isActive ? '0 2px 8px rgba(138,91,102,0.25)' : 'none'
+                      }}
+                      title={`Ver foto ${idx + 1}`}
+                    >
+                      <img 
+                        src={imgUrl} 
+                        alt={`Miniatura ${idx + 1}`} 
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'contain'
+                        }}
+                        onError={(e) => { e.target.src = '/img/Logo luna sin fondo.png'; }}
+                      />
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
 
           {/* Información (Derecha) */}
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -334,7 +490,57 @@ export function ProductPage() {
             grid-template-columns: 1fr !important;
             padding: var(--space-4) !important;
           }
-          .product-image-container {
+          
+        .gallery-nav-arrow {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.92);
+          color: #8A5B66;
+          border: 1px solid rgba(138, 91, 102, 0.2);
+          font-size: 24px;
+          line-height: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+          transition: all 0.2s ease;
+          z-index: 5;
+        }
+        .gallery-nav-arrow:hover {
+          background: #8A5B66;
+          color: white;
+          transform: translateY(-50%) scale(1.1);
+        }
+        .gallery-prev { left: 10px; }
+        .gallery-next { right: 10px; }
+        .gallery-counter-badge {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          background: rgba(26, 26, 26, 0.72);
+          backdrop-filter: blur(4px);
+          color: white;
+          font-size: 11px;
+          font-weight: 600;
+          padding: 4px 10px;
+          border-radius: 20px;
+          z-index: 5;
+          letter-spacing: 0.03em;
+        }
+        .gallery-thumbnails-strip::-webkit-scrollbar {
+          height: 6px;
+        }
+        .gallery-thumbnails-strip::-webkit-scrollbar-thumb {
+          background: #e2c0ce;
+          border-radius: 4px;
+        }
+
+        .product-image-container {
             height: 300px !important;
           }
           .product-title {

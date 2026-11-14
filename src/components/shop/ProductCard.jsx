@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../ui/Button';
 import { MessageCircle } from 'lucide-react';
@@ -20,6 +20,91 @@ export function ProductCard({ product }) {
   const currentImage = selectedVariant?.mainImage || product.mainImage;
   const currentId = selectedVariant?.id || product.id;
   const hasMultipleTones = Boolean(product.hasMultipleTones && product.variants && product.variants.length > 1);
+
+  // Recopilar todas las fotos del card (fotos del tono actual + fotos generales + fotos de otras variantes)
+  const allImages = React.useMemo(() => {
+    const list = [];
+    if (selectedVariant?.images && selectedVariant.images.length > 0) {
+      selectedVariant.images.forEach(img => {
+        if (img && !list.includes(img)) list.push(img);
+      });
+    }
+    if (selectedVariant?.mainImage && !list.includes(selectedVariant.mainImage)) {
+      list.unshift(selectedVariant.mainImage);
+    }
+    if (product?.images && product.images.length > 0) {
+      product.images.forEach(img => {
+        if (img && !list.includes(img)) list.push(img);
+      });
+    }
+    if (product?.mainImage && !list.includes(product.mainImage)) {
+      list.push(product.mainImage);
+    }
+    if (product?.variants && product.variants.length > 1) {
+      product.variants.forEach(v => {
+        if (v.mainImage && !list.includes(v.mainImage)) {
+          list.push(v.mainImage);
+        }
+        if (v.images && v.images.length > 0) {
+          v.images.forEach(img => {
+            if (img && !list.includes(img)) list.push(img);
+          });
+        }
+      });
+    }
+    return list.length > 0 ? list : [product.mainImage || '/img/Logo luna sin fondo.png'];
+  }, [product, selectedVariant]);
+
+  const [currentImgIndex, setCurrentImgIndex] = useState(0);
+
+  // Sincronizar foto al cambiar variante
+  useEffect(() => {
+    if (selectedVariant?.mainImage) {
+      const idx = allImages.indexOf(selectedVariant.mainImage);
+      if (idx !== -1) setCurrentImgIndex(idx);
+      else setCurrentImgIndex(0);
+    } else {
+      setCurrentImgIndex(0);
+    }
+  }, [selectedVariant, allImages]);
+
+  const hasMultipleImages = allImages.length > 1;
+  const activeImage = allImages[currentImgIndex] || allImages[0];
+
+  const handlePrevImage = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImgIndex(prev => (prev === 0 ? allImages.length - 1 : prev - 1));
+  };
+
+  const handleNextImage = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImgIndex(prev => (prev === allImages.length - 1 ? 0 : prev + 1));
+  };
+
+    const touchStartX = useRef(null);
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - touchEndX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) handleNextImage(e);
+      else handlePrevImage(e);
+    }
+    touchStartX.current = null;
+  };
+
+  const handleDotClick = (e, idx) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImgIndex(idx);
+  };
 
   // Mensaje de WhatsApp dinámico con el tono seleccionado
   const phoneNumber = "573218839425";
@@ -110,40 +195,90 @@ export function ProductCard({ product }) {
         )}
       </div>
 
-      {/* Imagen del Producto */}
-      <Link to={`/product/${currentId}`} className="product-card-img-link">
-        <div style={{
-          height: '100%',
-          backgroundImage: `url('${currentImage}')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          transition: 'transform var(--duration-normal) var(--ease-smooth)',
-          filter: currentStock <= 0 ? 'grayscale(80%) opacity(0.65)' : 'none'
-        }} />
-        {currentStock <= 0 && (
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'rgba(0,0,0,0.15)'
-          }}>
-            <span style={{
-              backgroundColor: 'rgba(225, 29, 72, 0.9)',
-              color: 'white',
-              fontSize: '11px',
-              fontWeight: '700',
-              padding: '4px 10px',
-              borderRadius: 'var(--radius-full)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.06em'
+      {/* Imagen del Producto con Slider Multi-Foto */}
+      <div className="product-card-img-wrapper" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} style={{ position: 'relative', height: '230px', overflow: 'hidden' }}>
+        <Link to={`/product/${currentId}`} className="product-card-img-link" style={{ height: '100%', display: 'block' }}>
+          <div
+            key={activeImage}
+            style={{
+              height: '100%',
+              backgroundImage: `url('${activeImage}')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              transition: 'all 0.3s ease',
+              filter: currentStock <= 0 ? 'grayscale(80%) opacity(0.65)' : 'none'
+            }}
+          />
+          {currentStock <= 0 && (
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: 'rgba(0,0,0,0.15)'
             }}>
-              Agotado
-            </span>
-          </div>
+              <span style={{
+                backgroundColor: 'rgba(225, 29, 72, 0.9)',
+                color: 'white',
+                fontSize: '11px',
+                fontWeight: '700',
+                padding: '4px 10px',
+                borderRadius: 'var(--radius-full)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em'
+              }}>
+                Agotado
+              </span>
+            </div>
+          )}
+        </Link>
+
+        {/* Flechas de Navegación de Fotos */}
+        {hasMultipleImages && (
+          <>
+            <button
+              type="button"
+              className="card-photo-nav-arrow card-photo-prev"
+              onClick={handlePrevImage}
+              aria-label="Foto anterior"
+              title="Foto anterior"
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              className="card-photo-nav-arrow card-photo-next"
+              onClick={handleNextImage}
+              aria-label="Foto siguiente"
+              title="Foto siguiente"
+            >
+              ›
+            </button>
+
+            {/* Contador de fotos (ej: 1/4) */}
+            <div className="card-photo-counter-badge">
+              📷 {currentImgIndex + 1}/{allImages.length}
+            </div>
+
+            {/* Indicador de Puntos (Dots) */}
+            <div className="card-photo-dots-row">
+              {allImages.slice(0, 6).map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  className={`card-photo-dot-item ${idx === currentImgIndex ? 'active' : ''}`}
+                  onClick={(e) => handleDotClick(e, idx)}
+                  aria-label={`Foto ${idx + 1}`}
+                />
+              ))}
+              {allImages.length > 6 && (
+                <span style={{ color: 'white', fontSize: '9px', fontWeight: 'bold' }}>+</span>
+              )}
+            </div>
+          </>
         )}
-      </Link>
+      </div>
 
       {/* Contenido */}
       <div className="product-card-content">
@@ -282,9 +417,95 @@ export function ProductCard({ product }) {
       <style>{`
         .product-card-img-link {
           display: block;
-          height: 230px;
+          height: 100%;
           overflow: hidden;
           position: relative;
+        }
+        .card-photo-nav-arrow {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.92);
+          color: #333;
+          border: none;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 20px;
+          font-weight: bold;
+          line-height: 1;
+          cursor: pointer;
+          opacity: 0;
+          transition: all 0.2s ease;
+          z-index: 5;
+        }
+        .product-card-img-wrapper:hover .card-photo-nav-arrow {
+          opacity: 1;
+        }
+        .card-photo-nav-arrow:hover {
+          background: white;
+          color: #8A5B66;
+          transform: translateY(-50%) scale(1.12);
+        }
+        .card-photo-prev {
+          left: 6px;
+        }
+        .card-photo-next {
+          right: 6px;
+        }
+        .card-photo-counter-badge {
+          position: absolute;
+          top: 8px;
+          right: 8px;
+          background: rgba(0, 0, 0, 0.6);
+          color: white;
+          font-size: 10px;
+          padding: 2px 7px;
+          border-radius: 10px;
+          font-weight: 600;
+          backdrop-filter: blur(4px);
+          z-index: 4;
+        }
+        .card-photo-dots-row {
+          position: absolute;
+          bottom: 8px;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          background: rgba(0, 0, 0, 0.45);
+          padding: 3px 8px;
+          border-radius: 12px;
+          backdrop-filter: blur(4px);
+          z-index: 4;
+        }
+        .card-photo-dot-item {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.5);
+          border: none;
+          padding: 0;
+          cursor: pointer;
+          transition: all 0.15s ease;
+        }
+        .card-photo-dot-item.active {
+          background: white;
+          transform: scale(1.35);
+          width: 8px;
+        }
+        @media (max-width: 768px) {
+          .card-photo-nav-arrow {
+            opacity: 0.85 !important;
+            width: 26px !important;
+            height: 26px !important;
+            font-size: 18px !important;
+          }
         }
         .product-card-content {
           padding: var(--space-4);

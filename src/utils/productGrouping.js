@@ -67,6 +67,18 @@ export function groupProducts(productsList) {
     }
 
     const group = groupsMap.get(groupKey);
+    // Coleccionar todas las fotos de cada variante en la galería del card
+    if (product.mainImage && !group.images.includes(product.mainImage)) {
+      group.images.push(product.mainImage);
+    }
+    if (Array.isArray(product.images)) {
+      product.images.forEach(img => {
+        if (img && !group.images.includes(img)) {
+          group.images.push(img);
+        }
+      });
+    }
+
     group.variants.push({
       ...product,
       toneName: toneName || (group.variants.length > 0 ? `Tono ${group.variants.length + 1}` : 'Único'),
@@ -138,3 +150,4 @@ export function findProductVariants(productsList, targetProductId) {
     variants
   };
 }
+
