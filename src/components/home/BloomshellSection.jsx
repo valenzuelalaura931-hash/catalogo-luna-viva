@@ -7,7 +7,7 @@ export function BloomshellSection() {
   const navigate = useNavigate();
 
   return (
-    <section style={{ backgroundColor: 'var(--rosa-blush)', padding: 'var(--space-16) 0', overflow: 'hidden' }}>
+    <section style={{ backgroundColor: '#FEDDE6', padding: 'var(--space-16) 0', overflow: 'hidden' }}>
       <div className="container bloom-grid" style={{
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',
