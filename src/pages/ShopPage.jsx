@@ -140,9 +140,9 @@ export function ShopPage() {
     return [...new Set(products.map(p => p.brand))].filter(Boolean).sort();
   }, [products]);
 
-  // Filtrar productos agrupados
+  // Filtrar productos agrupados (disponibles siempre primero, agotados de último)
   const filteredProducts = useMemo(() => {
-    return groupedProducts.filter(group => {
+    const list = groupedProducts.filter(group => {
       const matchesCategory = selectedCategory === 'Todas' ||
         group.category === selectedCategory ||
         (selectedCategory === 'Accesorios' && (group.category === 'Accesorios de Maquillaje' || group.category === 'Accesorios')) ||
@@ -155,6 +155,17 @@ export function ShopPage() {
         group.brand.toLowerCase().includes(q) ||
         group.variants.some(v => (v.name && v.name.toLowerCase().includes(q)) || (v.toneName && v.toneName.toLowerCase().includes(q)));
       return matchesCategory && matchesBrand && matchesSearch;
+    });
+
+    // Ordenar de modo que los productos con stock disponible salgan arriba y los agotados de último
+    return list.slice().sort((a, b) => {
+      const aStock = Number(a.totalStock) || (a.available ? 1 : 0);
+      const bStock = Number(b.totalStock) || (b.available ? 1 : 0);
+      const aOut = aStock <= 0;
+      const bOut = bStock <= 0;
+      if (!aOut && bOut) return -1;
+      if (aOut && !bOut) return 1;
+      return 0;
     });
   }, [groupedProducts, selectedCategory, selectedBrand, searchQuery]);
 

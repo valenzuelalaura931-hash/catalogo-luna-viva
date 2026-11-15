@@ -109,6 +109,15 @@ export function groupProducts(productsList) {
     });
   }
 
+  // Ordenar para que los productos disponibles queden primero y los agotados de último
+  result.sort((a, b) => {
+    const aAvailable = (Number(a.totalStock) || 0) > 0;
+    const bAvailable = (Number(b.totalStock) || 0) > 0;
+    if (aAvailable && !bAvailable) return -1;
+    if (!aAvailable && bAvailable) return 1;
+    return 0;
+  });
+
   return result;
 }
 
