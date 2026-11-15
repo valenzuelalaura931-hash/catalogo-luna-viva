@@ -85,7 +85,7 @@ export function Header() {
   );
 
   const RightIcons = () => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+    <div className="header-right-icons" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
       <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
         <AnimatePresence>
           {isSearchOpen && (
@@ -115,7 +115,7 @@ export function Header() {
             </motion.form>
           )}
         </AnimatePresence>
-        <div onClick={() => setIsSearchOpen(!isSearchOpen)} style={{ display: 'flex', alignItems: 'center' }}>
+        <div onClick={() => setIsSearchOpen(!isSearchOpen)} className="header-icon-btn" style={{ cursor: 'pointer' }}>
           <img src="/img/buscador.png" alt="Buscar" className="header-search-icon" />
         </div>
 
@@ -212,24 +212,26 @@ export function Header() {
 
       <div
         onClick={() => setIsCartOpen(true)}
-        style={{ position: 'relative', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+        className="header-icon-btn"
+        style={{ position: 'relative', cursor: 'pointer' }}
       >
         <img src="/img/bolsa.webp" alt="Carrito" className="header-cart-icon" />
         {totalItems > 0 && (
           <span style={{
             position: 'absolute',
-            top: '-4px',
-            right: '-8px',
+            top: '-2px',
+            right: '-3px',
             backgroundColor: '#EAA3C7',
             color: 'white',
-            fontSize: '10px',
+            fontSize: '9px',
             fontWeight: 'bold',
             borderRadius: '50%',
-            width: '18px',
-            height: '18px',
+            width: '16px',
+            height: '16px',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            lineHeight: 1
           }}>
             {totalItems}
           </span>
@@ -241,7 +243,7 @@ export function Header() {
   return (
     <>
       {/* ===== MAIN HEADER (Relative, default layout) ===== */}
-      <header style={{
+      <header className="main-header" style={{
         height: '90px',
         backgroundColor: 'white',
         position: 'relative',
@@ -254,7 +256,7 @@ export function Header() {
           height: '100%'
         }}>
           {/* Mobile: Hamburger Button */}
-          <div className="mobile-only" onClick={() => setIsMobileMenuOpen(true)} style={{ cursor: 'pointer', flex: '0 0 auto', padding: '6px 0' }}>
+          <div className="mobile-only header-icon-btn" onClick={() => setIsMobileMenuOpen(true)} style={{ cursor: 'pointer', flex: '0 0 auto' }}>
             <Menu size={24} color="#3B3537" />
           </div>
 
@@ -270,7 +272,7 @@ export function Header() {
                 src="/img/Logo luna sin fondo.png"
                 alt="Luna Viva Beauty Logo"
                 className="header-logo"
-                style={{ height: '70px', objectFit: 'contain' }}
+                style={{ objectFit: 'contain' }}
               />
             </Link>
           </div>
@@ -283,7 +285,7 @@ export function Header() {
       </header>
 
       {/* ===== STICKY HEADER (Fixed, layout from screenshot) ===== */}
-      <header style={{
+      <header className="sticky-header" style={{
         height: '65px',
         backgroundColor: 'white',
         position: 'fixed',
@@ -302,7 +304,7 @@ export function Header() {
           height: '100%'
         }}>
           {/* Mobile: Hamburger Button */}
-          <div className="mobile-only" onClick={() => setIsMobileMenuOpen(true)} style={{ cursor: 'pointer', flex: '0 0 auto', padding: '6px 0' }}>
+          <div className="mobile-only header-icon-btn" onClick={() => setIsMobileMenuOpen(true)} style={{ cursor: 'pointer', flex: '0 0 auto' }}>
             <Menu size={24} color="#3B3537" />
           </div>
 
@@ -312,7 +314,8 @@ export function Header() {
               <img
                 src="/img/Logo luna sin fondo.png"
                 alt="Luna Viva Beauty Logo"
-                style={{ height: '42px', objectFit: 'contain' }}
+                className="header-logo"
+                style={{ objectFit: 'contain' }}
               />
             </Link>
           </div>
@@ -408,21 +411,71 @@ export function Header() {
         .desktop-nav-link:hover {
           color: #EAA3C7;
         }
+        .header-icon-btn {
+          width: 38px;
+          height: 38px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          transition: background-color 0.15s ease;
+        }
+        .header-icon-btn:hover {
+          background-color: rgba(0, 0, 0, 0.04);
+        }
         .header-search-icon {
-          height: 32px;
+          width: 25px;
+          height: 25px;
+          object-fit: contain;
           cursor: pointer;
           display: block;
         }
         .header-cart-icon {
-          height: 28px;
+          width: 25px;
+          height: 25px;
+          object-fit: contain;
           cursor: pointer;
           display: block;
         }
+        .header-logo {
+          height: 68px;
+          width: 68px;
+          object-fit: contain;
+          display: block;
+          transition: transform 0.2s ease;
+        }
+        .header-logo:hover {
+          transform: scale(1.03);
+        }
         @media (max-width: 768px) {
-          .header-logo { height: 42px !important; }
-          .header-search-icon { height: 24px !important; }
-          .header-cart-icon { height: 22px !important; }
-          .mobile-center-logo { justify-content: center !important; }
+          .main-header {
+            height: 62px !important;
+          }
+          .sticky-header {
+            height: 62px !important;
+          }
+          .header-logo {
+            height: 44px !important;
+            width: 44px !important;
+          }
+          .header-icon-btn {
+            width: 32px !important;
+            height: 32px !important;
+          }
+          .header-search-icon {
+            width: 23px !important;
+            height: 23px !important;
+          }
+          .header-cart-icon {
+            width: 23px !important;
+            height: 23px !important;
+          }
+          .header-right-icons {
+            gap: 4px !important;
+          }
+          .mobile-center-logo {
+            justify-content: center !important;
+          }
         }
       `}</style>
     </>
