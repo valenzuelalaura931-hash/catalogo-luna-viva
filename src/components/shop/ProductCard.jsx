@@ -25,7 +25,7 @@ export function ProductCard({ product }) {
     setSelectedVariant(product.defaultVariant || (product.variants && product.variants.length > 0 ? product.variants[0] : product));
   }, [product]);
 
-  const currentStock = Number(selectedVariant?.stock) || 0;
+  const currentStock = product.totalStock !== undefined ? Number(product.totalStock) : (Number(selectedVariant?.stock) || 0);
   const currentPrice = Number(selectedVariant?.price) || Number(product.price) || 0;
   const currentImage = selectedVariant?.mainImage || product.mainImage;
   const currentId = selectedVariant?.id || product.id;
@@ -174,18 +174,6 @@ export function ProductCard({ product }) {
           }}>
             ⚡ ¡Última unidad!
           </span>
-        ) : hasMultipleTones ? (
-          <span style={{
-            backgroundColor: '#8A5B66',
-            color: 'white',
-            fontSize: '9.5px',
-            fontWeight: '600',
-            padding: '2px 8px',
-            borderRadius: 'var(--radius-full)',
-            letterSpacing: '0.03em'
-          }}>
-            {product.variants.length} Tonos
-          </span>
         ) : null}
 
         {product.lunaRecommends && currentStock > 0 && (
@@ -265,63 +253,6 @@ export function ProductCard({ product }) {
           </Link>
         </h3>
 
-        {/* Selector de Tonos dentro del Card */}
-        {hasMultipleTones && (
-          <div style={{ marginBottom: '8px', marginTop: '2px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-              <span style={{ fontSize: '10px', color: '#777', fontWeight: '500' }}>
-                Tono: <strong style={{ color: '#8A5B66' }}>{selectedVariant?.toneName}</strong>
-              </span>
-              <span style={{ fontSize: '9.5px', color: '#999' }}>
-                {product.variants.filter(v => (v.stock || 0) > 0).length} de {product.variants.length} disponibles
-              </span>
-            </div>
-            
-            <div className="product-card-tones-scroll" style={{
-              display: 'flex',
-              gap: '4px',
-              overflowX: 'auto',
-              paddingBottom: '4px',
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none'
-            }}>
-              {product.variants.map((v) => {
-                const isSelected = selectedVariant?.id === v.id;
-                const isOutOfStock = (Number(v.stock) || 0) <= 0;
-                return (
-                  <button
-                    key={v.id}
-                    type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setSelectedVariant(v);
-                    }}
-                    title={`${v.toneName} ${isOutOfStock ? '(Agotado)' : ''}`}
-                    style={{
-                      padding: '3px 7px',
-                      borderRadius: '12px',
-                      fontSize: '10px',
-                      fontWeight: isSelected ? '700' : '500',
-                      border: isSelected ? '1.5px solid #8A5B66' : '1px solid #E5E0E2',
-                      backgroundColor: isSelected ? '#8A5B66' : isOutOfStock ? '#F7F7F7' : '#FFFFFF',
-                      color: isSelected ? '#FFFFFF' : isOutOfStock ? '#999999' : '#444444',
-                      textDecoration: isOutOfStock && !isSelected ? 'line-through' : 'none',
-                      opacity: isOutOfStock && !isSelected ? 0.6 : 1,
-                      cursor: 'pointer',
-                      whiteSpace: 'nowrap',
-                      flexShrink: 0,
-                      transition: 'all 0.15s ease'
-                    }}
-                  >
-                    {v.toneName}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
         <div style={{
           marginTop: 'auto',
           display: 'flex',
@@ -384,9 +315,6 @@ export function ProductCard({ product }) {
         .product-card-price {
           font-weight: 600;
           font-size: var(--text-lg);
-        }
-        .product-card-tones-scroll::-webkit-scrollbar {
-          display: none;
         }
         @media (max-width: 768px) {
           .product-card-img-link {
