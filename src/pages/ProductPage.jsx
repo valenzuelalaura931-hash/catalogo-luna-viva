@@ -55,15 +55,22 @@ export function ProductPage() {
   // Galería de fotos del producto: mostrar estrictamente las fotos de este producto
   const allImages = useMemo(() => {
     const list = [];
-    if (product.mainImage && !list.includes(product.mainImage)) {
+    const isValidImg = (url) => {
+      if (!url || typeof url !== 'string') return false;
+      // Proteger para que el banner placeholder nunca se cuele como foto de producto
+      if (url.includes('banner candy bum')) return false;
+      return true;
+    };
+
+    if (isValidImg(product.mainImage) && !list.includes(product.mainImage)) {
       list.push(product.mainImage);
     }
     if (product.images && Array.isArray(product.images)) {
       product.images.forEach(img => {
-        if (img && !list.includes(img)) list.push(img);
+        if (isValidImg(img) && !list.includes(img)) list.push(img);
       });
     }
-    return list.length > 0 ? list : [product.mainImage || '/img/Logo luna sin fondo.png'];
+    return list.length > 0 ? list : [isValidImg(product.mainImage) ? product.mainImage : '/img/Logo luna sin fondo.png'];
   }, [product.mainImage, product.images]);
 
   const [currentImgIndex, setCurrentImgIndex] = useState(0);

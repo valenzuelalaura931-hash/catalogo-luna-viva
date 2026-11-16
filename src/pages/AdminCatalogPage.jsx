@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useProducts } from '../context/ProductsContext';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
@@ -99,8 +99,11 @@ export function AdminCatalogPage() {
     setEditingProduct(prod);
     setEditDescription(prod.description || '');
 
+    const isValid = (u) => Boolean(u && typeof u === 'string' && !u.includes('banner candy bum'));
+
     // 1. Determinar foto principal existente
-    const mainImg = prod.mainImage || (Array.isArray(prod.images) && prod.images[0]) || '';
+    const rawMain = prod.mainImage || (Array.isArray(prod.images) && prod.images[0]) || '';
+    const mainImg = isValid(rawMain) ? rawMain : '';
     setEditMainImage(mainImg);
 
     // 2. Recopilar todas las fotos existentes del producto para la galería
@@ -108,7 +111,7 @@ export function AdminCatalogPage() {
     if (mainImg) collected.push(mainImg);
     if (Array.isArray(prod.images)) {
       prod.images.forEach(img => {
-        if (img && !collected.includes(img)) collected.push(img);
+        if (isValid(img) && !collected.includes(img)) collected.push(img);
       });
     }
     setEditImages(collected);

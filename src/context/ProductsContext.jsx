@@ -34,7 +34,8 @@ export function ProductsProvider({ children }) {
         // Purgar versiones antiguas de caché para que ningún cliente quede con fotos viejas
         localStorage.removeItem('luna_viva_live_products_v1');
         localStorage.removeItem('luna_viva_live_products_v2');
-        const cached = localStorage.getItem('luna_viva_live_products_v3');
+        localStorage.removeItem('luna_viva_live_products_v3');
+        const cached = localStorage.getItem('luna_viva_live_products_v4');
         if (cached) {
           const parsed = JSON.parse(cached);
           if (Array.isArray(parsed) && parsed.length > 0) {
@@ -147,7 +148,7 @@ export function ProductsProvider({ children }) {
 
             try {
               if (typeof window !== 'undefined' && window.localStorage) {
-                localStorage.setItem('luna_viva_live_products_v3', JSON.stringify(updated));
+                localStorage.setItem('luna_viva_live_products_v4', JSON.stringify(updated));
               }
             } catch (e) {}
 
@@ -244,7 +245,7 @@ export function ProductsProvider({ children }) {
 
         try {
           if (typeof window !== 'undefined' && window.localStorage) {
-            localStorage.setItem('luna_viva_live_products_v3', JSON.stringify(next));
+            localStorage.setItem('luna_viva_live_products_v4', JSON.stringify(next));
           }
         } catch (e) {}
 
@@ -272,3 +273,4 @@ export function useProducts() {
   }
   return context;
 }
+

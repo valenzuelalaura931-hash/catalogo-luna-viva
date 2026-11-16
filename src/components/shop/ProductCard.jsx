@@ -34,35 +34,21 @@ export function ProductCard({ product }) {
   // Recopilar todas las fotos del card (fotos del tono actual + fotos generales + fotos de otras variantes)
   const allImages = React.useMemo(() => {
     const list = [];
-    if (selectedVariant?.images && selectedVariant.images.length > 0) {
-      selectedVariant.images.forEach(img => {
-        if (img && !list.includes(img)) list.push(img);
+    const target = selectedVariant || product;
+    const isValidImg = (url) => {
+      if (!url || typeof url !== 'string') return false;
+      if (url.includes('banner candy bum')) return false;
+      return true;
+    };
+    if (isValidImg(target?.mainImage) && !list.includes(target.mainImage)) {
+      list.push(target.mainImage);
+    }
+    if (Array.isArray(target?.images)) {
+      target.images.forEach(img => {
+        if (isValidImg(img) && !list.includes(img)) list.push(img);
       });
     }
-    if (selectedVariant?.mainImage && !list.includes(selectedVariant.mainImage)) {
-      list.unshift(selectedVariant.mainImage);
-    }
-    if (product?.images && product.images.length > 0) {
-      product.images.forEach(img => {
-        if (img && !list.includes(img)) list.push(img);
-      });
-    }
-    if (product?.mainImage && !list.includes(product.mainImage)) {
-      list.push(product.mainImage);
-    }
-    if (product?.variants && product.variants.length > 1) {
-      product.variants.forEach(v => {
-        if (v.mainImage && !list.includes(v.mainImage)) {
-          list.push(v.mainImage);
-        }
-        if (v.images && v.images.length > 0) {
-          v.images.forEach(img => {
-            if (img && !list.includes(img)) list.push(img);
-          });
-        }
-      });
-    }
-    return list.length > 0 ? list : [product.mainImage || '/img/Logo luna sin fondo.png'];
+    return list.length > 0 ? list : [product?.mainImage || '/img/Logo luna sin fondo.png'];
   }, [product, selectedVariant]);
 
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
