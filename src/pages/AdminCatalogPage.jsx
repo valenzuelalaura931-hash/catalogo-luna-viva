@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useProducts } from '../context/ProductsContext';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
@@ -47,14 +47,19 @@ export function AdminCatalogPage() {
   });
 
   // Campos del formulario de edición
-  const [editName, setEditName] = useState('');
-  const [editPrice, setEditPrice] = useState('');
-  const [editStock, setEditStock] = useState('');
-  const [editDescription, setEditDescription] = useState('');
-  const [editBenefits, setEditBenefits] = useState('');
-  const [editHowToUse, setEditHowToUse] = useState('');
-  const [editMainImage, setEditMainImage] = useState('');
-  const [editImages, setEditImages] = useState([]);
+  const [editDescription, setEditDescription] = useState(() => editingProduct?.description || '');
+  const [editMainImage, setEditMainImage] = useState(() => editingProduct?.mainImage || '');
+  const [editImages, setEditImages] = useState(() => {
+    if (!editingProduct) return [];
+    const imgs = [];
+    if (editingProduct.mainImage) imgs.push(editingProduct.mainImage);
+    if (Array.isArray(editingProduct.images)) {
+      editingProduct.images.forEach(img => {
+        if (img && !imgs.includes(img)) imgs.push(img);
+      });
+    }
+    return imgs;
+  });
   const [newImageUrl, setNewImageUrl] = useState('');
 
   const [saving, setSaving] = useState(false);
@@ -88,19 +93,44 @@ export function AdminCatalogPage() {
     });
   }, [products, selectedCategory, selectedBrand, searchQuery]);
 
-  // Abrir editor para un producto
+  // Abrir editor para un producto y cargar TODAS sus fotos existentes y descripción
   const handleStartEdit = (prod) => {
+    if (!prod) return;
     setEditingProduct(prod);
-    setEditName(prod.name || '');
-    setEditPrice(prod.price !== undefined ? prod.price : '');
-    setEditStock(prod.stock !== undefined ? prod.stock : '');
     setEditDescription(prod.description || '');
-    setEditBenefits(prod.benefits || '');
-    setEditHowToUse(prod.howToUse || '');
-    setEditMainImage(prod.mainImage || '');
-    setEditImages(Array.isArray(prod.images) ? [...prod.images] : [prod.mainImage].filter(Boolean));
+
+    // 1. Determinar foto principal existente
+    const mainImg = prod.mainImage || (Array.isArray(prod.images) && prod.images[0]) || '';
+    setEditMainImage(mainImg);
+
+    // 2. Recopilar todas las fotos existentes del producto para la galería
+    const collected = [];
+    if (mainImg) collected.push(mainImg);
+    if (Array.isArray(prod.images)) {
+      prod.images.forEach(img => {
+        if (img && !collected.includes(img)) collected.push(img);
+      });
+    }
+    setEditImages(collected);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // Sincronizar automáticamente si se pasa ?edit=LV-XXXX o si cambia la lista de productos
+  useEffect(() => {
+    if (preselectId && products && products.length > 0) {
+      const found = products.find(p => p.id === preselectId);
+      if (found && (!editingProduct || editingProduct.id !== found.id)) {
+        handleStartEdit(found);
+      }
+    }
+  }, [preselectId, products]);
+
+  // Si editingProduct ya está en state pero los campos de fotos están vacíos, sincronizar
+  useEffect(() => {
+    if (editingProduct && !editMainImage && editImages.length === 0) {
+      handleStartEdit(editingProduct);
+    }
+  }, [editingProduct]);
 
   const handleCancelEdit = () => {
     setEditingProduct(null);
@@ -189,16 +219,28 @@ export function AdminCatalogPage() {
   };
 
   const handleRemoveGalleryImage = (indexToRemove) => {
+    const imgToRemove = editImages[indexToRemove];
     const filtered = editImages.filter((_, idx) => idx !== indexToRemove);
     setEditImages(filtered);
-    if (editImages[indexToRemove] === editMainImage && filtered.length > 0) {
-      setEditMainImage(filtered[0]);
+    if (imgToRemove === editMainImage) {
+      setEditMainImage(filtered.length > 0 ? filtered[0] : '');
     }
+    showToast('✓ Foto eliminada de la galería. Recuerda hacer clic en "Guardar en Catálogo" para confirmar.', 'info');
+  };
+
+  const handleRemoveMainImage = () => {
+    const current = editMainImage;
+    setEditMainImage('');
+    setEditImages(prev => prev.filter(img => img !== current));
+    showToast('✓ Foto de portada removida. Recuerda hacer clic en "Guardar en Catálogo" para confirmar.', 'info');
   };
 
   const handleSetAsMainImage = (imgUrl) => {
     setEditMainImage(imgUrl);
-    showToast('Establecida como foto principal.', 'success');
+    if (!editImages.includes(imgUrl)) {
+      setEditImages([imgUrl, ...editImages]);
+    }
+    showToast('✓ Establecida como foto de portada principal.', 'success');
   };
 
   const showToast = (msg, type = 'success') => {
@@ -646,11 +688,39 @@ export function AdminCatalogPage() {
                     position: 'relative'
                   }}>
                     {editMainImage ? (
-                      <img
-                        src={editMainImage}
-                        alt="Foto principal"
-                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                      />
+                      <>
+                        <img
+                          src={editMainImage}
+                          alt="Foto principal"
+                          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                          onError={(e) => { e.target.src = '/img/Logo luna sin fondo.png'; }}
+                        />
+                        <button
+                          type="button"
+                          onClick={handleRemoveMainImage}
+                          title="Quitar foto de portada"
+                          style={{
+                            position: 'absolute',
+                            top: '8px',
+                            right: '8px',
+                            backgroundColor: '#E11D48',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '20px',
+                            padding: '6px 12px',
+                            fontSize: '11px',
+                            fontWeight: '700',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '4px',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.25)',
+                            zIndex: 3
+                          }}
+                        >
+                          <Trash2 size={13} /> Quitar Portada
+                        </button>
+                      </>
                     ) : (
                       <div style={{ textAlign: 'center', color: '#999', fontSize: '12px' }}>
                         <ImageIcon size={36} color="#ccc" style={{ marginBottom: '6px' }} />
@@ -721,94 +791,134 @@ export function AdminCatalogPage() {
                   borderRadius: '16px',
                   border: '1px solid #E5E0E2'
                 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                    <label style={{ fontSize: '13px', fontWeight: '700', color: '#3B3537' }}>
-                      Galería de Fotos ({editImages.length})
-                    </label>
-                    <span style={{ fontSize: '11px', color: '#888' }}>
-                      Fotos secundarias / ángulos
-                    </span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                    <div>
+                      <label style={{ fontSize: '13px', fontWeight: '700', color: '#3B3537', display: 'block' }}>
+                        Galería de Fotos ({editImages.length})
+                      </label>
+                      <span style={{ fontSize: '11px', color: '#888' }}>
+                        Haz clic en ✕ para borrar una foto o en ⭐ para hacerla foto de portada
+                      </span>
+                    </div>
                   </div>
 
                   {/* Miniaturas de la galería */}
-                  <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(70px, 1fr))',
-                    gap: '10px',
-                    marginBottom: '14px'
-                  }}>
-                    {editImages.map((imgUrl, idx) => {
-                      const isMain = imgUrl === editMainImage;
-                      return (
-                        <div
-                          key={idx}
-                          style={{
-                            position: 'relative',
-                            height: '70px',
-                            borderRadius: '8px',
-                            border: isMain ? '2px solid #8A5B66' : '1px solid #E5E0E2',
-                            overflow: 'hidden',
-                            backgroundColor: '#fff'
-                          }}
-                        >
-                          <img
-                            src={imgUrl}
-                            alt={`Foto ${idx + 1}`}
-                            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                          />
-                          {/* Botón hacer principal */}
-                          {!isMain && (
+                  {editImages.length === 0 ? (
+                    <div style={{
+                      backgroundColor: '#FAF5F7',
+                      border: '1px dashed #EAA3C7',
+                      borderRadius: '12px',
+                      padding: '20px',
+                      textAlign: 'center',
+                      color: '#8A5B66',
+                      fontSize: '12px',
+                      marginBottom: '14px'
+                    }}>
+                      No hay fotos en la galería todavía. Puedes subir fotos desde tu celular/PC abajo.
+                    </div>
+                  ) : (
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fill, minmax(95px, 1fr))',
+                      gap: '12px',
+                      marginBottom: '14px'
+                    }}>
+                      {editImages.map((imgUrl, idx) => {
+                        const isMain = imgUrl === editMainImage;
+                        return (
+                          <div
+                            key={idx}
+                            style={{
+                              position: 'relative',
+                              height: '95px',
+                              borderRadius: '10px',
+                              border: isMain ? '2px solid #8A5B66' : '1px solid #E5E0E2',
+                              overflow: 'hidden',
+                              backgroundColor: '#fff',
+                              boxShadow: '0 2px 6px rgba(0,0,0,0.05)'
+                            }}
+                          >
+                            <img
+                              src={imgUrl}
+                              alt={`Foto ${idx + 1}`}
+                              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                              onError={(e) => { e.target.src = '/img/Logo luna sin fondo.png'; }}
+                            />
+                            {/* Botón eliminar claramente visible en rojo */}
                             <button
                               type="button"
-                              onClick={() => handleSetAsMainImage(imgUrl)}
-                              title="Hacer foto principal"
+                              onClick={() => handleRemoveGalleryImage(idx)}
+                              title="Eliminar esta foto"
                               style={{
                                 position: 'absolute',
-                                bottom: '2px',
-                                left: '2px',
-                                background: 'rgba(255,255,255,0.9)',
+                                top: '4px',
+                                right: '4px',
+                                backgroundColor: '#E11D48',
+                                color: 'white',
                                 border: 'none',
-                                borderRadius: '4px',
-                                width: '20px',
-                                height: '20px',
+                                borderRadius: '6px',
+                                width: '24px',
+                                height: '24px',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 cursor: 'pointer',
-                                padding: 0
+                                boxShadow: '0 2px 6px rgba(0,0,0,0.3)',
+                                zIndex: 3
                               }}
                             >
-                              <Star size={12} color="#B58B3A" />
+                              <Trash2 size={13} />
                             </button>
-                          )}
-                          {/* Botón eliminar */}
-                          <button
-                            type="button"
-                            onClick={() => handleRemoveGalleryImage(idx)}
-                            title="Eliminar de la galería"
-                            style={{
-                              position: 'absolute',
-                              top: '2px',
-                              right: '2px',
-                              background: 'rgba(225, 29, 72, 0.9)',
-                              color: 'white',
-                              border: 'none',
-                              borderRadius: '4px',
-                              width: '18px',
-                              height: '18px',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              cursor: 'pointer',
-                              padding: 0
-                            }}
-                          >
-                            <Trash2 size={11} />
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </div>
+
+                            {/* Badge o Botón hacer principal */}
+                            {isMain ? (
+                              <div style={{
+                                position: 'absolute',
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                backgroundColor: 'rgba(138, 91, 102, 0.95)',
+                                color: '#FFF',
+                                fontSize: '9px',
+                                fontWeight: '700',
+                                textAlign: 'center',
+                                padding: '3px 0',
+                                letterSpacing: '0.04em'
+                              }}>
+                                ⭐ PORTADA
+                              </div>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => handleSetAsMainImage(imgUrl)}
+                                title="Usar como foto principal de portada"
+                                style={{
+                                  position: 'absolute',
+                                  bottom: '4px',
+                                  left: '4px',
+                                  backgroundColor: '#FFFFFF',
+                                  color: '#B58B3A',
+                                  border: '1px solid #E5E0E2',
+                                  borderRadius: '4px',
+                                  padding: '2px 6px',
+                                  fontSize: '10px',
+                                  fontWeight: '700',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  gap: '2px',
+                                  cursor: 'pointer',
+                                  boxShadow: '0 1px 4px rgba(0,0,0,0.15)',
+                                  zIndex: 2
+                                }}
+                              >
+                                <Star size={10} fill="#B58B3A" /> Portada
+                              </button>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
 
                   {/* Input para agregar más fotos */}
                   <input
