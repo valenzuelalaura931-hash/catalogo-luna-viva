@@ -1,0 +1,22 @@
+import React, { useState, useMemo, useRef, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { useProducts } from '../context/ProductsContext';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import {
+  Search,
+  Filter,
+  Image as ImageIcon,
+  Check,
+  ArrowLeft,
+  Upload,
+  Plus,
+  Trash2,
+  ExternalLink,
+  Save,
+  Star,
+  RefreshCw,
+  Eye,
+  Lock,
+  ShieldCheck,
+  AlertCircle
+} from 'lucide-react';
