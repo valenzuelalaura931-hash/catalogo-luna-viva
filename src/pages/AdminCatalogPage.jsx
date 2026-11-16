@@ -209,17 +209,14 @@ export function AdminCatalogPage() {
     }, 4000);
   };
 
-  // Guardar cambios en Supabase
+  // Guardar cambios en Supabase (Solo descripción, beneficios, uso y fotos)
   const handleSaveProduct = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     if (!editingProduct) return;
     setSaving(true);
 
     try {
       const res = await updateProductDetails(editingProduct.id, {
-        name: editName.trim(),
-        price: Number(editPrice) || 0,
-        stock: Number(editStock) || 0,
         description: editDescription.trim(),
         benefits: editBenefits.trim(),
         howToUse: editHowToUse.trim(),
@@ -228,7 +225,7 @@ export function AdminCatalogPage() {
       });
 
       if (res.success) {
-        showToast('✓ ¡Producto actualizado con éxito en Supabase y catálogo!', 'success');
+        showToast('✓ ¡Descripción y fotos actualizadas con éxito!', 'success');
         setEditingProduct(null);
       } else {
         showToast(res.error || 'Error al guardar cambios.', 'error');
@@ -546,72 +543,49 @@ export function AdminCatalogPage() {
             </div>
 
             <form onSubmit={handleSaveProduct} style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '32px' }}>
-              {/* Columna Izquierda: Información y Descripciones */}
+              {/* Columna Izquierda: Información del Inventario (Solo lectura) y Descripciones */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-                <div>
-                  <label style={{ fontSize: '13px', fontWeight: '700', color: '#3B3537', marginBottom: '6px', display: 'block' }}>
-                    Nombre del Producto
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={editName}
-                    onChange={(e) => setEditName(e.target.value)}
-                    style={{
-                      width: '100%',
-                      padding: '10px 14px',
-                      borderRadius: '12px',
-                      border: '1px solid #E5E0E2',
-                      fontSize: '14px',
-                      outline: 'none',
-                      boxSizing: 'border-box'
-                    }}
-                  />
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
-                  <div>
-                    <label style={{ fontSize: '13px', fontWeight: '700', color: '#3B3537', marginBottom: '6px', display: 'block' }}>
-                      Precio Público ($ COP)
-                    </label>
-                    <input
-                      type="number"
-                      required
-                      value={editPrice}
-                      onChange={(e) => setEditPrice(e.target.value)}
-                      style={{
-                        width: '100%',
-                        padding: '10px 14px',
-                        borderRadius: '12px',
-                        border: '1px solid #E5E0E2',
-                        fontSize: '14px',
-                        fontWeight: '600',
-                        outline: 'none',
-                        boxSizing: 'border-box'
-                      }}
-                    />
+                {/* Info sincronizada desde el Inventario (Solo lectura) */}
+                <div style={{
+                  backgroundColor: '#FAF5F7',
+                  border: '1px solid #F3E5EB',
+                  borderRadius: '12px',
+                  padding: '12px 16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: '12px',
+                  flexWrap: 'wrap'
+                }}>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <span style={{ fontSize: '11px', color: '#8A5B66', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: '700' }}>
+                      🔒 Sincronizado desde el Inventario
+                    </span>
+                    <strong style={{ fontSize: '14px', color: '#1A1A1A', marginTop: '2px' }}>
+                      {editingProduct.name}
+                    </strong>
                   </div>
-
-                  <div>
-                    <label style={{ fontSize: '13px', fontWeight: '700', color: '#3B3537', marginBottom: '6px', display: 'block' }}>
-                      Stock Disponible (unidades)
-                    </label>
-                    <input
-                      type="number"
-                      required
-                      value={editStock}
-                      onChange={(e) => setEditStock(e.target.value)}
-                      style={{
-                        width: '100%',
-                        padding: '10px 14px',
-                        borderRadius: '12px',
-                        border: '1px solid #E5E0E2',
-                        fontSize: '14px',
-                        fontWeight: '600',
-                        outline: 'none',
-                        boxSizing: 'border-box'
-                      }}
-                    />
+                  <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                    <div style={{ textAlign: 'right' }}>
+                      <span style={{ fontSize: '11px', color: '#888', display: 'block' }}>Precio</span>
+                      <strong style={{ fontSize: '14px', color: '#1A1A1A' }}>
+                        ${editingProduct.price ? editingProduct.price.toLocaleString('es-CO') : 0}
+                      </strong>
+                    </div>
+                    <div style={{ textAlign: 'right' }}>
+                      <span style={{ fontSize: '11px', color: '#888', display: 'block' }}>Stock</span>
+                      <span style={{
+                        display: 'inline-block',
+                        padding: '2px 8px',
+                        borderRadius: '10px',
+                        fontSize: '12px',
+                        fontWeight: '700',
+                        backgroundColor: editingProduct.stock > 0 ? '#DCFCE7' : '#FEE2E2',
+                        color: editingProduct.stock > 0 ? '#166534' : '#991B1B'
+                      }}>
+                        {editingProduct.stock} unid.
+                      </span>
+                    </div>
                   </div>
                 </div>
 
