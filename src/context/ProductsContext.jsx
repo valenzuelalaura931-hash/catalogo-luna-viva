@@ -12,17 +12,18 @@ initialProductsData.forEach(p => {
   canonicalMap.set(p.id, p);
 });
 
-// Función para asegurar que el producto siempre use las imágenes y datos canónicos del build
+// Función para asegurar que el producto use metadatos base si le faltan, pero respetando las fotos editadas
 function enrichWithCanonical(p) {
   const canon = canonicalMap.get(p.id);
   if (!canon) return p;
   return {
+    ...canon,
     ...p,
-    mainImage: canon.mainImage,
-    images: (canon.images && canon.images.length > 0) ? canon.images : [canon.mainImage],
-    description: canon.description || p.description,
-    benefits: canon.benefits || p.benefits,
-    howToUse: canon.howToUse || p.howToUse
+    mainImage: p.mainImage || canon.mainImage,
+    images: (Array.isArray(p.images) && p.images.length > 0) ? p.images : (canon.images || [canon.mainImage]),
+    description: p.description || canon.description,
+    benefits: p.benefits || canon.benefits,
+    howToUse: p.howToUse || canon.howToUse
   };
 }
 
@@ -271,4 +272,3 @@ export function useProducts() {
   }
   return context;
 }
-
