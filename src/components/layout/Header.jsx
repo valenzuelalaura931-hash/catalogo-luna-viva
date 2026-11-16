@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingBag, Search, Menu, X } from 'lucide-react';
+import { ShoppingBag, Search, Menu, X, User, LogOut, ShieldCheck, Sparkles } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useProducts } from '../../context/ProductsContext';
+import { useAuth } from '../../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export function Header() {
   const { products } = useProducts();
   const { setIsCartOpen, totalItems } = useCart();
+  const { currentUser, isAdmin, openAuthModal, logout } = useAuth();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
 
@@ -210,33 +213,215 @@ export function Header() {
         </AnimatePresence>
       </div>
 
-      <div
-        onClick={() => setIsCartOpen(true)}
-        className="header-icon-btn"
-        style={{ position: 'relative', cursor: 'pointer' }}
-      >
-        <img src="/img/bolsa.webp" alt="Carrito" className="header-cart-icon" />
-        {totalItems > 0 && (
-          <span style={{
-            position: 'absolute',
-            top: '-2px',
-            right: '-3px',
-            backgroundColor: '#EAA3C7',
-            color: 'white',
-            fontSize: '9px',
-            fontWeight: 'bold',
-            borderRadius: '50%',
-            width: '16px',
-            height: '16px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            lineHeight: 1
-          }}>
-            {totalItems}
-          </span>
-        )}
-      </div>
+        {/* Cart Button */}
+        <div
+          onClick={() => setIsCartOpen(true)}
+          className="header-icon-btn"
+          style={{ position: 'relative', cursor: 'pointer' }}
+        >
+          <img src="/img/bolsa.webp" alt="Carrito" className="header-cart-icon" />
+          {totalItems > 0 && (
+            <span style={{
+              position: 'absolute',
+              top: '-2px',
+              right: '-3px',
+              backgroundColor: '#EAA3C7',
+              color: 'white',
+              fontSize: '9px',
+              fontWeight: 'bold',
+              borderRadius: '50%',
+              width: '16px',
+              height: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              lineHeight: 1
+            }}>
+              {totalItems}
+            </span>
+          )}
+        </div>
+
+        {/* User / Admin Button */}
+        <div style={{ position: 'relative' }}>
+          {isAdmin ? (
+            <button
+              type="button"
+              onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+              className="header-icon-btn admin-badge-btn"
+              title="Panel Administradora"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+                background: 'linear-gradient(135deg, #FFF0F5 0%, #FEDDE6 100%)',
+                border: '1px solid #EAA3C7',
+                borderRadius: '20px',
+                padding: '4px 10px',
+                cursor: 'pointer',
+                color: '#8A5B66',
+                fontWeight: '700',
+                fontSize: '11px',
+                height: '32px'
+              }}
+            >
+              <span>👑</span>
+              <span className="desktop-only">Admin</span>
+            </button>
+          ) : currentUser ? (
+            <button
+              type="button"
+              onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+              className="header-icon-btn"
+              title={currentUser.name}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                backgroundColor: '#FEDDE6',
+                border: '1px solid #EAA3C7',
+                cursor: 'pointer',
+                color: '#8A5B66',
+                fontWeight: '700',
+                fontSize: '12px'
+              }}
+            >
+              {currentUser.name ? currentUser.name.charAt(0).toUpperCase() : <User size={16} />}
+            </button>
+          ) : (
+            <div
+              onClick={() => openAuthModal('login')}
+              className="header-icon-btn"
+              title="Iniciar Sesión / Registro"
+              style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            >
+              <User size={21} color="#767676" />
+            </div>
+          )}
+
+          {/* User Dropdown */}
+          <AnimatePresence>
+            {isUserMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -6, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -6, scale: 0.95 }}
+                transition={{ duration: 0.15 }}
+                style={{
+                  position: 'absolute',
+                  top: 'calc(100% + 8px)',
+                  right: 0,
+                  backgroundColor: 'white',
+                  borderRadius: '12px',
+                  boxShadow: '0 8px 30px rgba(0,0,0,0.12)',
+                  border: '1px solid #F3E5EB',
+                  padding: '12px',
+                  minWidth: '210px',
+                  zIndex: 110
+                }}
+              >
+                {isAdmin ? (
+                  <>
+                    <div style={{ paddingBottom: '8px', borderBottom: '1px solid #f5f5f5', marginBottom: '8px' }}>
+                      <p style={{ margin: 0, fontSize: '10px', color: '#8A5B66', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: '700' }}>👑 Sesión Administradora</p>
+                      <p style={{ margin: '2px 0 0 0', fontSize: '13px', fontWeight: '700', color: '#1A1A1A' }}>Laura Restrepo</p>
+                    </div>
+                    <button
+                      onClick={() => { setIsUserMenuOpen(false); navigate('/admin'); }}
+                      style={{
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '9px 12px',
+                        backgroundColor: '#FEDDE6',
+                        color: '#1A1A1A',
+                        borderRadius: '8px',
+                        border: 'none',
+                        fontSize: '12px',
+                        fontWeight: '700',
+                        cursor: 'pointer',
+                        marginBottom: '6px',
+                        textAlign: 'left'
+                      }}
+                    >
+                      <span>✏️</span> Editar Catálogo
+                    </button>
+                    <button
+                      onClick={() => { setIsUserMenuOpen(false); logout(); }}
+                      style={{
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '8px 12px',
+                        backgroundColor: 'transparent',
+                        color: '#991b1b',
+                        borderRadius: '8px',
+                        border: 'none',
+                        fontSize: '12px',
+                        cursor: 'pointer',
+                        textAlign: 'left'
+                      }}
+                    >
+                      <LogOut size={14} /> Cerrar Sesión
+                    </button>
+                  </>
+                ) : currentUser ? (
+                  <>
+                    <div style={{ paddingBottom: '8px', borderBottom: '1px solid #f5f5f5', marginBottom: '8px' }}>
+                      <p style={{ margin: 0, fontSize: '10px', color: '#888', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Mi Cuenta</p>
+                      <p style={{ margin: '2px 0 0 0', fontSize: '13px', fontWeight: '700', color: '#1A1A1A' }}>{currentUser.name}</p>
+                      <p style={{ margin: '2px 0 0 0', fontSize: '11px', color: '#666', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{currentUser.email}</p>
+                    </div>
+                    <button
+                      onClick={() => { setIsUserMenuOpen(false); navigate('/checkout'); }}
+                      style={{
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '8px 12px',
+                        backgroundColor: '#FAF5F7',
+                        color: '#1A1A1A',
+                        borderRadius: '8px',
+                        border: 'none',
+                        fontSize: '12px',
+                        cursor: 'pointer',
+                        marginBottom: '6px',
+                        textAlign: 'left'
+                      }}
+                    >
+                      <ShoppingBag size={14} /> Ir a Pagar
+                    </button>
+                    <button
+                      onClick={() => { setIsUserMenuOpen(false); logout(); }}
+                      style={{
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '8px 12px',
+                        backgroundColor: 'transparent',
+                        color: '#991b1b',
+                        borderRadius: '8px',
+                        border: 'none',
+                        fontSize: '12px',
+                        cursor: 'pointer',
+                        textAlign: 'left'
+                      }}
+                    >
+                      <LogOut size={14} /> Cerrar Sesión
+                    </button>
+                  </>
+                ) : null}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
     </div>
   );
 
@@ -389,8 +574,95 @@ export function Header() {
                 <div onClick={() => handleNavClick('/shop')} style={{ ...mobileNavLinkStyle, borderBottom: 'none', color: '#EAA3C7', fontWeight: '600' }}>VER TODO</div>
               </nav>
 
-              {/* Bottom links */}
-              <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '12px', paddingTop: '24px', borderTop: '1px solid #f5f5f5' }}>
+              {/* Bottom links & Auth */}
+              <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '12px', paddingTop: '20px', borderTop: '1px solid #f5f5f5' }}>
+                {currentUser ? (
+                  <div style={{ backgroundColor: '#FAF5F7', padding: '12px', borderRadius: '10px', marginBottom: '4px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+                      <div style={{
+                        width: '32px',
+                        height: '32px',
+                        borderRadius: '50%',
+                        backgroundColor: '#FEDDE6',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontWeight: '700',
+                        fontSize: '12px',
+                        color: '#8A5B66'
+                      }}>
+                        {isAdmin ? '👑' : (currentUser.name ? currentUser.name.charAt(0).toUpperCase() : 'U')}
+                      </div>
+                      <div style={{ minWidth: 0, flex: 1 }}>
+                        <div style={{ fontSize: '13px', fontWeight: '700', color: '#1A1A1A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          {currentUser.name}
+                        </div>
+                        <div style={{ fontSize: '11px', color: '#888' }}>
+                          {isAdmin ? 'Administradora' : currentUser.email}
+                        </div>
+                      </div>
+                    </div>
+                    {isAdmin && (
+                      <button
+                        onClick={() => { setIsMobileMenuOpen(false); navigate('/admin'); }}
+                        style={{
+                          width: '100%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '6px',
+                          backgroundColor: '#FEDDE6',
+                          color: '#1A1A1A',
+                          border: '1px solid #EAA3C7',
+                          padding: '8px',
+                          borderRadius: '6px',
+                          fontSize: '12px',
+                          fontWeight: '700',
+                          cursor: 'pointer',
+                          marginBottom: '6px'
+                        }}
+                      >
+                        👑 Panel Administradora (Editar)
+                      </button>
+                    )}
+                    <button
+                      onClick={() => { setIsMobileMenuOpen(false); logout(); }}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        background: 'none',
+                        border: 'none',
+                        color: '#991b1b',
+                        fontSize: '12px',
+                        cursor: 'pointer',
+                        padding: 0
+                      }}
+                    >
+                      <LogOut size={13} /> Cerrar Sesión
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => { setIsMobileMenuOpen(false); openAuthModal('login'); }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '8px',
+                      backgroundColor: '#FEDDE6',
+                      color: '#1A1A1A',
+                      border: 'none',
+                      padding: '10px',
+                      borderRadius: '8px',
+                      fontSize: '13px',
+                      fontWeight: '600',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <User size={16} /> Iniciar Sesión / Registro
+                  </button>
+                )}
                 <div onClick={() => handleNavClick('/about')} style={{ fontSize: '13px', color: '#767676', cursor: 'pointer' }}>Nuestra Historia</div>
                 <div onClick={() => handleNavClick('/contact')} style={{ fontSize: '13px', color: '#767676', cursor: 'pointer' }}>Contacto</div>
               </div>

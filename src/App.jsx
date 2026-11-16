@@ -17,9 +17,12 @@ import { ProductPage } from './pages/ProductPage';
 import { CheckoutPage } from './pages/CheckoutPage';
 import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
+import { AdminCatalogPage } from './pages/AdminCatalogPage';
 import { CartProvider } from './context/CartContext';
 import { ProductsProvider } from './context/ProductsContext';
+import { AuthProvider } from './context/AuthContext';
 import { CartDrawer } from './components/cart/CartDrawer';
+import { AuthModal } from './components/auth/AuthModal';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -52,26 +55,30 @@ function Home() {
 
 function App() {
   return (
-    <ProductsProvider>
-      <CartProvider>
-        <BrowserRouter>
-          <ScrollToTop />
-          <PageLoader />
-          <Header />
-          <CartDrawer />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/shop" element={<ShopPage />} />
-            <Route path="/product/:id" element={<ProductPage />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-          </Routes>
-          <Footer />
-          <WhatsAppButton />
-        </BrowserRouter>
-      </CartProvider>
-    </ProductsProvider>
+    <AuthProvider>
+      <ProductsProvider>
+        <CartProvider>
+          <BrowserRouter>
+            <ScrollToTop />
+            <PageLoader />
+            <Header />
+            <CartDrawer />
+            <AuthModal />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/shop" element={<ShopPage />} />
+              <Route path="/product/:id" element={<ProductPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/admin" element={<AdminCatalogPage />} />
+            </Routes>
+            <Footer />
+            <WhatsAppButton />
+          </BrowserRouter>
+        </CartProvider>
+      </ProductsProvider>
+    </AuthProvider>
   );
 }
 

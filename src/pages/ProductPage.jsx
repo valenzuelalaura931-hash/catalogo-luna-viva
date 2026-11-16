@@ -5,6 +5,7 @@ import { Button } from '../components/ui/Button';
 import { ArrowLeft, MessageCircle, ShoppingBag, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { findProductVariants, parseProductVariant } from '../utils/productGrouping';
 
 export function ProductPage() {
@@ -26,6 +27,7 @@ export function ProductPage() {
   const [activeTab, setActiveTab] = useState('description');
   const { addToCart } = useCart();
   const { products } = useProducts();
+  const { isAdmin } = useAuth();
 
   const product = products.find(p => p.id === id);
 
@@ -284,6 +286,43 @@ export function ProductPage() {
 
           {/* Información (Derecha) */}
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            {isAdmin && (
+              <div style={{
+                backgroundColor: '#FFF0F5',
+                border: '1px solid #EAA3C7',
+                borderRadius: '10px',
+                padding: '10px 14px',
+                marginBottom: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '12px',
+                flexWrap: 'wrap'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ fontSize: '16px' }}>👑</span>
+                  <span style={{ fontSize: '13px', fontWeight: '600', color: '#8A5B66' }}>Modo Administradora</span>
+                </div>
+                <Link
+                  to={`/admin?edit=${product.id}`}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    backgroundColor: '#FEDDE6',
+                    color: '#1A1A1A',
+                    fontWeight: '700',
+                    fontSize: '12px',
+                    padding: '6px 14px',
+                    borderRadius: '6px',
+                    textDecoration: 'none',
+                    boxShadow: '0 1px 3px rgba(0,0,0,0.06)'
+                  }}
+                >
+                  ✏️ Editar este producto
+                </Link>
+              </div>
+            )}
             <span style={{ fontSize: 'var(--text-xs)', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 'var(--space-2)' }}>
               {product.brand}
             </span>

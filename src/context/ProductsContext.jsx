@@ -65,12 +65,29 @@ export function ProductsProvider({ children }) {
           remoteList.forEach(p => remoteMap.set(p.id, p));
 
           setProducts(prevProducts => {
-            // Actualizar stock y precio en tiempo real de cada producto conocido, ASEGURANDO fotos canónicas
+            // Actualizar stock, precio y metadatos editados en tiempo real
             const updated = prevProducts.map(prod => {
               const remote = remoteMap.get(prod.id);
               const canon = canonicalMap.get(prod.id);
               const stock = remote ? (Number(remote.stock) || 0) : prod.stock;
               const price = remote ? (Number(remote.price) || prod.price) : prod.price;
+
+              let customMeta = null;
+              if (remote?.notes && remote.notes.trim().startsWith('{')) {
+                try {
+                  customMeta = JSON.parse(remote.notes);
+                } catch (e) {}
+              }
+
+              const resolvedMainImage = customMeta?.mainImage || canon?.mainImage || prod.mainImage;
+              const resolvedImages = (customMeta?.images && Array.isArray(customMeta.images) && customMeta.images.length > 0)
+                ? customMeta.images
+                : ((canon?.images && canon.images.length > 0) ? canon.images : (prod.images || [prod.mainImage]));
+
+              const resolvedDesc = customMeta?.description || canon?.description || prod.description;
+              const resolvedBenefits = customMeta?.benefits || canon?.benefits || prod.benefits;
+              const resolvedHowToUse = customMeta?.howToUse || canon?.howToUse || prod.howToUse;
+
               return {
                 ...prod,
                 name: remote?.name || prod.name,
@@ -80,9 +97,11 @@ export function ProductsProvider({ children }) {
                 stock: stock,
                 available: stock > 0,
                 isOut: stock <= 0,
-                // Garantizar siempre la foto canónica del build
-                mainImage: canon?.mainImage || prod.mainImage,
-                images: (canon?.images && canon.images.length > 0) ? canon.images : (prod.images || [prod.mainImage])
+                mainImage: resolvedMainImage,
+                images: resolvedImages,
+                description: resolvedDesc,
+                benefits: resolvedBenefits,
+                howToUse: resolvedHowToUse
               };
             });
 
@@ -91,6 +110,14 @@ export function ProductsProvider({ children }) {
               if (!prevProducts.some(p => p.id === r.id)) {
                 const canon = canonicalMap.get(r.id);
                 const stock = Number(r.stock) || 0;
+                
+                let customMeta = null;
+                if (r?.notes && r.notes.trim().startsWith('{')) {
+                  try {
+                    customMeta = JSON.parse(r.notes);
+                  } catch (e) {}
+                }
+
                 updated.push({
                   id: r.id,
                   sku: r.id,
@@ -103,11 +130,13 @@ export function ProductsProvider({ children }) {
                   stock: stock,
                   available: stock > 0,
                   isOut: stock <= 0,
-                  description: canon?.description || `${r.name} de la marca ${r.brand}. Producto 100% original en Luna Viva Boutique.`,
-                  benefits: canon?.benefits || 'Fórmula certificada de alta fijación y calidad.',
-                  howToUse: canon?.howToUse || 'Aplicar según tu rutina de belleza.',
-                  mainImage: canon?.mainImage || '/img/Logo luna.png',
-                  images: (canon?.images && canon.images.length > 0) ? canon.images : ['/img/Logo luna.png'],
+                  description: customMeta?.description || canon?.description || `${r.name} de la marca ${r.brand}. Producto 100% original en Luna Viva Boutique.`,
+                  benefits: customMeta?.benefits || canon?.benefits || 'Fórmula certificada de alta fijación y calidad.',
+                  howToUse: customMeta?.howToUse || canon?.howToUse || 'Aplicar según tu rutina de belleza.',
+                  mainImage: customMeta?.mainImage || canon?.mainImage || '/img/Logo luna.png',
+                  images: (customMeta?.images && Array.isArray(customMeta.images) && customMeta.images.length > 0)
+                    ? customMeta.images
+                    : ((canon?.images && canon.images.length > 0) ? canon.images : ['/img/Logo luna.png']),
                   lunaRecommends: canon?.lunaRecommends ?? false,
                   isNew: canon?.isNew ?? true,
                   isBestseller: canon?.isBestseller ?? false
@@ -157,8 +186,79 @@ export function ProductsProvider({ children }) {
     };
   }, [fetchRealtimeProducts]);
 
+  const updateProductDetails = async (productId, fields) => {
+    try {
+      const notesJson = JSON.stringify({
+        description: fields.description || '',
+        benefits: fields.benefits || '',
+        howToUse: fields.howToUse || '',
+        mainImage: fields.mainImage || '',
+        images: Array.isArray(fields.images) ? fields.images : (fields.mainImage ? [fields.mainImage] : [])
+      });
+
+      const patchPayload = {
+        notes: notesJson,
+        updated_at: new Date().toISOString()
+      };
+      if (fields.name) patchPayload.name = fields.name;
+      if (fields.price !== undefined) patchPayload.price = Number(fields.price) || 0;
+      if (fields.stock !== undefined) patchPayload.stock = Number(fields.stock) || 0;
+
+      const res = await fetch(`${SUPABASE_URL}/products?id=eq.${productId}`, {
+        method: 'PATCH',
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=representation'
+        },
+        body: JSON.stringify(patchPayload)
+      });
+
+      if (!res.ok) {
+        throw new Error('Error al actualizar en la base de datos Supabase.');
+      }
+
+      // Actualizar estado local inmediatamente
+      setProducts(prev => {
+        const next = prev.map(p => {
+          if (p.id === productId) {
+            const nextStock = fields.stock !== undefined ? Number(fields.stock) : p.stock;
+            return {
+              ...p,
+              name: fields.name || p.name,
+              price: fields.price !== undefined ? Number(fields.price) : p.price,
+              stock: nextStock,
+              available: nextStock > 0,
+              isOut: nextStock <= 0,
+              description: fields.description !== undefined ? fields.description : p.description,
+              benefits: fields.benefits !== undefined ? fields.benefits : p.benefits,
+              howToUse: fields.howToUse !== undefined ? fields.howToUse : p.howToUse,
+              mainImage: fields.mainImage || p.mainImage,
+              images: Array.isArray(fields.images) && fields.images.length > 0 ? fields.images : p.images
+            };
+          }
+          return p;
+        });
+
+        try {
+          if (typeof window !== 'undefined' && window.localStorage) {
+            localStorage.setItem('luna_viva_live_products_v3', JSON.stringify(next));
+          }
+        } catch (e) {}
+
+        return next;
+      });
+
+      return { success: true };
+    } catch (err) {
+      console.error('Error in updateProductDetails:', err);
+      return { success: false, error: err.message };
+    }
+  };
+
   return (
-    <ProductsContext.Provider value={{ products, loading, lastSync, refreshProducts: () => fetchRealtimeProducts(false) }}>
+    <ProductsContext.Provider value={{ products, loading, lastSync, refreshProducts: () => fetchRealtimeProducts(false), updateProductDetails }}>
       {children}
     </ProductsContext.Provider>
   );

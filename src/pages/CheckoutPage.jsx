@@ -1,19 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { Button } from '../components/ui/Button';
-import { ArrowLeft, MessageCircle } from 'lucide-react';
+import { ArrowLeft, MessageCircle, User, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export function CheckoutPage() {
   const { cartItems, cartTotal, clearCart } = useCart();
+  const { currentUser, openAuthModal } = useAuth();
   const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    address: '',
-    city: 'Calarcá',
+    name: currentUser?.name || '',
+    phone: currentUser?.phone || '',
+    address: currentUser?.address || '',
+    city: currentUser?.city || 'Calarcá',
     paymentMethod: 'nequi',
     notes: ''
   });
+
+  useEffect(() => {
+    if (currentUser) {
+      setFormData(prev => ({
+        ...prev,
+        name: prev.name || currentUser.name || '',
+        phone: prev.phone || currentUser.phone || '',
+        address: prev.address || currentUser.address || '',
+        city: prev.city || currentUser.city || 'Calarcá'
+      }));
+    }
+  }, [currentUser]);
 
   const handleChange = (e) => {
     setFormData({
@@ -29,6 +43,9 @@ export function CheckoutPage() {
     const phoneNumber = "573218839425"; // Número oficial
     let orderDetails = `*NUEVO PEDIDO LUNA VIVA BEAUTY*\n\n`;
     orderDetails += `*Cliente:* ${formData.name}\n`;
+    if (currentUser?.email) {
+      orderDetails += `*Email registrado:* ${currentUser.email}\n`;
+    }
     orderDetails += `*Teléfono:* ${formData.phone}\n`;
     orderDetails += `*Dirección:* ${formData.address}, ${formData.city}\n`;
     orderDetails += `*Método de Pago:* ${formData.paymentMethod.toUpperCase()}\n`;
@@ -88,6 +105,59 @@ export function CheckoutPage() {
         }}>
           {/* Formulario */}
           <div style={{ backgroundColor: 'white', borderRadius: 'var(--radius-xl)', padding: 'var(--space-6)', boxShadow: 'var(--shadow-sm)' }}>
+            
+            {currentUser ? (
+              <div style={{
+                backgroundColor: '#F0FDF4',
+                border: '1px solid #BBF7D0',
+                borderRadius: '8px',
+                padding: '10px 14px',
+                marginBottom: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px'
+              }}>
+                <CheckCircle2 size={18} color="#16A34A" style={{ flexShrink: 0 }} />
+                <div style={{ fontSize: '12px', color: '#166534' }}>
+                  Comprando con tu cuenta <strong>{currentUser.name}</strong> ({currentUser.email}).
+                </div>
+              </div>
+            ) : (
+              <div style={{
+                backgroundColor: '#FFF0F5',
+                border: '1px solid #FEDDE6',
+                borderRadius: '8px',
+                padding: '10px 14px',
+                marginBottom: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '10px',
+                flexWrap: 'wrap'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: '#8A5B66' }}>
+                  <User size={15} />
+                  <span>¿Tienes cuenta registrada?</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => openAuthModal('login')}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#8A5B66',
+                    fontWeight: '700',
+                    fontSize: '12px',
+                    textDecoration: 'underline',
+                    cursor: 'pointer',
+                    padding: 0
+                  }}
+                >
+                  Inicia sesión aquí
+                </button>
+              </div>
+            )}
+
             <h3 style={{ fontSize: 'var(--text-xl)', marginBottom: 'var(--space-4)' }}>Datos de Envío</h3>
             <form onSubmit={handleCheckoutSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
               
