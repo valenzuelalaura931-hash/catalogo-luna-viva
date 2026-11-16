@@ -212,18 +212,8 @@ export function ShopPage() {
   const hasActiveFilters = selectedCategory !== 'Todas' || selectedBrand !== 'Todas' || Boolean(searchQuery);
 
   return (
-    <div style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', padding: 'var(--space-10) 0' }}>
+    <div style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', padding: 'var(--space-6) 0' }}>
       <div className="container">
-
-        {/* Header de la tienda */}
-        <div style={{ marginBottom: 'var(--space-8)', textAlign: 'center' }}>
-          <h1 className="shop-title" style={{ fontSize: 'var(--text-5xl)', color: 'var(--text-primary)', marginBottom: 'var(--space-2)' }}>
-            Todo para tu momento Luna
-          </h1>
-          <p style={{ color: 'var(--text-secondary)' }}>
-            Explora nuestra selección de maquillaje, skincare y accesorios.
-          </p>
-        </div>
 
         {/* Categorías (Pills limpias) */}
         <div style={{
@@ -496,11 +486,6 @@ export function ShopPage() {
 
       <style>{`
         @media (max-width: 768px) {
-          .shop-title {
-            font-size: 1.65rem !important;
-            line-height: 1.25 !important;
-            padding: 0 8px;
-          }
           .shop-layout {
             grid-template-columns: 1fr !important;
             gap: 16px !important;
