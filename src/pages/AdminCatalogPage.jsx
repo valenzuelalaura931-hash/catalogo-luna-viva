@@ -209,7 +209,7 @@ export function AdminCatalogPage() {
     }, 4000);
   };
 
-  // Guardar cambios en Supabase (Solo descripción, beneficios, uso y fotos)
+  // Guardar cambios en Supabase (Solo descripción y fotos)
   const handleSaveProduct = async (e) => {
     if (e) e.preventDefault();
     if (!editingProduct) return;
@@ -218,8 +218,6 @@ export function AdminCatalogPage() {
     try {
       const res = await updateProductDetails(editingProduct.id, {
         description: editDescription.trim(),
-        benefits: editBenefits.trim(),
-        howToUse: editHowToUse.trim(),
         mainImage: editMainImage.trim(),
         images: editImages.filter(Boolean)
       });
@@ -591,71 +589,28 @@ export function AdminCatalogPage() {
 
                 <div>
                   <label style={{ fontSize: '13px', fontWeight: '700', color: '#3B3537', marginBottom: '6px', display: 'block' }}>
-                    Descripción Detallada
+                    Descripción del Producto
                   </label>
                   <textarea
-                    rows={4}
-                    placeholder="Describe los atributos, textura y magia del producto..."
+                    rows={8}
+                    placeholder="Escribe la descripción detallada, características y recomendaciones del producto..."
                     value={editDescription}
                     onChange={(e) => setEditDescription(e.target.value)}
                     style={{
                       width: '100%',
-                      padding: '10px 14px',
+                      padding: '12px 14px',
                       borderRadius: '12px',
                       border: '1px solid #E5E0E2',
                       fontSize: '13.5px',
                       outline: 'none',
-                      lineHeight: 1.4,
+                      lineHeight: 1.5,
                       boxSizing: 'border-box',
                       resize: 'vertical'
                     }}
                   />
-                </div>
-
-                <div>
-                  <label style={{ fontSize: '13px', fontWeight: '700', color: '#3B3537', marginBottom: '6px', display: 'block' }}>
-                    Beneficios Principales
-                  </label>
-                  <textarea
-                    rows={3}
-                    placeholder="Alta fijación, hidratación, fórmula ligera..."
-                    value={editBenefits}
-                    onChange={(e) => setEditBenefits(e.target.value)}
-                    style={{
-                      width: '100%',
-                      padding: '10px 14px',
-                      borderRadius: '12px',
-                      border: '1px solid #E5E0E2',
-                      fontSize: '13px',
-                      outline: 'none',
-                      lineHeight: 1.4,
-                      boxSizing: 'border-box',
-                      resize: 'vertical'
-                    }}
-                  />
-                </div>
-
-                <div>
-                  <label style={{ fontSize: '13px', fontWeight: '700', color: '#3B3537', marginBottom: '6px', display: 'block' }}>
-                    Modo de Uso / Aplicación
-                  </label>
-                  <textarea
-                    rows={3}
-                    placeholder="Paso a paso para aplicarlo o combinarlo..."
-                    value={editHowToUse}
-                    onChange={(e) => setEditHowToUse(e.target.value)}
-                    style={{
-                      width: '100%',
-                      padding: '10px 14px',
-                      borderRadius: '12px',
-                      border: '1px solid #E5E0E2',
-                      fontSize: '13px',
-                      outline: 'none',
-                      lineHeight: 1.4,
-                      boxSizing: 'border-box',
-                      resize: 'vertical'
-                    }}
-                  />
+                  <span style={{ fontSize: '11px', color: '#888', marginTop: '4px', display: 'block' }}>
+                    Esta descripción es la que verán tus clientes en la ficha del producto.
+                  </span>
                 </div>
               </div>
 

@@ -424,54 +424,25 @@ export function ProductPage() {
               </div>
             )}
 
-            {/* Tabs de Información */}
+            {/* Descripción del Producto */}
             <div style={{ marginBottom: 'var(--space-6)' }}>
-              <div className="product-tabs" style={{ display: 'flex', borderBottom: '1px solid var(--rosa-suave)', marginBottom: 'var(--space-4)', overflowX: 'auto' }}>
-                <button 
-                  onClick={() => setActiveTab('description')}
+              <div style={{ borderBottom: '1px solid var(--rosa-suave)', marginBottom: 'var(--space-4)', paddingBottom: 'var(--space-2)' }}>
+                <span 
                   style={{
-                    padding: 'var(--space-2) var(--space-4)',
-                    borderBottom: activeTab === 'description' ? '2px solid var(--accent)' : 'none',
-                    fontWeight: activeTab === 'description' ? '600' : '400',
-                    color: activeTab === 'description' ? 'var(--text-primary)' : 'var(--text-secondary)',
+                    borderBottom: '2px solid var(--accent)',
+                    fontWeight: '600',
+                    color: 'var(--text-primary)',
                     fontSize: 'var(--text-sm)',
-                    whiteSpace: 'nowrap'
+                    paddingBottom: 'var(--space-2)',
+                    display: 'inline-block'
                   }}
                 >
                   Descripción
-                </button>
-                <button 
-                  onClick={() => setActiveTab('benefits')}
-                  style={{
-                    padding: 'var(--space-2) var(--space-4)',
-                    borderBottom: activeTab === 'benefits' ? '2px solid var(--accent)' : 'none',
-                    fontWeight: activeTab === 'benefits' ? '600' : '400',
-                    color: activeTab === 'benefits' ? 'var(--text-primary)' : 'var(--text-secondary)',
-                    fontSize: 'var(--text-sm)',
-                    whiteSpace: 'nowrap'
-                  }}
-                >
-                  Beneficios
-                </button>
-                <button 
-                  onClick={() => setActiveTab('usage')}
-                  style={{
-                    padding: 'var(--space-2) var(--space-4)',
-                    borderBottom: activeTab === 'usage' ? '2px solid var(--accent)' : 'none',
-                    fontWeight: activeTab === 'usage' ? '600' : '400',
-                    color: activeTab === 'usage' ? 'var(--text-primary)' : 'var(--text-secondary)',
-                    fontSize: 'var(--text-sm)',
-                    whiteSpace: 'nowrap'
-                  }}
-                >
-                  Modo de uso
-                </button>
+                </span>
               </div>
 
-              <div style={{ minHeight: '80px', fontSize: 'var(--text-sm)', color: 'var(--text-primary)', opacity: 0.9, lineHeight: 1.6 }}>
-                {activeTab === 'description' && <p>{product.description}</p>}
-                {activeTab === 'benefits' && <p>{product.benefits}</p>}
-                {activeTab === 'usage' && <p>{product.howToUse}</p>}
+              <div style={{ minHeight: '60px', fontSize: 'var(--text-sm)', color: 'var(--text-primary)', opacity: 0.9, lineHeight: 1.6, whiteSpace: 'pre-line' }}>
+                <p>{product.description}</p>
               </div>
             </div>
 
