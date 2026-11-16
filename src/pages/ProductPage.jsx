@@ -52,29 +52,19 @@ export function ProductPage() {
 
   const { baseName: cleanBaseTitle, toneName: currentToneName } = parseProductVariant(product);
 
-  // Galería multi-foto completa: recopilar fotos del producto actual, galería adicional y fotos de sus tonos hermanos
+  // Galería de fotos del producto: mostrar estrictamente las fotos de este producto
   const allImages = useMemo(() => {
     const list = [];
+    if (product.mainImage && !list.includes(product.mainImage)) {
+      list.push(product.mainImage);
+    }
     if (product.images && Array.isArray(product.images)) {
       product.images.forEach(img => {
         if (img && !list.includes(img)) list.push(img);
       });
     }
-    if (product.mainImage && !list.includes(product.mainImage)) {
-      list.unshift(product.mainImage);
-    }
-    if (productVariantsInfo && productVariantsInfo.variants) {
-      productVariantsInfo.variants.forEach(v => {
-        if (v.mainImage && !list.includes(v.mainImage)) list.push(v.mainImage);
-        if (Array.isArray(v.images)) {
-          v.images.forEach(img => {
-            if (img && !list.includes(img)) list.push(img);
-          });
-        }
-      });
-    }
     return list.length > 0 ? list : [product.mainImage || '/img/Logo luna sin fondo.png'];
-  }, [product, productVariantsInfo]);
+  }, [product.mainImage, product.images]);
 
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
   const touchStartX = useRef(null);
