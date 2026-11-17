@@ -330,7 +330,7 @@ export function ProductPage() {
                   style={{
                     border: '1px solid #FEDDE6',
                     borderRadius: '8px',
-                    backgroundColor: '#FFF9F5',
+                    backgroundColor: '#FFF5F8',
                     color: '#8A5B66',
                     fontSize: '11.5px',
                     fontWeight: '600',
@@ -400,7 +400,7 @@ export function ProductPage() {
             {productVariantsInfo && productVariantsInfo.variants.length > 1 && (
               <div style={{
                 marginBottom: 'var(--space-6)',
-                backgroundColor: '#FFF9F5',
+                backgroundColor: '#FFF5F8',
                 padding: '14px 16px',
                 borderRadius: 'var(--radius-lg)',
                 border: '1px solid #F3E5EB'

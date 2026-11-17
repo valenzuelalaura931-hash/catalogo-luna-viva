@@ -294,7 +294,7 @@ export function AdminCatalogPage() {
     return (
       <div style={{
         minHeight: '85vh',
-        backgroundColor: '#FFF9F5',
+        backgroundColor: '#FFF5F8',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -398,7 +398,7 @@ export function AdminCatalogPage() {
   }
 
   return (
-    <div style={{ backgroundColor: '#FFF9F5', minHeight: '100vh', padding: '24px 0 60px' }}>
+    <div style={{ backgroundColor: '#FFF5F8', minHeight: '100vh', padding: '24px 0 60px' }}>
       {/* Toast Notification */}
       {toastMessage && (
         <div style={{
@@ -661,7 +661,7 @@ export function AdminCatalogPage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 {/* Foto Principal */}
                 <div style={{
-                  backgroundColor: '#FFF9F5',
+                  backgroundColor: '#FFF5F8',
                   padding: '16px',
                   borderRadius: '16px',
                   border: '1px solid #FEDDE6'
@@ -944,7 +944,7 @@ export function AdminCatalogPage() {
                         padding: '8px 12px',
                         borderRadius: '8px',
                         border: '1px solid #FEDDE6',
-                        backgroundColor: '#FFF9F5',
+                        backgroundColor: '#FFF5F8',
                         color: '#8A5B66',
                         fontSize: '12px',
                         fontWeight: '600',
@@ -1138,7 +1138,7 @@ export function AdminCatalogPage() {
                 <div
                   key={prod.id}
                   style={{
-                    backgroundColor: isSelected ? '#FFF9F5' : '#FFFFFF',
+                    backgroundColor: isSelected ? '#FFF5F8' : '#FFFFFF',
                     borderRadius: '14px',
                     border: isSelected ? '2px solid #8A5B66' : '1px solid #EFE6EA',
                     padding: '12px',

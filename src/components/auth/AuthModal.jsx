@@ -565,7 +565,7 @@ export function AuthModal() {
           {authModalTab === 'admin' && (
             <form onSubmit={handleAdminSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div style={{
-                backgroundColor: '#FFF9F5',
+                backgroundColor: '#FFF5F8',
                 border: '1px solid #FEDDE6',
                 borderRadius: '14px',
                 padding: '14px',

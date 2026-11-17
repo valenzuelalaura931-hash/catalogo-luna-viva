@@ -5,12 +5,12 @@
   --rosa-suave: #F9EEF2;
   --dorado-luna: #B58B3A;
   --dorado-claro: #D8B86A;
-  --crema: #FFF9F5;
+  --crema: #FFF5F8;
   --cafe-rosado: #8D6A5A;
   --carbon: #3B3537;
   
   /* Derivados funcionales */
-  --bg-primary: var(--crema);
+  --bg-primary: #FFF5F8;
   --bg-section-alt: var(--rosa-suave);
   --text-primary: var(--carbon);
   --text-secondary: var(--cafe-rosado);
