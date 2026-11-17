@@ -26,18 +26,18 @@ export function Button({
 
   const variants = {
     primary: {
-      backgroundColor: '#8A5B66',
+      backgroundColor: '#E687B8',
       color: '#FFFFFF',
-      boxShadow: '0 4px 14px rgba(138, 91, 102, 0.25)',
+      boxShadow: '0 4px 14px rgba(230, 135, 184, 0.35)',
     },
     secondary: {
       backgroundColor: 'var(--rosa-suave)',
-      color: '#8A5B66',
+      color: '#D45486',
     },
     outline: {
       backgroundColor: '#FFFFFF',
-      color: '#8A5B66',
-      border: '1.5px solid #8A5B66',
+      color: '#D45486',
+      border: '2px solid #E687B8',
     },
     accent: {
       backgroundColor: 'var(--accent)',
