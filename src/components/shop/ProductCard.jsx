@@ -180,7 +180,7 @@ export function ProductCard({ product }) {
       </div>
 
       {/* Imagen del Producto con Slider Multi-Foto */}
-      <div className="product-card-img-wrapper" style={{ position: 'relative', height: '230px', overflow: 'hidden' }}>
+      <div className="product-card-img-wrapper" style={{ position: 'relative', overflow: 'hidden' }}>
         <Link to={`/product/${currentId}`} state={{ from: location.pathname + location.search }} onClick={handleProductClick} className="product-card-img-link" style={{ height: '100%', display: 'block' }}>
           <div
             key={activeImage}
@@ -272,14 +272,16 @@ export function ProductCard({ product }) {
       </div>
 
       <style>{`
+        .product-card-img-wrapper {
+          position: relative;
+          height: 300px;
+          overflow: hidden;
+        }
         .product-card-img-link {
           display: block;
           height: 100%;
           overflow: hidden;
           position: relative;
-        }
-        .product-card-img-wrapper:hover
-        @media (max-width: 768px) {
         }
         .product-card-content {
           padding: var(--space-4);
@@ -303,8 +305,11 @@ export function ProductCard({ product }) {
           font-size: var(--text-lg);
         }
         @media (max-width: 768px) {
+          .product-card-img-wrapper {
+            height: 220px !important;
+          }
           .product-card-img-link {
-            height: 165px !important;
+            height: 100% !important;
           }
           .product-card-content {
             padding: 10px 8px !important;
