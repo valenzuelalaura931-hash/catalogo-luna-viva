@@ -103,8 +103,8 @@ export function CartDrawer() {
                       borderRadius: '8px',
                       boxShadow: '0 2px 8px rgba(0,0,0,0.03)'
                     }}>
-                      <div style={{ width: '80px', height: '80px', borderRadius: '4px', overflow: 'hidden', backgroundColor: 'var(--rosa-suave)' }}>
-                        <img src={item.mainImage} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      <div style={{ width: '80px', height: '80px', borderRadius: '8px', overflow: 'hidden', backgroundColor: 'var(--rosa-suave)' }}>
+                        <img src={item.mainImage} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
                       </div>
                       
                       <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>

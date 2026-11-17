@@ -180,7 +180,13 @@ export function ProductCard({ product }) {
       </div>
 
       {/* Imagen del Producto con Slider Multi-Foto */}
-      <div className="product-card-img-wrapper" style={{ position: 'relative', height: '230px', overflow: 'hidden' }}>
+      <div className="product-card-img-wrapper" style={{
+        position: 'relative',
+        height: '230px',
+        overflow: 'hidden',
+        borderTopLeftRadius: 'var(--radius-lg)',
+        borderTopRightRadius: 'var(--radius-lg)'
+      }}>
         <Link to={`/product/${currentId}`} state={{ from: location.pathname + location.search }} onClick={handleProductClick} className="product-card-img-link" style={{ height: '100%', display: 'block' }}>
           <div
             key={activeImage}
@@ -189,6 +195,8 @@ export function ProductCard({ product }) {
               backgroundImage: `url('${activeImage}')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
+              borderTopLeftRadius: 'var(--radius-lg)',
+              borderTopRightRadius: 'var(--radius-lg)',
               transition: 'all 0.3s ease',
               filter: currentStock <= 0 ? 'grayscale(80%) opacity(0.65)' : 'none'
             }}

@@ -177,7 +177,7 @@ export function ProductPage() {
               onTouchStart={handleTouchStart}
               onTouchEnd={handleTouchEnd}
               style={{
-                borderRadius: 'var(--radius-lg)',
+                borderRadius: '16px',
                 overflow: 'hidden',
                 backgroundColor: 'transparent',
                 width: '100%',
@@ -194,11 +194,14 @@ export function ProductPage() {
                 src={activeImage}
                 alt={`${product.name} - Foto ${currentImgIndex + 1}`}
                 style={{
-                  width: '100%',
-                  height: 'auto',
+                  width: 'auto',
+                  maxWidth: '100%',
                   maxHeight: '650px',
-                  objectFit: 'contain',
-                  borderRadius: 'var(--radius-lg)',
+                  height: 'auto',
+                  borderRadius: '16px',
+                  clipPath: 'inset(0 round 16px)',
+                  WebkitClipPath: 'inset(0 round 16px)',
+                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06)',
                   display: 'block',
                   transition: 'opacity 0.25s ease'
                 }}
@@ -551,6 +554,12 @@ export function ProductPage() {
           border-radius: 4px;
         }
 
+        .product-image-container img {
+          border-radius: 16px !important;
+          clip-path: inset(0 round 16px) !important;
+          -webkit-clip-path: inset(0 round 16px) !important;
+        }
+
         @media (max-width: 768px) {
           .product-detail {
             grid-template-columns: 1fr !important;
@@ -558,6 +567,12 @@ export function ProductPage() {
           }
           .product-image-container {
             height: auto !important;
+          }
+          .product-image-container img {
+            max-height: 480px !important;
+            border-radius: 14px !important;
+            clip-path: inset(0 round 14px) !important;
+            -webkit-clip-path: inset(0 round 14px) !important;
           }
           .product-title {
             font-size: var(--text-2xl) !important;
