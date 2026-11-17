@@ -695,7 +695,7 @@ export function AdminCatalogPage() {
                         <img
                           src={editMainImage}
                           alt="Foto principal"
-                          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
                           onError={(e) => { e.target.src = '/img/Logo luna sin fondo.png'; }}
                         />
                         <button
@@ -844,7 +844,7 @@ export function AdminCatalogPage() {
                             <img
                               src={imgUrl}
                               alt={`Foto ${idx + 1}`}
-                              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
                               onError={(e) => { e.target.src = '/img/Logo luna sin fondo.png'; }}
                             />
                             {/* Botón eliminar claramente visible en rojo */}

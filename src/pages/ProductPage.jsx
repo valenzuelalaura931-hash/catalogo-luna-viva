@@ -179,14 +179,15 @@ export function ProductPage() {
               style={{
                 borderRadius: 'var(--radius-lg)',
                 overflow: 'hidden',
-                backgroundColor: '#FAF5F7',
-                height: '450px',
+                backgroundColor: 'transparent',
+                height: '480px',
+                width: '100%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 position: 'relative',
-                boxShadow: 'inset 0 0 20px rgba(0,0,0,0.02)',
-                border: '1px solid #F3E5EB'
+                border: 'none',
+                boxShadow: 'none'
               }}
             >
               <img 
@@ -196,8 +197,9 @@ export function ProductPage() {
                 style={{
                   width: '100%',
                   height: '100%',
-                  objectFit: 'contain',
-                  padding: '12px',
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                  display: 'block',
                   transition: 'opacity 0.25s ease'
                 }}
                 onError={(e) => { e.target.src = '/img/Logo luna sin fondo.png'; }}
@@ -250,16 +252,16 @@ export function ProductPage() {
                       type="button"
                       onClick={() => setCurrentImgIndex(idx)}
                       style={{
-                        flex: '0 0 64px',
-                        height: '64px',
-                        padding: '2px',
+                        flex: '0 0 66px',
+                        height: '66px',
+                        padding: '0',
                         borderRadius: '8px',
-                        border: isActive ? '2px solid #8A5B66' : '1px solid #E5E0E2',
-                        backgroundColor: '#FFFFFF',
+                        border: isActive ? '2.5px solid #8A5B66' : '1px solid rgba(0,0,0,0.12)',
+                        backgroundColor: 'transparent',
                         cursor: 'pointer',
                         overflow: 'hidden',
                         transition: 'all 0.2s ease',
-                        transform: isActive ? 'scale(1.05)' : 'scale(1)',
+                        transform: isActive ? 'scale(1.04)' : 'scale(1)',
                         boxShadow: isActive ? '0 2px 8px rgba(138,91,102,0.25)' : 'none'
                       }}
                       title={`Ver foto ${idx + 1}`}
@@ -270,7 +272,8 @@ export function ProductPage() {
                         style={{
                           width: '100%',
                           height: '100%',
-                          objectFit: 'contain'
+                          objectFit: 'cover',
+                          display: 'block'
                         }}
                         onError={(e) => { e.target.src = '/img/Logo luna sin fondo.png'; }}
                       />
@@ -566,7 +569,7 @@ export function ProductPage() {
             padding: var(--space-4) !important;
           }
           .product-image-container {
-            height: 320px !important;
+            height: 380px !important;
           }
           .product-title {
             font-size: var(--text-2xl) !important;
