@@ -327,7 +327,7 @@ export function AdminCatalogPage() {
             Panel de Administradora
           </h2>
           <p style={{ fontSize: '13px', color: '#777', margin: '0 0 24px', lineHeight: 1.4 }}>
-            Ingresa tu PIN administrativo (5924) para acceder a la edición de fotos y descripciones del catálogo.
+            Ingresa tu PIN administrativo para acceder a la edición de fotos y descripciones del catálogo.
           </p>
 
           {pinError && (
@@ -677,7 +677,7 @@ export function AdminCatalogPage() {
 
                   <div style={{
                     width: '100%',
-                    height: '240px',
+                    height: '340px',
                     borderRadius: '12px',
                     backgroundColor: '#fff',
                     border: '1px solid #E5E0E2',
@@ -758,7 +758,7 @@ export function AdminCatalogPage() {
                         gap: '6px'
                       }}
                     >
-                      <Upload size={15} /> Subir Foto (Celular o PC)
+                      <Upload size={15} /> Subir Foto
                     </button>
                   </div>
 

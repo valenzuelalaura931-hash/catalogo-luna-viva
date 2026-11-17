@@ -180,7 +180,7 @@ export function ProductPage() {
                 borderRadius: 'var(--radius-lg)',
                 overflow: 'hidden',
                 backgroundColor: 'transparent',
-                height: '480px',
+                height: '580px',
                 width: '100%',
                 display: 'flex',
                 alignItems: 'center',
@@ -591,7 +591,7 @@ export function ProductPage() {
             padding: var(--space-4) !important;
           }
           .product-image-container {
-            height: 380px !important;
+            height: 480px !important;
           }
           .product-title {
             font-size: var(--text-2xl) !important;
