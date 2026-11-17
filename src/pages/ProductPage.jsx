@@ -132,18 +132,18 @@ export function ProductPage() {
   return (
     <div style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', padding: 'var(--space-10) 0' }}>
       <div className="container">
-        
+
         {/* Botón de retroceso inteligente (mantiene filtros, búsqueda y scroll) */}
-        <button 
-          type="button" 
+        <button
+          type="button"
           onClick={handleGoBack}
-          style={{ 
-            display: 'inline-flex', 
-            alignItems: 'center', 
-            gap: '8px', 
-            color: 'var(--text-secondary)', 
-            marginBottom: 'var(--space-8)', 
-            fontSize: 'var(--text-sm)', 
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            color: 'var(--text-secondary)',
+            marginBottom: 'var(--space-8)',
+            fontSize: 'var(--text-sm)',
             fontWeight: '500',
             background: 'none',
             border: 'none',
@@ -166,10 +166,10 @@ export function ProductPage() {
           boxShadow: 'var(--shadow-sm)',
           marginBottom: 'var(--space-16)'
         }}>
-          
+
           {/* Galería de Fotos Interactiva (Izquierda) */}
           <div className="product-gallery-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
@@ -180,7 +180,6 @@ export function ProductPage() {
                 borderRadius: 'var(--radius-lg)',
                 overflow: 'hidden',
                 backgroundColor: 'transparent',
-                height: '580px',
                 width: '100%',
                 display: 'flex',
                 alignItems: 'center',
@@ -190,15 +189,16 @@ export function ProductPage() {
                 boxShadow: 'none'
               }}
             >
-              <img 
+              <img
                 key={activeImage}
-                src={activeImage} 
-                alt={`${product.name} - Foto ${currentImgIndex + 1}`} 
+                src={activeImage}
+                alt={`${product.name} - Foto ${currentImgIndex + 1}`}
                 style={{
                   width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  objectPosition: 'center',
+                  height: 'auto',
+                  maxHeight: '650px',
+                  objectFit: 'contain',
+                  borderRadius: 'var(--radius-lg)',
                   display: 'block',
                   transition: 'opacity 0.25s ease'
                 }}
@@ -234,7 +234,7 @@ export function ProductPage() {
 
             {/* Tira de Miniaturas (Thumbnails) */}
             {hasMultipleImages && (
-              <div 
+              <div
                 className="gallery-thumbnails-strip"
                 style={{
                   display: 'flex',
@@ -266,9 +266,9 @@ export function ProductPage() {
                       }}
                       title={`Ver foto ${idx + 1}`}
                     >
-                      <img 
-                        src={imgUrl} 
-                        alt={`Miniatura ${idx + 1}`} 
+                      <img
+                        src={imgUrl}
+                        alt={`Miniatura ${idx + 1}`}
                         style={{
                           width: '100%',
                           height: '100%',
@@ -449,7 +449,7 @@ export function ProductPage() {
             {/* Descripción del Producto */}
             <div style={{ marginBottom: 'var(--space-6)' }}>
               <div style={{ borderBottom: '1px solid var(--rosa-suave)', marginBottom: 'var(--space-4)', paddingBottom: 'var(--space-2)' }}>
-                <span 
+                <span
                   style={{
                     borderBottom: '2px solid var(--accent)',
                     fontWeight: '600',
@@ -470,9 +470,9 @@ export function ProductPage() {
 
             {/* CTAs */}
             <div className="product-ctas" style={{ display: 'flex', gap: 'var(--space-4)', flexWrap: 'wrap' }}>
-              <Button 
-                variant="outline" 
-                size="lg" 
+              <Button
+                variant="outline"
+                size="lg"
                 disabled={product.stock <= 0}
                 onClick={() => product.stock > 0 && addToCart(product)}
                 style={{
@@ -486,7 +486,7 @@ export function ProductPage() {
                 <ShoppingBag size={20} /> {product.stock <= 0 ? 'Agotado' : 'Añadir a la Bolsa'}
               </Button>
               {product.stock > 0 && (
-                <a 
+                <a
                   href={`https://wa.me/${phoneNumber}?text=${waMessage}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -591,7 +591,7 @@ export function ProductPage() {
             padding: var(--space-4) !important;
           }
           .product-image-container {
-            height: 480px !important;
+            height: auto !important;
           }
           .product-title {
             font-size: var(--text-2xl) !important;

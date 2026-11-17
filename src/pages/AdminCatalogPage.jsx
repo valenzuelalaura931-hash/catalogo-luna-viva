@@ -677,9 +677,10 @@ export function AdminCatalogPage() {
 
                   <div style={{
                     width: '100%',
-                    height: '340px',
+                    minHeight: '200px',
+                    maxHeight: '480px',
                     borderRadius: '12px',
-                    backgroundColor: '#fff',
+                    backgroundColor: 'transparent',
                     border: '1px solid #E5E0E2',
                     overflow: 'hidden',
                     display: 'flex',
@@ -693,7 +694,13 @@ export function AdminCatalogPage() {
                         <img
                           src={editMainImage}
                           alt="Foto principal"
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
+                          style={{
+                            width: '100%',
+                            height: 'auto',
+                            maxHeight: '480px',
+                            objectFit: 'contain',
+                            display: 'block'
+                          }}
                           onError={(e) => { e.target.src = '/img/Logo luna sin fondo.png'; }}
                         />
                         <button
