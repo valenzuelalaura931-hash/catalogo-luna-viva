@@ -286,7 +286,8 @@ export function ProductPage() {
 
           {/* Información (Derecha) */}
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            {isAdmin ? (
+            {/* Banner de acceso de administración rápida si ya está autenticada */}
+            {isAdmin && (
               <div style={{
                 backgroundColor: '#FFF0F5',
                 border: '1px solid #EAA3C7',
@@ -321,28 +322,6 @@ export function ProductPage() {
                 >
                   ✏️ Editar este producto
                 </Link>
-              </div>
-            ) : (
-              <div style={{ marginBottom: '14px' }}>
-                <button
-                  type="button"
-                  onClick={() => openAuthModal('admin')}
-                  style={{
-                    border: '1px solid #FEDDE6',
-                    borderRadius: '8px',
-                    backgroundColor: '#FFF5F8',
-                    color: '#8A5B66',
-                    fontSize: '11.5px',
-                    fontWeight: '600',
-                    cursor: 'pointer',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    padding: '5px 10px'
-                  }}
-                >
-                  👑 ¿Eres Administradora? Ingresa PIN para editar
-                </button>
               </div>
             )}
             <span style={{ fontSize: 'var(--text-xs)', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 'var(--space-2)' }}>
@@ -382,18 +361,7 @@ export function ProductPage() {
                 }}>
                   ⚡ ¡Última unidad disponible!
                 </span>
-              ) : (
-                <span style={{
-                  backgroundColor: '#f0fdf4',
-                  color: '#15803d',
-                  padding: '4px 12px',
-                  borderRadius: 'var(--radius-full)',
-                  fontWeight: '600',
-                  fontSize: 'var(--text-xs)'
-                }}>
-                  ✓ Disponible
-                </span>
-              )}
+              ) : null}
             </div>
 
             {/* Selector de Tonos en Ficha de Producto */}
