@@ -462,9 +462,7 @@ export function ProductPage() {
                 >
                   <Button variant="primary" size="lg" fullWidth style={{
                     display: 'flex',
-                    gap: '8px',
-                    backgroundColor: '#25D366',
-                    color: 'white'
+                    gap: '8px'
                   }}>
                     <MessageCircle size={20} /> Comprar por WhatsApp
                   </Button>

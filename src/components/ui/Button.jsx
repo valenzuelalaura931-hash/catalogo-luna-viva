@@ -8,34 +8,36 @@ export function Button({
   fullWidth = false, 
   onClick, 
   className = '',
-  type = 'button'
+  type = 'button',
+  style = {},
+  disabled = false
 }) {
   const baseStyles = {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 'var(--radius-full)',
-    fontWeight: '500',
+    fontWeight: '600',
     transition: 'all var(--duration-normal) var(--ease-smooth)',
-    cursor: 'pointer',
+    cursor: disabled ? 'not-allowed' : 'pointer',
     width: fullWidth ? '100%' : 'auto',
     border: 'none',
   };
 
   const variants = {
     primary: {
-      backgroundColor: 'var(--text-primary)',
-      color: 'var(--crema)',
-      boxShadow: 'var(--shadow-md)',
+      backgroundColor: '#8A5B66',
+      color: '#FFFFFF',
+      boxShadow: '0 4px 14px rgba(138, 91, 102, 0.25)',
     },
     secondary: {
       backgroundColor: 'var(--rosa-suave)',
-      color: 'var(--text-primary)',
+      color: '#8A5B66',
     },
     outline: {
-      backgroundColor: 'transparent',
-      color: 'var(--text-primary)',
-      border: '1px solid var(--text-primary)',
+      backgroundColor: '#FFFFFF',
+      color: '#8A5B66',
+      border: '1.5px solid #8A5B66',
     },
     accent: {
       backgroundColor: 'var(--accent)',
@@ -53,11 +55,12 @@ export function Button({
   return (
     <motion.button
       type={type}
-      style={{ ...baseStyles, ...variants[variant], ...sizes[size] }}
+      disabled={disabled}
+      style={{ ...baseStyles, ...variants[variant], ...sizes[size], ...style }}
       className={className}
-      onClick={onClick}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
+      onClick={disabled ? undefined : onClick}
+      whileHover={disabled ? {} : { scale: 1.02 }}
+      whileTap={disabled ? {} : { scale: 0.98 }}
     >
       {children}
     </motion.button>
