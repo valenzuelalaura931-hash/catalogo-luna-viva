@@ -20,7 +20,7 @@ export function FeaturedProducts() {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))',
           gap: 'var(--space-6)'
         }}>
           {products.map((p, i) => (
@@ -58,7 +58,7 @@ export function FeaturedProducts() {
             </motion.div>
           ))}
         </div>
-        
+
         <div style={{ textAlign: 'center', marginTop: 'var(--space-10)' }}>
           <Button variant="outline" size="lg" onClick={() => navigate('/shop')}>Ver todo el catálogo</Button>
         </div>
@@ -66,7 +66,7 @@ export function FeaturedProducts() {
 
       <style>{`
         .featured-product-img {
-          height: 300px;
+          height: 340px;
         }
         @media (max-width: 768px) {
           .featured-product-img {

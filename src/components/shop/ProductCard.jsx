@@ -274,7 +274,7 @@ export function ProductCard({ product }) {
       <style>{`
         .product-card-img-wrapper {
           position: relative;
-          height: 300px;
+          height: 340px;
           overflow: hidden;
         }
         .product-card-img-link {

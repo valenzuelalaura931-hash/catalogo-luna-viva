@@ -515,7 +515,7 @@ export function ProductPage() {
             </h2>
             <div className="related-grid" style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))',
               gap: 'var(--space-6)'
             }}>
               {relatedProducts.map((p) => (
@@ -586,7 +586,7 @@ export function ProductPage() {
         }
 
         .related-product-img {
-          height: 300px;
+          height: 340px;
         }
 
         @media (max-width: 768px) {
