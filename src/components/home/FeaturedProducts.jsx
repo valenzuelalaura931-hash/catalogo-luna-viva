@@ -20,7 +20,7 @@ export function FeaturedProducts() {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
           gap: 'var(--space-6)'
         }}>
           {products.map((p, i) => (
@@ -39,14 +39,12 @@ export function FeaturedProducts() {
                 cursor: 'pointer'
               }}
             >
-              <div
-                className="featured-product-img"
-                style={{
-                  backgroundImage: `url('${p.mainImage}')`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center'
-                }}
-              />
+              <div style={{
+                height: '250px',
+                backgroundImage: `url('${p.mainImage}')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }} />
               <div style={{ padding: 'var(--space-4)' }}>
                 <span style={{ fontSize: 'var(--text-xs)', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{p.brand}</span>
                 <h3 style={{ fontSize: 'var(--text-lg)', margin: 'var(--space-1) 0 var(--space-2)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.name}</h3>
@@ -63,17 +61,6 @@ export function FeaturedProducts() {
           <Button variant="outline" size="lg" onClick={() => navigate('/shop')}>Ver todo el catálogo</Button>
         </div>
       </div>
-
-      <style>{`
-        .featured-product-img {
-          height: 340px;
-        }
-        @media (max-width: 768px) {
-          .featured-product-img {
-            height: 220px !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }

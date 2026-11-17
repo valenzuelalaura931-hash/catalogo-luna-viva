@@ -515,7 +515,7 @@ export function ProductPage() {
             </h2>
             <div className="related-grid" style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
               gap: 'var(--space-6)'
             }}>
               {relatedProducts.map((p) => (
@@ -527,7 +527,7 @@ export function ProductPage() {
                   display: 'flex',
                   flexDirection: 'column'
                 }}>
-                  <div className="related-product-img" style={{ backgroundImage: `url('${p.mainImage}')`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+                  <div style={{ height: '200px', backgroundImage: `url('${p.mainImage}')`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
                   <div style={{ padding: 'var(--space-4)', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
                     <span style={{ fontSize: 'var(--text-xs)', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>{p.brand}</span>
                     <h3 style={{ fontSize: 'var(--text-base)', margin: 'var(--space-1) 0 var(--space-2)' }}>{p.name}</h3>
@@ -585,14 +585,7 @@ export function ProductPage() {
           border-radius: 4px;
         }
 
-        .related-product-img {
-          height: 340px;
-        }
-
         @media (max-width: 768px) {
-          .related-product-img {
-            height: 220px !important;
-          }
           .product-detail {
             grid-template-columns: 1fr !important;
             padding: var(--space-4) !important;
