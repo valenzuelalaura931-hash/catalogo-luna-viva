@@ -169,7 +169,7 @@ export function CheckoutPage() {
                   required 
                   value={formData.name} 
                   onChange={handleChange}
-                  placeholder="Ej. Laura Restrepo"
+                  placeholder="Ej. Laura Rosero"
                   style={{ padding: '8px 12px', border: '1px solid var(--rosa-suave)', borderRadius: 'var(--radius-md)' }}
                 />
               </div>

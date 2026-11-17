@@ -454,7 +454,7 @@ export function AdminCatalogPage() {
                 Editor de Catálogo — Luna Viva
               </h1>
               <span style={{ fontSize: '12px', color: '#8A5B66', fontWeight: '500' }}>
-                Sesión activa: Laura (Administradora)
+                Sesión activa: Laura Rosero (Administradora)
               </span>
             </div>
           </div>

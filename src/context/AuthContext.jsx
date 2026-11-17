@@ -145,7 +145,7 @@ export function AuthProvider({ children }) {
         if (cleanPassword === ADMIN_PASSWORD || cleanPassword === ADMIN_PIN) {
           const adminUser = {
             id: 'admin_laura',
-            name: 'Laura (Administradora)',
+            name: 'Laura Rosero',
             email: ADMIN_EMAIL,
             role: 'admin'
           };
@@ -222,7 +222,7 @@ export function AuthProvider({ children }) {
       if (cleanPin === ADMIN_PIN || cleanPin === ADMIN_PASSWORD || cleanPin.toLowerCase() === 'admin5924' || cleanPin.toLowerCase() === 'laura5924') {
         const adminUser = {
           id: 'admin_laura',
-          name: 'Laura (Administradora)',
+          name: 'Laura Rosero',
           email: ADMIN_EMAIL,
           role: 'admin'
         };

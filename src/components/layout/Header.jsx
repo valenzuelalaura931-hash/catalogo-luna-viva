@@ -327,7 +327,7 @@ export function Header() {
                   <>
                     <div style={{ paddingBottom: '8px', borderBottom: '1px solid #f5f5f5', marginBottom: '8px' }}>
                       <p style={{ margin: 0, fontSize: '10px', color: '#8A5B66', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: '700' }}>👑 Sesión Administradora</p>
-                      <p style={{ margin: '2px 0 0 0', fontSize: '13px', fontWeight: '700', color: '#1A1A1A' }}>Laura Restrepo</p>
+                      <p style={{ margin: '2px 0 0 0', fontSize: '13px', fontWeight: '700', color: '#1A1A1A' }}>{currentUser?.name || 'Laura Rosero'}</p>
                     </div>
                     <button
                       onClick={() => { setIsUserMenuOpen(false); navigate('/admin'); }}
