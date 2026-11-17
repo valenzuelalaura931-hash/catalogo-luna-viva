@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Eye, EyeOff, User, Lock, Mail, Phone, MapPin, Sparkles, ShieldCheck } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 export function AuthModal() {
+  const navigate = useNavigate();
   const {
     isAuthModalOpen,
     closeAuthModal,
@@ -87,7 +89,9 @@ export function AuthModal() {
       return;
     }
     const res = await loginAdmin(adminPin);
-    if (!res.success) {
+    if (res.success) {
+      navigate('/admin');
+    } else {
       setErrorMsg(res.error || 'PIN incorrecto.');
     }
   };

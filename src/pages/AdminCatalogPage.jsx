@@ -118,22 +118,20 @@ export function AdminCatalogPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Sincronizar automáticamente si se pasa ?edit=LV-XXXX o si cambia la lista de productos
+  const hasInitializedPreselectRef = useRef(null);
+
+  // Sincronizar automáticamente si se pasa ?edit=LV-XXXX
   useEffect(() => {
     if (preselectId && products && products.length > 0) {
-      const found = products.find(p => p.id === preselectId);
-      if (found && (!editingProduct || editingProduct.id !== found.id)) {
-        handleStartEdit(found);
+      if (hasInitializedPreselectRef.current !== preselectId) {
+        const found = products.find(p => p.id === preselectId);
+        if (found) {
+          hasInitializedPreselectRef.current = preselectId;
+          handleStartEdit(found);
+        }
       }
     }
   }, [preselectId, products]);
-
-  // Si editingProduct ya está en state pero los campos de fotos están vacíos, sincronizar
-  useEffect(() => {
-    if (editingProduct && !editMainImage && editImages.length === 0) {
-      handleStartEdit(editingProduct);
-    }
-  }, [editingProduct]);
 
   const handleCancelEdit = () => {
     setEditingProduct(null);
