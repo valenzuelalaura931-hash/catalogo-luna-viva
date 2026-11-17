@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Eye, EyeOff, User, Lock, Mail, Phone, MapPin, Sparkles, ShieldCheck } from 'lucide-react';
+import { X, Eye, EyeOff, User, Lock, Mail, Phone, MapPin, Sparkles } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 export function AuthModal() {
@@ -13,7 +13,6 @@ export function AuthModal() {
     setAuthModalTab,
     loginCustomer,
     registerCustomer,
-    loginAdmin,
     loading
   } = useAuth();
 
@@ -29,9 +28,6 @@ export function AuthModal() {
   const [regAddress, setRegAddress] = useState('');
   const [regCity, setRegCity] = useState('Calarcá');
   const [showRegPassword, setShowRegPassword] = useState(false);
-
-  const [adminPin, setAdminPin] = useState('');
-  const [showAdminPin, setShowAdminPin] = useState(false);
 
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
@@ -52,7 +48,11 @@ export function AuthModal() {
       return;
     }
     const res = await loginCustomer(loginEmail, loginPassword);
-    if (!res.success) {
+    if (res.success) {
+      if (res.user?.role === 'admin') {
+        navigate('/admin');
+      }
+    } else {
       setErrorMsg(res.error || 'Error al iniciar sesión.');
     }
   };
@@ -78,21 +78,6 @@ export function AuthModal() {
     });
     if (!res.success) {
       setErrorMsg(res.error || 'Error al registrar la cuenta.');
-    }
-  };
-
-  const handleAdminSubmit = async (e) => {
-    e.preventDefault();
-    setErrorMsg('');
-    if (!adminPin) {
-      setErrorMsg('Ingresa el PIN de Administradora.');
-      return;
-    }
-    const res = await loginAdmin(adminPin);
-    if (res.success) {
-      navigate('/admin');
-    } else {
-      setErrorMsg(res.error || 'PIN incorrecto.');
     }
   };
 
@@ -178,22 +163,18 @@ export function AuthModal() {
               margin: '0 0 4px',
               letterSpacing: '-0.01em'
             }}>
-              {authModalTab === 'admin'
-                ? 'Acceso de Administradora'
-                : authModalTab === 'register'
-                  ? 'Crear Cuenta en Luna Viva'
-                  : 'Bienvenida a Luna Viva'}
+              {authModalTab === 'register'
+                ? 'Crear Cuenta en Luna Viva'
+                : 'Bienvenida a Luna Viva'}
             </h2>
             <p style={{ fontSize: '12.5px', color: '#777', margin: 0 }}>
-              {authModalTab === 'admin'
-                ? 'Ingresa tu PIN administrativo para editar el catálogo'
-                : authModalTab === 'register'
-                  ? 'Regístrate para comprar y agilizar tus envíos'
-                  : 'Inicia sesión para gestionar tus compras'}
+              {authModalTab === 'register'
+                ? 'Regístrate para comprar y agilizar tus envíos'
+                : 'Inicia sesión para gestionar tus compras'}
             </p>
           </div>
 
-          {/* Selector de Pestañas */}
+          {/* Selector de Pestañas: Sólo Iniciar Sesión y Registrarse */}
           <div style={{
             display: 'flex',
             backgroundColor: '#F7EDF1',
@@ -206,13 +187,13 @@ export function AuthModal() {
               onClick={() => handleTabChange('login')}
               style={{
                 flex: 1,
-                padding: '8px 4px',
+                padding: '9px 8px',
                 borderRadius: '10px',
                 border: 'none',
                 background: authModalTab === 'login' ? '#FFFFFF' : 'transparent',
                 color: authModalTab === 'login' ? '#3B3537' : '#888',
                 fontWeight: authModalTab === 'login' ? '700' : '500',
-                fontSize: '12.5px',
+                fontSize: '13px',
                 cursor: 'pointer',
                 boxShadow: authModalTab === 'login' ? '0 2px 6px rgba(0,0,0,0.06)' : 'none',
                 transition: 'all 0.2s ease'
@@ -225,42 +206,19 @@ export function AuthModal() {
               onClick={() => handleTabChange('register')}
               style={{
                 flex: 1,
-                padding: '8px 4px',
+                padding: '9px 8px',
                 borderRadius: '10px',
                 border: 'none',
                 background: authModalTab === 'register' ? '#FFFFFF' : 'transparent',
                 color: authModalTab === 'register' ? '#3B3537' : '#888',
                 fontWeight: authModalTab === 'register' ? '700' : '500',
-                fontSize: '12.5px',
+                fontSize: '13px',
                 cursor: 'pointer',
                 boxShadow: authModalTab === 'register' ? '0 2px 6px rgba(0,0,0,0.06)' : 'none',
                 transition: 'all 0.2s ease'
               }}
             >
-              Crear Cuenta
-            </button>
-            <button
-              type="button"
-              onClick={() => handleTabChange('admin')}
-              style={{
-                flex: 1,
-                padding: '8px 4px',
-                borderRadius: '10px',
-                border: 'none',
-                background: authModalTab === 'admin' ? '#FEDDE6' : 'transparent',
-                color: authModalTab === 'admin' ? '#8A5B66' : '#888',
-                fontWeight: authModalTab === 'admin' ? '700' : '500',
-                fontSize: '12px',
-                cursor: 'pointer',
-                boxShadow: authModalTab === 'admin' ? '0 2px 6px rgba(138,91,102,0.15)' : 'none',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '4px',
-                transition: 'all 0.2s ease'
-              }}
-            >
-              <span>👑</span> Admin
+              Registrarse
             </button>
           </div>
 
@@ -279,7 +237,7 @@ export function AuthModal() {
             </div>
           )}
 
-          {/* TAB 1: INICIAR SESIÓN CLIENTE */}
+          {/* TAB 1: INICIAR SESIÓN */}
           {authModalTab === 'login' && (
             <form onSubmit={handleLoginSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               <div>
@@ -343,16 +301,16 @@ export function AuthModal() {
                 type="submit"
                 disabled={loading}
                 style={{
-                  backgroundColor: '#3B3537',
+                  backgroundColor: '#E687B8',
                   color: 'white',
                   padding: '12px',
                   borderRadius: '12px',
                   border: 'none',
                   fontSize: '14px',
-                  fontWeight: '600',
+                  fontWeight: '700',
                   cursor: loading ? 'not-allowed' : 'pointer',
                   marginTop: '4px',
-                  boxShadow: '0 4px 12px rgba(59,53,55,0.2)',
+                  boxShadow: '0 4px 14px rgba(230,135,184,0.35)',
                   transition: 'background 0.2s'
                 }}
               >
@@ -364,7 +322,7 @@ export function AuthModal() {
                 <button
                   type="button"
                   onClick={() => handleTabChange('register')}
-                  style={{ background: 'none', border: 'none', color: '#8A5B66', fontSize: '12.5px', fontWeight: '700', cursor: 'pointer', padding: 0 }}
+                  style={{ background: 'none', border: 'none', color: '#D45486', fontSize: '12.5px', fontWeight: '700', cursor: 'pointer', padding: 0 }}
                 >
                   Regístrate aquí
                 </button>
@@ -372,7 +330,7 @@ export function AuthModal() {
             </form>
           )}
 
-          {/* TAB 2: CREAR CUENTA CLIENTE */}
+          {/* TAB 2: REGISTRARSE */}
           {authModalTab === 'register' && (
             <form onSubmit={handleRegisterSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div>
@@ -380,7 +338,7 @@ export function AuthModal() {
                   Nombre Completo *
                 </label>
                 <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                  <User size={16} color="#999" style={{ position: 'absolute', left: '12px' }} />
+                  <User size={15} color="#999" style={{ position: 'absolute', left: '10px' }} />
                   <input
                     type="text"
                     required
@@ -389,10 +347,10 @@ export function AuthModal() {
                     onChange={(e) => setRegName(e.target.value)}
                     style={{
                       width: '100%',
-                      padding: '9px 12px 9px 36px',
+                      padding: '9px 10px 9px 32px',
                       borderRadius: '12px',
                       border: '1px solid #E5E0E2',
-                      fontSize: '13px',
+                      fontSize: '12.5px',
                       outline: 'none',
                       boxSizing: 'border-box'
                     }}
@@ -405,19 +363,19 @@ export function AuthModal() {
                   Correo Electrónico *
                 </label>
                 <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                  <Mail size={16} color="#999" style={{ position: 'absolute', left: '12px' }} />
+                  <Mail size={15} color="#999" style={{ position: 'absolute', left: '10px' }} />
                   <input
                     type="email"
                     required
-                    placeholder="ejemplo@correo.com"
+                    placeholder="tu@correo.com"
                     value={regEmail}
                     onChange={(e) => setRegEmail(e.target.value)}
                     style={{
                       width: '100%',
-                      padding: '9px 12px 9px 36px',
+                      padding: '9px 10px 9px 32px',
                       borderRadius: '12px',
                       border: '1px solid #E5E0E2',
-                      fontSize: '13px',
+                      fontSize: '12.5px',
                       outline: 'none',
                       boxSizing: 'border-box'
                     }}
@@ -425,48 +383,48 @@ export function AuthModal() {
                 </div>
               </div>
 
-              <div>
-                <label style={{ fontSize: '12px', fontWeight: '600', color: '#444', marginBottom: '4px', display: 'block' }}>
-                  Contraseña (mínimo 6 caracteres) *
-                </label>
-                <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                  <Lock size={16} color="#999" style={{ position: 'absolute', left: '12px' }} />
-                  <input
-                    type={showRegPassword ? 'text' : 'password'}
-                    required
-                    placeholder="••••••••"
-                    value={regPassword}
-                    onChange={(e) => setRegPassword(e.target.value)}
-                    style={{
-                      width: '100%',
-                      padding: '9px 38px 9px 36px',
-                      borderRadius: '12px',
-                      border: '1px solid #E5E0E2',
-                      fontSize: '13px',
-                      outline: 'none',
-                      boxSizing: 'border-box'
-                    }}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowRegPassword(!showRegPassword)}
-                    style={{ position: 'absolute', right: '12px', background: 'none', border: 'none', cursor: 'pointer', color: '#999', padding: 0 }}
-                  >
-                    {showRegPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                  </button>
-                </div>
-              </div>
-
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                 <div>
                   <label style={{ fontSize: '12px', fontWeight: '600', color: '#444', marginBottom: '4px', display: 'block' }}>
-                    Teléfono WhatsApp
+                    Contraseña *
+                  </label>
+                  <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                    <Lock size={15} color="#999" style={{ position: 'absolute', left: '10px' }} />
+                    <input
+                      type={showRegPassword ? 'text' : 'password'}
+                      required
+                      placeholder="Mín. 6 letras"
+                      value={regPassword}
+                      onChange={(e) => setRegPassword(e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: '9px 30px 9px 32px',
+                        borderRadius: '12px',
+                        border: '1px solid #E5E0E2',
+                        fontSize: '12.5px',
+                        outline: 'none',
+                        boxSizing: 'border-box'
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowRegPassword(!showRegPassword)}
+                      style={{ position: 'absolute', right: '8px', background: 'none', border: 'none', cursor: 'pointer', color: '#999', padding: 0 }}
+                    >
+                      {showRegPassword ? <EyeOff size={14} /> : <Eye size={14} />}
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <label style={{ fontSize: '12px', fontWeight: '600', color: '#444', marginBottom: '4px', display: 'block' }}>
+                    Teléfono / WhatsApp
                   </label>
                   <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
                     <Phone size={15} color="#999" style={{ position: 'absolute', left: '10px' }} />
                     <input
                       type="tel"
-                      placeholder="321..."
+                      placeholder="321 000 0000"
                       value={regPhone}
                       onChange={(e) => setRegPhone(e.target.value)}
                       style={{
@@ -481,19 +439,22 @@ export function AuthModal() {
                     />
                   </div>
                 </div>
+              </div>
 
-                <div>
-                  <label style={{ fontSize: '12px', fontWeight: '600', color: '#444', marginBottom: '4px', display: 'block' }}>
-                    Ciudad
-                  </label>
+              <div>
+                <label style={{ fontSize: '12px', fontWeight: '600', color: '#444', marginBottom: '4px', display: 'block' }}>
+                  Ciudad
+                </label>
+                <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                  <MapPin size={15} color="#999" style={{ position: 'absolute', left: '10px' }} />
                   <input
                     type="text"
-                    placeholder="Calarcá, Armenia..."
+                    placeholder="Ej. Calarcá, Armenia..."
                     value={regCity}
                     onChange={(e) => setRegCity(e.target.value)}
                     style={{
                       width: '100%',
-                      padding: '9px 10px',
+                      padding: '9px 10px 9px 32px',
                       borderRadius: '12px',
                       border: '1px solid #E5E0E2',
                       fontSize: '12.5px',
@@ -532,16 +493,16 @@ export function AuthModal() {
                 type="submit"
                 disabled={loading}
                 style={{
-                  backgroundColor: '#8A5B66',
+                  backgroundColor: '#E687B8',
                   color: 'white',
                   padding: '12px',
                   borderRadius: '12px',
                   border: 'none',
                   fontSize: '14px',
-                  fontWeight: '600',
+                  fontWeight: '700',
                   cursor: loading ? 'not-allowed' : 'pointer',
                   marginTop: '4px',
-                  boxShadow: '0 4px 12px rgba(138,91,102,0.25)',
+                  boxShadow: '0 4px 14px rgba(230,135,184,0.35)',
                   transition: 'background 0.2s'
                 }}
               >
@@ -553,106 +514,11 @@ export function AuthModal() {
                 <button
                   type="button"
                   onClick={() => handleTabChange('login')}
-                  style={{ background: 'none', border: 'none', color: '#3B3537', fontSize: '12.5px', fontWeight: '700', cursor: 'pointer', padding: 0 }}
+                  style={{ background: 'none', border: 'none', color: '#D45486', fontSize: '12.5px', fontWeight: '700', cursor: 'pointer', padding: 0 }}
                 >
                   Inicia sesión
                 </button>
               </div>
-            </form>
-          )}
-
-          {/* TAB 3: ACCESO ADMINISTRADORA */}
-          {authModalTab === 'admin' && (
-            <form onSubmit={handleAdminSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <div style={{
-                backgroundColor: '#FFF5F8',
-                border: '1px solid #FEDDE6',
-                borderRadius: '14px',
-                padding: '14px',
-                display: 'flex',
-                gap: '12px',
-                alignItems: 'center'
-              }}>
-                <div style={{
-                  backgroundColor: '#FEDDE6',
-                  borderRadius: '10px',
-                  width: '38px',
-                  height: '38px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '20px',
-                  flexShrink: 0
-                }}>
-                  👑
-                </div>
-                <div>
-                  <h4 style={{ margin: '0 0 2px', fontSize: '13px', fontWeight: '700', color: '#3B3537' }}>
-                    Panel Exclusivo de Edición
-                  </h4>
-                  <p style={{ margin: 0, fontSize: '11.5px', color: '#777', lineHeight: 1.3 }}>
-                    Te permite modificar las fotos, descripciones, beneficios y precios de cualquier producto del catálogo en tiempo real.
-                  </p>
-                </div>
-              </div>
-
-              <div>
-                <label style={{ fontSize: '12px', fontWeight: '600', color: '#444', marginBottom: '6px', display: 'block' }}>
-                  PIN o Clave de Administradora
-                </label>
-                <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                  <ShieldCheck size={18} color="#8A5B66" style={{ position: 'absolute', left: '12px' }} />
-                  <input
-                    type={showAdminPin ? 'text' : 'password'}
-                    required
-                    placeholder="Ingresa PIN (5924)"
-                    value={adminPin}
-                    onChange={(e) => setAdminPin(e.target.value)}
-                    style={{
-                      width: '100%',
-                      padding: '12px 40px 12px 38px',
-                      borderRadius: '12px',
-                      border: '1.5px solid #FEDDE6',
-                      fontSize: '15px',
-                      fontWeight: '600',
-                      letterSpacing: showAdminPin ? 'normal' : '0.2em',
-                      outline: 'none',
-                      boxSizing: 'border-box'
-                    }}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowAdminPin(!showAdminPin)}
-                    style={{ position: 'absolute', right: '12px', background: 'none', border: 'none', cursor: 'pointer', color: '#999', padding: 0 }}
-                  >
-                    {showAdminPin ? <EyeOff size={16} /> : <Eye size={16} />}
-                  </button>
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                disabled={loading}
-                style={{
-                  backgroundColor: '#8A5B66',
-                  color: 'white',
-                  padding: '13px',
-                  borderRadius: '12px',
-                  border: 'none',
-                  fontSize: '14px',
-                  fontWeight: '700',
-                  cursor: loading ? 'not-allowed' : 'pointer',
-                  boxShadow: '0 4px 15px rgba(138,91,102,0.3)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '8px',
-                  transition: 'background 0.2s'
-                }}
-              >
-                <span>👑</span>
-                <span>{loading ? 'Verificando...' : 'Ingresar al Editor de Catálogo'}</span>
-              </button>
             </form>
           )}
         </motion.div>

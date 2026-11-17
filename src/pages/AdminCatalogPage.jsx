@@ -327,7 +327,7 @@ export function AdminCatalogPage() {
             Panel de Administradora
           </h2>
           <p style={{ fontSize: '13px', color: '#777', margin: '0 0 24px', lineHeight: 1.4 }}>
-            Ingresa tu PIN administrativo para acceder a la edición de fotos y descripciones del catálogo.
+            Ingresa tu contraseña de Administradora (o PIN) para acceder a la edición de fotos y descripciones del catálogo.
           </p>
 
           {pinError && (
@@ -345,12 +345,12 @@ export function AdminCatalogPage() {
 
           <form onSubmit={handleAdminLoginSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-              <Lock size={18} color="#8A5B66" style={{ position: 'absolute', left: '14px' }} />
+              <Lock size={18} color="#E687B8" style={{ position: 'absolute', left: '14px' }} />
               <input
                 type="password"
                 required
                 autoFocus
-                placeholder="Ingresa tu PIN (5924)"
+                placeholder="Ingresa tu contraseña o PIN"
                 value={pinInput}
                 onChange={(e) => setPinInput(e.target.value)}
                 style={{
@@ -358,10 +358,9 @@ export function AdminCatalogPage() {
                   padding: '13px 14px 13px 42px',
                   borderRadius: '12px',
                   border: '1.5px solid #FEDDE6',
-                  fontSize: '16px',
+                  fontSize: '15px',
                   fontWeight: '600',
                   outline: 'none',
-                  letterSpacing: '0.2em',
                   boxSizing: 'border-box'
                 }}
               />
@@ -371,7 +370,7 @@ export function AdminCatalogPage() {
               type="submit"
               disabled={loginLoading}
               style={{
-                backgroundColor: '#8A5B66',
+                backgroundColor: '#E687B8',
                 color: 'white',
                 padding: '13px',
                 borderRadius: '12px',
@@ -379,7 +378,7 @@ export function AdminCatalogPage() {
                 fontSize: '14px',
                 fontWeight: '700',
                 cursor: loginLoading ? 'not-allowed' : 'pointer',
-                boxShadow: '0 4px 12px rgba(138,91,102,0.3)',
+                boxShadow: '0 4px 14px rgba(230,135,184,0.35)',
                 transition: 'background 0.2s'
               }}
             >

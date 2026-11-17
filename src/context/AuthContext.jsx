@@ -6,6 +6,8 @@ const SUPABASE_URL = "https://oytdvgeyvuxqafxmgtcp.supabase.co/rest/v1";
 const SUPABASE_KEY = "sb_publishable__oG8sW5N2U7Bg018wfPL3w_3xWijWth";
 
 const ADMIN_PIN = "5924";
+const ADMIN_EMAIL = "lunaviva423@gmail.com";
+const ADMIN_PASSWORD = "lqur@123";
 const STORAGE_KEY_CUSTOMER = "luna_viva_customer_session_v1";
 const STORAGE_KEY_ADMIN = "luna_viva_admin_session_v1";
 
@@ -49,6 +51,10 @@ export function AuthProvider({ children }) {
     setLoading(true);
     try {
       const cleanEmail = email.trim().toLowerCase();
+      
+      if (cleanEmail === ADMIN_EMAIL) {
+        throw new Error('Este correo corresponde a la cuenta de Administradora. Inicia sesión en la pestaña "Iniciar Sesión".');
+      }
       
       // 1. Verificar si ya existe una cuenta con este correo
       const checkRes = await fetch(`${SUPABASE_URL}/accounts?channel=eq.web_customer&select=*`, {
@@ -127,11 +133,32 @@ export function AuthProvider({ children }) {
     }
   };
 
-  // Iniciar sesión cliente
+  // Iniciar sesión cliente o Administradora
   const loginCustomer = async (email, password) => {
     setLoading(true);
     try {
-      const cleanEmail = email.trim().toLowerCase();
+      const cleanEmail = (email || '').trim().toLowerCase();
+      const cleanPassword = (password || '').trim();
+
+      // 1. Verificación directa de cuenta Administradora (Laura)
+      if (cleanEmail === ADMIN_EMAIL) {
+        if (cleanPassword === ADMIN_PASSWORD || cleanPassword === ADMIN_PIN) {
+          const adminUser = {
+            id: 'admin_laura',
+            name: 'Laura (Administradora)',
+            email: ADMIN_EMAIL,
+            role: 'admin'
+          };
+
+          localStorage.setItem(STORAGE_KEY_ADMIN, JSON.stringify(adminUser));
+          localStorage.removeItem(STORAGE_KEY_CUSTOMER);
+          setCurrentUser(adminUser);
+          closeAuthModal();
+          return { success: true, user: adminUser };
+        } else {
+          throw new Error('Contraseña de Administradora incorrecta.');
+        }
+      }
       
       const res = await fetch(`${SUPABASE_URL}/accounts?channel=eq.web_customer&select=*`, {
         headers: {
@@ -151,7 +178,7 @@ export function AuthProvider({ children }) {
         try {
           const meta = JSON.parse(acc.notes || '{}');
           if ((meta.email || '').toLowerCase() === cleanEmail) {
-            if (meta.password === password) {
+            if (meta.password === cleanPassword) {
               matched = {
                 id: acc.id,
                 name: acc.customerName,
@@ -192,11 +219,11 @@ export function AuthProvider({ children }) {
     setLoading(true);
     try {
       const cleanPin = (pinOrPassword || '').trim();
-      if (cleanPin === ADMIN_PIN || cleanPin.toLowerCase() === 'admin5924' || cleanPin.toLowerCase() === 'laura5924') {
+      if (cleanPin === ADMIN_PIN || cleanPin === ADMIN_PASSWORD || cleanPin.toLowerCase() === 'admin5924' || cleanPin.toLowerCase() === 'laura5924') {
         const adminUser = {
           id: 'admin_laura',
           name: 'Laura (Administradora)',
-          email: 'admin@lunaviva.com',
+          email: ADMIN_EMAIL,
           role: 'admin'
         };
 
@@ -206,7 +233,7 @@ export function AuthProvider({ children }) {
         closeAuthModal();
         return { success: true, user: adminUser };
       } else {
-        throw new Error('PIN o credencial de Administradora incorrecta.');
+        throw new Error('PIN o contraseña de Administradora incorrecta.');
       }
     } catch (err) {
       return { success: false, error: err.message };
