@@ -67,8 +67,10 @@ export function Header() {
 
   const searchResults = searchQuery.trim()
     ? products.filter(p =>
-      p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.brand.toLowerCase().includes(searchQuery.toLowerCase())
+      !p.hidden && (
+        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.brand.toLowerCase().includes(searchQuery.toLowerCase())
+      )
     ).slice(0, 5)
     : [];
 

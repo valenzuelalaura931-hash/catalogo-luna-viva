@@ -19,6 +19,7 @@ function enrichWithCanonical(p) {
   return {
     ...canon,
     ...p,
+    hidden: p.hidden !== undefined ? p.hidden : Boolean(canon.hidden),
     mainImage: p.mainImage || canon.mainImage,
     images: Array.isArray(p.images) ? p.images : (canon.images || [canon.mainImage]),
     description: p.description || canon.description,
@@ -82,6 +83,10 @@ export function ProductsProvider({ children }) {
                 } catch (e) {}
               }
 
+              const isHidden = customMeta?.hidden !== undefined
+                ? Boolean(customMeta.hidden)
+                : Boolean(prod.hidden || canon?.hidden || false);
+
               const resolvedMainImage = customMeta?.mainImage || prod.mainImage || canon?.mainImage;
               const resolvedImages = (customMeta?.images && Array.isArray(customMeta.images))
                 ? customMeta.images
@@ -100,6 +105,7 @@ export function ProductsProvider({ children }) {
                 stock: stock,
                 available: stock > 0,
                 isOut: stock <= 0,
+                hidden: isHidden,
                 mainImage: resolvedMainImage,
                 images: resolvedImages,
                 description: resolvedDesc,
@@ -121,6 +127,10 @@ export function ProductsProvider({ children }) {
                   } catch (e) {}
                 }
 
+                const isHidden = customMeta?.hidden !== undefined
+                  ? Boolean(customMeta.hidden)
+                  : Boolean(canon?.hidden || false);
+
                 updated.push({
                   id: r.id,
                   sku: r.id,
@@ -133,6 +143,7 @@ export function ProductsProvider({ children }) {
                   stock: stock,
                   available: stock > 0,
                   isOut: stock <= 0,
+                  hidden: isHidden,
                   description: customMeta?.description || canon?.description || `${r.name} de la marca ${r.brand}. Producto 100% original en Luna Viva Boutique.`,
                   benefits: customMeta?.benefits || canon?.benefits || 'Fórmula certificada de alta fijación y calidad.',
                   howToUse: customMeta?.howToUse || canon?.howToUse || 'Aplicar según tu rutina de belleza.',
@@ -246,12 +257,18 @@ export function ProductsProvider({ children }) {
 
   const updateProductDetails = async (productId, fields) => {
     try {
+      const existingProduct = products.find(p => p.id === productId);
+      const isHidden = fields.hidden !== undefined
+        ? Boolean(fields.hidden)
+        : Boolean(existingProduct?.hidden || false);
+
       const notesJson = JSON.stringify({
-        description: fields.description || '',
-        benefits: fields.benefits || '',
-        howToUse: fields.howToUse || '',
-        mainImage: fields.mainImage || '',
-        images: Array.isArray(fields.images) ? fields.images : (fields.mainImage ? [fields.mainImage] : [])
+        description: fields.description !== undefined ? fields.description : (existingProduct?.description || ''),
+        benefits: fields.benefits !== undefined ? fields.benefits : (existingProduct?.benefits || ''),
+        howToUse: fields.howToUse !== undefined ? fields.howToUse : (existingProduct?.howToUse || ''),
+        mainImage: fields.mainImage !== undefined ? fields.mainImage : (existingProduct?.mainImage || ''),
+        images: Array.isArray(fields.images) ? fields.images : (existingProduct?.images || (fields.mainImage ? [fields.mainImage] : [])),
+        hidden: isHidden
       });
 
       const patchPayload = {
@@ -289,6 +306,7 @@ export function ProductsProvider({ children }) {
               stock: nextStock,
               available: nextStock > 0,
               isOut: nextStock <= 0,
+              hidden: isHidden,
               description: fields.description !== undefined ? fields.description : p.description,
               benefits: fields.benefits !== undefined ? fields.benefits : p.benefits,
               howToUse: fields.howToUse !== undefined ? fields.howToUse : p.howToUse,

@@ -7,8 +7,8 @@ import { useProducts } from '../../context/ProductsContext';
 export function FeaturedProducts() {
   const navigate = useNavigate();
   const { products: allProducts } = useProducts();
-  // Get 4 bestsellers in stock
-  const products = allProducts.filter(p => p.stock > 0 && p.isBestseller).slice(0, 4);
+  // Get 4 bestsellers in stock that are not hidden
+  const products = allProducts.filter(p => !p.hidden && p.stock > 0 && p.isBestseller).slice(0, 4);
 
   return (
     <section style={{ padding: 'var(--space-16) 0', backgroundColor: 'var(--rosa-suave)' }}>

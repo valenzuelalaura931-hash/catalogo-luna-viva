@@ -50,6 +50,8 @@ export function AdminCatalogPage() {
   // Campos del formulario de edición
   const [editDescription, setEditDescription] = useState(() => editingProduct?.description || '');
   const [editMainImage, setEditMainImage] = useState(() => editingProduct?.mainImage || '');
+  const [editHidden, setEditHidden] = useState(() => Boolean(editingProduct?.hidden));
+  const [visibilityFilter, setVisibilityFilter] = useState('Todas');
   const [editImages, setEditImages] = useState(() => {
     if (!editingProduct) return [];
     const imgs = [];
@@ -84,20 +86,24 @@ export function AdminCatalogPage() {
     return products.filter(p => {
       const matchCat = selectedCategory === 'Todas' || p.category === selectedCategory;
       const matchBrand = selectedBrand === 'Todas' || p.brand === selectedBrand;
+      const matchVis = visibilityFilter === 'Todas' ||
+        (visibilityFilter === 'Visibles' && !p.hidden) ||
+        (visibilityFilter === 'Ocultos' && p.hidden);
       const q = searchQuery.toLowerCase().trim();
       const matchQ = !q ||
         (p.name && p.name.toLowerCase().includes(q)) ||
         (p.brand && p.brand.toLowerCase().includes(q)) ||
         (p.id && p.id.toLowerCase().includes(q)) ||
         (p.barcode && p.barcode.toLowerCase().includes(q));
-      return matchCat && matchBrand && matchQ;
+      return matchCat && matchBrand && matchQ && matchVis;
     });
-  }, [products, selectedCategory, selectedBrand, searchQuery]);
+  }, [products, selectedCategory, selectedBrand, searchQuery, visibilityFilter]);
 
   // Abrir editor para un producto y cargar TODAS sus fotos existentes y descripción unificada
   const handleStartEdit = (prod) => {
     if (!prod) return;
     setEditingProduct(prod);
+    setEditHidden(Boolean(prod.hidden));
 
     // Obtener descripción unificada del producto (compartida entre todos los tonos)
     const variantsInfo = findProductVariants(products, prod.id);
@@ -276,7 +282,8 @@ export function AdminCatalogPage() {
       const res = await updateProductDetails(editingProduct.id, {
         description: editDescription.trim(),
         mainImage: cleanMain,
-        images: cleanedImages
+        images: cleanedImages,
+        hidden: editHidden
       });
 
       // Si el producto tiene variantes de tono (mismo producto base), sincronizar también las fotos de la galería en sus variantes hermanas
@@ -293,7 +300,7 @@ export function AdminCatalogPage() {
       }
 
       if (res.success) {
-        showToast('✓ ¡Descripción y fotos actualizadas con éxito!', 'success');
+        showToast(editHidden ? '✓ Guardado: El producto ahora está OCULTO en la tienda.' : '✓ ¡Datos y fotos actualizados con éxito!', 'success');
         setEditingProduct(null);
       } else {
         showToast(res.error || 'Error al guardar cambios.', 'error');
@@ -654,6 +661,48 @@ export function AdminCatalogPage() {
                       </span>
                     </div>
                   </div>
+                </div>
+
+                {/* Control de Visibilidad en el Catálogo */}
+                <div style={{
+                  backgroundColor: editHidden ? '#FFF5F5' : '#F0FDF4',
+                  border: editHidden ? '1px solid #FECACA' : '1px solid #BBF7D0',
+                  borderRadius: '12px',
+                  padding: '12px 16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: '12px',
+                  flexWrap: 'wrap'
+                }}>
+                  <div>
+                    <strong style={{ fontSize: '13px', color: editHidden ? '#991B1B' : '#166534', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      {editHidden ? '🚫 Producto Oculto' : '👁️ Producto Visible en Tienda'}
+                    </strong>
+                    <p style={{ margin: '2px 0 0', fontSize: '11.5px', color: '#666' }}>
+                      {editHidden
+                        ? 'Este producto NO aparece en el catálogo ni en las búsquedas de clientes.'
+                        : 'Los clientes pueden ver y comprar este producto normalmente en la tienda.'}
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setEditHidden(!editHidden)}
+                    style={{
+                      padding: '8px 14px',
+                      borderRadius: '8px',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontSize: '12.5px',
+                      fontWeight: '700',
+                      backgroundColor: editHidden ? '#EF4444' : '#10B981',
+                      color: '#ffffff',
+                      boxShadow: '0 2px 6px rgba(0,0,0,0.08)',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    {editHidden ? 'Hacer Visible' : 'Ocultar en Tienda'}
+                  </button>
                 </div>
 
                 <div>
@@ -1127,6 +1176,28 @@ export function AdminCatalogPage() {
               </select>
             </div>
 
+            {/* Filtro Visibilidad */}
+            <div style={{ minWidth: '150px' }}>
+              <select
+                value={visibilityFilter}
+                onChange={(e) => setVisibilityFilter(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '9px 12px',
+                  borderRadius: '12px',
+                  border: '1px solid #E5E0E2',
+                  fontSize: '13px',
+                  backgroundColor: '#fff',
+                  outline: 'none',
+                  cursor: 'pointer'
+                }}
+              >
+                <option value="Todas">Visibilidad: Todos</option>
+                <option value="Visibles">Visibilidad: Visibles en Tienda</option>
+                <option value="Ocultos">Visibilidad: Ocultos (🚫)</option>
+              </select>
+            </div>
+
             <button
               onClick={() => refreshProducts()}
               title="Refrescar datos desde Supabase"
@@ -1209,6 +1280,18 @@ export function AdminCatalogPage() {
                       <span style={{ color: prod.stock > 0 ? '#10B981' : '#EF4444', fontWeight: '500' }}>
                         Stock: {prod.stock}
                       </span>
+                      {prod.hidden && (
+                        <span style={{
+                          backgroundColor: '#FEE2E2',
+                          color: '#991B1B',
+                          padding: '1px 6px',
+                          borderRadius: '4px',
+                          fontSize: '10px',
+                          fontWeight: '700'
+                        }}>
+                          OCULTO
+                        </span>
+                      )}
                     </div>
                   </div>
                   <button

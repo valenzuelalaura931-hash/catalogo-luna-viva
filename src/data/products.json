@@ -4348,6 +4348,7 @@
     "stock": 1,
     "available": true,
     "isOut": false,
+    "hidden": true,
     "description": "Espuma con cepillo de rosas de la marca Bioaqua. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",

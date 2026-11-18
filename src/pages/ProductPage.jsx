@@ -31,12 +31,12 @@ export function ProductPage() {
 
   const product = products.find(p => p.id === id);
 
-  if (!product) {
+  if (!product || (product.hidden && !isAdmin)) {
     return (
       <div style={{ padding: 'var(--space-16) 0', textAlign: 'center', backgroundColor: 'var(--bg-primary)', minHeight: '100vh' }}>
         <div className="container">
-          <h2>Producto no encontrado</h2>
-          <p style={{ marginBottom: 'var(--space-6)' }}>Lo sentimos, el producto que buscas no existe.</p>
+          <h2>Producto no disponible</h2>
+          <p style={{ marginBottom: 'var(--space-6)' }}>Este producto no está disponible en este momento en nuestra tienda.</p>
           <Link to="/shop">
             <Button variant="primary">Volver a la tienda</Button>
           </Link>
@@ -130,7 +130,7 @@ export function ProductPage() {
   const relatedProducts = useMemo(() => {
     const siblingIds = productVariantsInfo ? new Set(productVariantsInfo.variants.map(v => v.id)) : new Set([product.id]);
     return products
-      .filter(p => p.category === product.category && !siblingIds.has(p.id))
+      .filter(p => !p.hidden && p.category === product.category && !siblingIds.has(p.id))
       .slice(0, 4);
   }, [products, product, productVariantsInfo]);
 
@@ -143,6 +143,24 @@ export function ProductPage() {
   return (
     <div style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', padding: 'var(--space-10) 0' }}>
       <div className="container">
+
+        {product.hidden && (
+          <div style={{
+            backgroundColor: '#FFF5F5',
+            border: '1px solid #FECACA',
+            color: '#B91C1C',
+            padding: '10px 16px',
+            borderRadius: '12px',
+            fontSize: '13px',
+            fontWeight: '600',
+            marginBottom: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}>
+            🚫 Este producto está <strong>OCULTO</strong> en la tienda pública (solo visible para ti como Administradora).
+          </div>
+        )}
 
         {/* Botón de retroceso inteligente (mantiene filtros, búsqueda y scroll) */}
         <button

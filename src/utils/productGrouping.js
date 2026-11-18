@@ -35,12 +35,14 @@ export function parseProductVariant(product) {
 /**
  * Agrupa una lista de productos en tarjetas únicas con variantes de tono
  */
-export function groupProducts(productsList) {
+export function groupProducts(productsList, includeHidden = false) {
   if (!Array.isArray(productsList)) return [];
+
+  const filteredList = includeHidden ? productsList : productsList.filter(p => !p.hidden);
 
   const groupsMap = new Map();
 
-  for (const product of productsList) {
+  for (const product of filteredList) {
     const { baseName, toneName } = parseProductVariant(product);
     const brand = (product.brand || 'Luna Viva').trim();
     const groupKey = `${brand.toLowerCase()}___${baseName.toLowerCase()}`;
@@ -169,6 +171,8 @@ export function findProductVariants(productsList, targetProductId) {
   const baseLower = baseName.toLowerCase();
 
   const siblings = productsList.filter(p => {
+    // Si una variante está oculta y no es el producto actual que se está inspeccionando, omitirla
+    if (p.hidden && p.id !== targetProductId) return false;
     const pBrand = (p.brand || 'Luna Viva').trim().toLowerCase();
     const { baseName: pBase } = parseProductVariant(p);
     return pBrand === brand && pBase.toLowerCase() === baseLower;

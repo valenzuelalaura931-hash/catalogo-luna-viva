@@ -126,19 +126,24 @@ export function ShopPage() {
     updateFilters('Todas', 'Todas', '', 24);
   };
 
+  // Productos visibles al público (excluyendo los ocultos)
+  const activeCatalogProducts = useMemo(() => {
+    return products.filter(p => !p.hidden);
+  }, [products]);
+
   // Agrupar productos que tengan el mismo nombre y pertenezcan a la misma marca en un solo card con tonos
   const groupedProducts = useMemo(() => {
-    return groupProducts(products);
-  }, [products]);
+    return groupProducts(activeCatalogProducts);
+  }, [activeCatalogProducts]);
 
-  // Extraer categorías y marcas únicas de los datos agrupados
+  // Extraer categorías y marcas únicas de los datos visibles
   const categories = useMemo(() => {
-    return [...new Set(products.map(p => p.category))].filter(Boolean);
-  }, [products]);
+    return [...new Set(activeCatalogProducts.map(p => p.category))].filter(Boolean);
+  }, [activeCatalogProducts]);
 
   const brands = useMemo(() => {
-    return [...new Set(products.map(p => p.brand))].filter(Boolean).sort();
-  }, [products]);
+    return [...new Set(activeCatalogProducts.map(p => p.brand))].filter(Boolean).sort();
+  }, [activeCatalogProducts]);
 
   // Filtrar productos agrupados (disponibles siempre primero, agotados de último)
   const filteredProducts = useMemo(() => {
