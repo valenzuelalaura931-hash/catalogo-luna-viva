@@ -52,6 +52,18 @@ export function ProductPage() {
 
   const { baseName: cleanBaseTitle, toneName: currentToneName } = parseProductVariant(product);
 
+  // Descripción unificada para el producto completo (no cambia al seleccionar otro tono)
+  const displayDescription = useMemo(() => {
+    if (productVariantsInfo?.description) return productVariantsInfo.description;
+    const isCustomDesc = (d) => Boolean(d && typeof d === 'string' && !d.includes('de la marca') && d.length > 20);
+    if (isCustomDesc(product.description)) return product.description;
+    if (productVariantsInfo?.variants) {
+      const found = productVariantsInfo.variants.find(v => isCustomDesc(v.description));
+      if (found?.description) return found.description;
+    }
+    return product.description;
+  }, [product, productVariantsInfo]);
+
   // Galería de fotos del producto: mostrar estrictamente las fotos de este producto
   const allImages = useMemo(() => {
     const list = [];
@@ -434,7 +446,7 @@ export function ProductPage() {
               </div>
 
               <div style={{ minHeight: '60px', fontSize: 'var(--text-sm)', color: 'var(--text-primary)', opacity: 0.9, lineHeight: 1.6, whiteSpace: 'pre-line' }}>
-                <p>{product.description}</p>
+                <p>{displayDescription}</p>
               </div>
             </div>
 

@@ -147,6 +147,31 @@ export function ProductsProvider({ children }) {
               }
             });
 
+            // Unificar descripciones entre tonos hermanos (misma marca y producto base)
+            const descByGroup = new Map();
+            const toneRegex = /[-–—/]?\s*\btono\b\s*[:#]?\s*(.+)$/i;
+            const isRealDesc = (d) => Boolean(d && typeof d === 'string' && !d.includes('de la marca') && d.length > 20);
+
+            updated.forEach(p => {
+              if (isRealDesc(p.description)) {
+                const match = (p.name || '').match(toneRegex);
+                const baseName = match ? p.name.slice(0, match.index).trim() : (p.name || '').trim();
+                const key = `${(p.brand || '').toLowerCase().trim()}___${baseName.toLowerCase()}`;
+                if (!descByGroup.has(key)) descByGroup.set(key, p.description);
+              }
+            });
+
+            if (descByGroup.size > 0) {
+              updated.forEach(p => {
+                const match = (p.name || '').match(toneRegex);
+                const baseName = match ? p.name.slice(0, match.index).trim() : (p.name || '').trim();
+                const key = `${(p.brand || '').toLowerCase().trim()}___${baseName.toLowerCase()}`;
+                if (descByGroup.has(key)) {
+                  p.description = descByGroup.get(key);
+                }
+              });
+            }
+
             try {
               if (typeof window !== 'undefined' && window.localStorage) {
                 localStorage.setItem('luna_viva_live_products_v5', JSON.stringify(updated));

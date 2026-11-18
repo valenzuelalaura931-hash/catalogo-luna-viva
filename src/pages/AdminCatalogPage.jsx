@@ -93,11 +93,19 @@ export function AdminCatalogPage() {
     });
   }, [products, selectedCategory, selectedBrand, searchQuery]);
 
-  // Abrir editor para un producto y cargar TODAS sus fotos existentes y descripción
+  // Abrir editor para un producto y cargar TODAS sus fotos existentes y descripción unificada
   const handleStartEdit = (prod) => {
     if (!prod) return;
     setEditingProduct(prod);
-    setEditDescription(prod.description || '');
+
+    // Obtener descripción unificada del producto (compartida entre todos los tonos)
+    const variantsInfo = findProductVariants(products, prod.id);
+    const isCustomDesc = (d) => Boolean(d && typeof d === 'string' && !d.includes('de la marca') && d.length > 20);
+    const unifiedDesc = isCustomDesc(prod.description)
+      ? prod.description
+      : (variantsInfo?.variants.find(v => isCustomDesc(v.description))?.description || prod.description || '');
+
+    setEditDescription(unifiedDesc);
 
     const isValid = (u) => Boolean(u && typeof u === 'string' && !u.includes('banner candy bum'));
 

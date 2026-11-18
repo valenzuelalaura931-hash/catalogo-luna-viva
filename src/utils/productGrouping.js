@@ -107,6 +107,31 @@ export function groupProducts(productsList) {
 
     group.images = cleanGroupImages.length > 0 ? cleanGroupImages : [group.mainImage || '/img/Logo luna sin fondo.png'];
 
+    // Unificar descripción para todo el producto (única para todos los tonos)
+    const isCustomDesc = (d) => Boolean(d && typeof d === 'string' && !d.includes('de la marca') && d.length > 20);
+    const unifiedDesc = group.variants.find(v => isCustomDesc(v.description))?.description
+      || defaultVariant?.description
+      || group.description;
+
+    const unifiedBenefits = group.variants.find(v => v.benefits && v.benefits.length > 15)?.benefits
+      || defaultVariant?.benefits
+      || group.benefits;
+
+    const unifiedHowToUse = group.variants.find(v => v.howToUse && v.howToUse.length > 15)?.howToUse
+      || defaultVariant?.howToUse
+      || group.howToUse;
+
+    group.description = unifiedDesc;
+    group.benefits = unifiedBenefits;
+    group.howToUse = unifiedHowToUse;
+
+    // Asignar descripción unificada a cada variante para que no cambie al navegar entre tonos
+    group.variants.forEach(v => {
+      v.description = unifiedDesc;
+      v.benefits = unifiedBenefits;
+      v.howToUse = unifiedHowToUse;
+    });
+
     result.push({
       ...group,
       hasMultipleTones,
@@ -149,10 +174,19 @@ export function findProductVariants(productsList, targetProductId) {
 
   if (siblings.length <= 1) return null;
 
+  // Determinar descripción unificada para todas las variantes hermanas
+  const isCustomDesc = (d) => Boolean(d && typeof d === 'string' && !d.includes('de la marca') && d.length > 20);
+  const unifiedDesc = siblings.find(s => isCustomDesc(s.description))?.description || currentProduct.description;
+  const unifiedBenefits = siblings.find(s => s.benefits && s.benefits.length > 15)?.benefits || currentProduct.benefits;
+  const unifiedHowToUse = siblings.find(s => s.howToUse && s.howToUse.length > 15)?.howToUse || currentProduct.howToUse;
+
   const variants = siblings.map(p => {
     const { toneName } = parseProductVariant(p);
     return {
       ...p,
+      description: unifiedDesc,
+      benefits: unifiedBenefits,
+      howToUse: unifiedHowToUse,
       toneName: toneName || 'Tono'
     };
   });
@@ -164,6 +198,9 @@ export function findProductVariants(productsList, targetProductId) {
   return {
     baseName,
     brand: currentProduct.brand,
+    description: unifiedDesc,
+    benefits: unifiedBenefits,
+    howToUse: unifiedHowToUse,
     variants
   };
 }
