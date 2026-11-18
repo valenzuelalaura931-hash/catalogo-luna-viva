@@ -125,11 +125,13 @@ export function groupProducts(productsList) {
     group.benefits = unifiedBenefits;
     group.howToUse = unifiedHowToUse;
 
-    // Asignar descripción unificada a cada variante para que no cambie al navegar entre tonos
+    // Asignar descripción y fotos unificadas a cada variante para que no cambien al navegar entre tonos
     group.variants.forEach(v => {
       v.description = unifiedDesc;
       v.benefits = unifiedBenefits;
       v.howToUse = unifiedHowToUse;
+      v.images = group.images;
+      v.mainImage = group.images[0] || group.mainImage;
     });
 
     result.push({
@@ -180,6 +182,20 @@ export function findProductVariants(productsList, targetProductId) {
   const unifiedBenefits = siblings.find(s => s.benefits && s.benefits.length > 15)?.benefits || currentProduct.benefits;
   const unifiedHowToUse = siblings.find(s => s.howToUse && s.howToUse.length > 15)?.howToUse || currentProduct.howToUse;
 
+  // Determinar galería de fotos unificada (idéntica para todos los tonos)
+  let bestGallery = [];
+  const sortedByImages = [...siblings].sort((a, b) => (b.images?.length || 0) - (a.images?.length || 0));
+  if (sortedByImages[0]?.images && Array.isArray(sortedByImages[0].images) && sortedByImages[0].images.length > 0) {
+    bestGallery = sortedByImages[0].images;
+  } else if (currentProduct.mainImage) {
+    bestGallery = [currentProduct.mainImage];
+  }
+
+  const cleanUnifiedImages = [];
+  bestGallery.forEach(img => {
+    if (img && !cleanUnifiedImages.includes(img)) cleanUnifiedImages.push(img);
+  });
+
   const variants = siblings.map(p => {
     const { toneName } = parseProductVariant(p);
     return {
@@ -187,6 +203,8 @@ export function findProductVariants(productsList, targetProductId) {
       description: unifiedDesc,
       benefits: unifiedBenefits,
       howToUse: unifiedHowToUse,
+      images: cleanUnifiedImages,
+      mainImage: cleanUnifiedImages[0] || p.mainImage,
       toneName: toneName || 'Tono'
     };
   });
@@ -201,6 +219,8 @@ export function findProductVariants(productsList, targetProductId) {
     description: unifiedDesc,
     benefits: unifiedBenefits,
     howToUse: unifiedHowToUse,
+    images: cleanUnifiedImages,
+    mainImage: cleanUnifiedImages[0] || currentProduct.mainImage,
     variants
   };
 }

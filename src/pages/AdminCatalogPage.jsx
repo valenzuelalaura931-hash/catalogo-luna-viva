@@ -110,19 +110,19 @@ export function AdminCatalogPage() {
     const isValid = (u) => Boolean(u && typeof u === 'string' && !u.includes('banner candy bum'));
 
     // 1. Determinar foto principal existente
-    const rawMain = prod.mainImage || (Array.isArray(prod.images) && prod.images[0]) || '';
+    const rawMain = variantsInfo?.mainImage || prod.mainImage || (Array.isArray(prod.images) && prod.images[0]) || '';
     const mainImg = isValid(rawMain) ? rawMain : '';
     setEditMainImage(mainImg);
 
-    // 2. Recopilar fotos existentes del producto para la galería respetando las fotos editadas
+    // 2. Recopilar fotos existentes del producto para la galería respetando la galería unificada
+    const sourceImages = (variantsInfo?.images && variantsInfo.images.length > 0)
+      ? variantsInfo.images
+      : (Array.isArray(prod.images) && prod.images.length > 0 ? prod.images : (mainImg ? [mainImg] : []));
+
     const collected = [];
-    if (Array.isArray(prod.images) && prod.images.length > 0) {
-      prod.images.forEach(img => {
-        if (isValid(img) && !collected.includes(img)) collected.push(img);
-      });
-    } else if (mainImg) {
-      collected.push(mainImg);
-    }
+    sourceImages.forEach(img => {
+      if (isValid(img) && !collected.includes(img)) collected.push(img);
+    });
     setEditImages(collected);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };

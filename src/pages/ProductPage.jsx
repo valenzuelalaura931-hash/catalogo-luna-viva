@@ -64,8 +64,11 @@ export function ProductPage() {
     return product.description;
   }, [product, productVariantsInfo]);
 
-  // Galería de fotos del producto: mostrar estrictamente las fotos de este producto
+  // Galería de fotos del producto: idéntica y unificada para todos los tonos del producto
   const allImages = useMemo(() => {
+    if (productVariantsInfo?.images && productVariantsInfo.images.length > 0) {
+      return productVariantsInfo.images;
+    }
     const list = [];
     const isValidImg = (url) => {
       if (!url || typeof url !== 'string') return false;
@@ -82,20 +85,17 @@ export function ProductPage() {
       list.push(product.mainImage);
     }
     return list.length > 0 ? list : [isValidImg(product.mainImage) ? product.mainImage : '/img/Logo luna sin fondo.png'];
-  }, [product.mainImage, product.images]);
+  }, [product, productVariantsInfo]);
 
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
   const touchStartX = useRef(null);
 
-  // Sincronizar foto activa si cambia el producto
+  // Mantener el índice de foto seguro dentro de los límites de la galería sin saltar al cambiar de tono
   useEffect(() => {
-    if (product.mainImage) {
-      const idx = allImages.indexOf(product.mainImage);
-      setCurrentImgIndex(idx >= 0 ? idx : 0);
-    } else {
+    if (currentImgIndex >= allImages.length) {
       setCurrentImgIndex(0);
     }
-  }, [product.id, product.mainImage, allImages]);
+  }, [allImages.length, currentImgIndex]);
 
   const activeImage = allImages[currentImgIndex] || allImages[0] || product.mainImage;
   const hasMultipleImages = allImages.length > 1;
