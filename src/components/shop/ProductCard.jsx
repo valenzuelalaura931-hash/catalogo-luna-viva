@@ -40,13 +40,12 @@ export function ProductCard({ product }) {
       if (url.includes('banner candy bum')) return false;
       return true;
     };
-    if (isValidImg(target?.mainImage) && !list.includes(target.mainImage)) {
-      list.push(target.mainImage);
-    }
-    if (Array.isArray(target?.images)) {
+    if (Array.isArray(target?.images) && target.images.length > 0) {
       target.images.forEach(img => {
         if (isValidImg(img) && !list.includes(img)) list.push(img);
       });
+    } else if (isValidImg(target?.mainImage)) {
+      list.push(target.mainImage);
     }
     return list.length > 0 ? list : [product?.mainImage || '/img/Logo luna sin fondo.png'];
   }, [product, selectedVariant]);

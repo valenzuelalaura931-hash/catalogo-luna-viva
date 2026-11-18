@@ -106,13 +106,14 @@ export function AdminCatalogPage() {
     const mainImg = isValid(rawMain) ? rawMain : '';
     setEditMainImage(mainImg);
 
-    // 2. Recopilar todas las fotos existentes del producto para la galería
+    // 2. Recopilar fotos existentes del producto para la galería respetando las fotos editadas
     const collected = [];
-    if (mainImg) collected.push(mainImg);
-    if (Array.isArray(prod.images)) {
+    if (Array.isArray(prod.images) && prod.images.length > 0) {
       prod.images.forEach(img => {
         if (isValid(img) && !collected.includes(img)) collected.push(img);
       });
+    } else if (mainImg) {
+      collected.push(mainImg);
     }
     setEditImages(collected);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -259,11 +260,28 @@ export function AdminCatalogPage() {
     setSaving(true);
 
     try {
+      const variantsInfo = findProductVariants(products, editingProduct.id);
+      const cleanedImages = editImages.filter(Boolean);
+      const cleanMain = editMainImage.trim() || (cleanedImages.length > 0 ? cleanedImages[0] : '');
+
       const res = await updateProductDetails(editingProduct.id, {
         description: editDescription.trim(),
-        mainImage: editMainImage.trim(),
-        images: editImages.filter(Boolean)
+        mainImage: cleanMain,
+        images: cleanedImages
       });
+
+      // Si el producto tiene variantes de tono (mismo producto base), sincronizar también las fotos de la galería en sus variantes hermanas
+      if (res.success && variantsInfo && variantsInfo.variants.length > 1) {
+        for (const sibling of variantsInfo.variants) {
+          if (sibling.id !== editingProduct.id) {
+            await updateProductDetails(sibling.id, {
+              description: editDescription.trim(),
+              mainImage: sibling.mainImage || cleanMain,
+              images: cleanedImages
+            });
+          }
+        }
+      }
 
       if (res.success) {
         showToast('✓ ¡Descripción y fotos actualizadas con éxito!', 'success');

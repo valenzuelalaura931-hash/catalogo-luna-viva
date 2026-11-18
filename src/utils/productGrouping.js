@@ -67,17 +67,6 @@ export function groupProducts(productsList) {
     }
 
     const group = groupsMap.get(groupKey);
-    // Coleccionar todas las fotos de cada variante en la galería del card
-    if (product.mainImage && !group.images.includes(product.mainImage)) {
-      group.images.push(product.mainImage);
-    }
-    if (Array.isArray(product.images)) {
-      product.images.forEach(img => {
-        if (img && !group.images.includes(img)) {
-          group.images.push(img);
-        }
-      });
-    }
 
     group.variants.push({
       ...product,
@@ -98,6 +87,25 @@ export function groupProducts(productsList) {
     // Variante predeterminada: la primera con stock > 0, o la primera
     const defaultVariant = group.variants.find(v => (Number(v.stock) || 0) > 0) || group.variants[0];
     const totalStock = group.variants.reduce((acc, v) => acc + (Number(v.stock) || 0), 0);
+
+    // Colección de fotos limpia y sin duplicados para el card basada en la variante activa
+    const authoritativeImages = (Array.isArray(defaultVariant?.images) && defaultVariant.images.length > 0)
+      ? defaultVariant.images
+      : (Array.isArray(group.images) && group.images.length > 0 ? group.images : [defaultVariant?.mainImage || group.mainImage].filter(Boolean));
+
+    const cleanGroupImages = [];
+    authoritativeImages.forEach(img => {
+      if (img && !cleanGroupImages.includes(img)) cleanGroupImages.push(img);
+    });
+
+    // Agregar fotos de portada de otras variantes solo si son únicas y no repetidas
+    group.variants.forEach(v => {
+      if (v.mainImage && !cleanGroupImages.includes(v.mainImage)) {
+        cleanGroupImages.push(v.mainImage);
+      }
+    });
+
+    group.images = cleanGroupImages.length > 0 ? cleanGroupImages : [group.mainImage || '/img/Logo luna sin fondo.png'];
 
     result.push({
       ...group,

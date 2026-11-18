@@ -62,13 +62,12 @@ export function ProductPage() {
       return true;
     };
 
-    if (isValidImg(product.mainImage) && !list.includes(product.mainImage)) {
-      list.push(product.mainImage);
-    }
-    if (product.images && Array.isArray(product.images)) {
+    if (Array.isArray(product.images) && product.images.length > 0) {
       product.images.forEach(img => {
         if (isValidImg(img) && !list.includes(img)) list.push(img);
       });
+    } else if (isValidImg(product.mainImage)) {
+      list.push(product.mainImage);
     }
     return list.length > 0 ? list : [isValidImg(product.mainImage) ? product.mainImage : '/img/Logo luna sin fondo.png'];
   }, [product.mainImage, product.images]);

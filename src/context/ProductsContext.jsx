@@ -20,7 +20,7 @@ function enrichWithCanonical(p) {
     ...canon,
     ...p,
     mainImage: p.mainImage || canon.mainImage,
-    images: (Array.isArray(p.images) && p.images.length > 0) ? p.images : (canon.images || [canon.mainImage]),
+    images: Array.isArray(p.images) ? p.images : (canon.images || [canon.mainImage]),
     description: p.description || canon.description,
     benefits: p.benefits || canon.benefits,
     howToUse: p.howToUse || canon.howToUse
@@ -35,7 +35,8 @@ export function ProductsProvider({ children }) {
         localStorage.removeItem('luna_viva_live_products_v1');
         localStorage.removeItem('luna_viva_live_products_v2');
         localStorage.removeItem('luna_viva_live_products_v3');
-        const cached = localStorage.getItem('luna_viva_live_products_v4');
+        localStorage.removeItem('luna_viva_live_products_v4');
+        const cached = localStorage.getItem('luna_viva_live_products_v5');
         if (cached) {
           const parsed = JSON.parse(cached);
           if (Array.isArray(parsed) && parsed.length > 0) {
@@ -81,10 +82,10 @@ export function ProductsProvider({ children }) {
                 } catch (e) {}
               }
 
-              const resolvedMainImage = customMeta?.mainImage || canon?.mainImage || prod.mainImage;
-              const resolvedImages = (customMeta?.images && Array.isArray(customMeta.images) && customMeta.images.length > 0)
+              const resolvedMainImage = customMeta?.mainImage || prod.mainImage || canon?.mainImage;
+              const resolvedImages = (customMeta?.images && Array.isArray(customMeta.images))
                 ? customMeta.images
-                : ((canon?.images && canon.images.length > 0) ? canon.images : (prod.images || [prod.mainImage]));
+                : (prod.images && Array.isArray(prod.images) ? prod.images : ((canon?.images && canon.images.length > 0) ? canon.images : [canon?.mainImage || prod.mainImage]));
 
               const resolvedDesc = customMeta?.description || canon?.description || prod.description;
               const resolvedBenefits = customMeta?.benefits || canon?.benefits || prod.benefits;
@@ -136,7 +137,7 @@ export function ProductsProvider({ children }) {
                   benefits: customMeta?.benefits || canon?.benefits || 'Fórmula certificada de alta fijación y calidad.',
                   howToUse: customMeta?.howToUse || canon?.howToUse || 'Aplicar según tu rutina de belleza.',
                   mainImage: customMeta?.mainImage || canon?.mainImage || '/img/Logo luna.png',
-                  images: (customMeta?.images && Array.isArray(customMeta.images) && customMeta.images.length > 0)
+                  images: (customMeta?.images && Array.isArray(customMeta.images))
                     ? customMeta.images
                     : ((canon?.images && canon.images.length > 0) ? canon.images : ['/img/Logo luna.png']),
                   lunaRecommends: canon?.lunaRecommends ?? false,
@@ -148,7 +149,7 @@ export function ProductsProvider({ children }) {
 
             try {
               if (typeof window !== 'undefined' && window.localStorage) {
-                localStorage.setItem('luna_viva_live_products_v4', JSON.stringify(updated));
+                localStorage.setItem('luna_viva_live_products_v5', JSON.stringify(updated));
               }
             } catch (e) {}
 
@@ -237,7 +238,7 @@ export function ProductsProvider({ children }) {
               benefits: fields.benefits !== undefined ? fields.benefits : p.benefits,
               howToUse: fields.howToUse !== undefined ? fields.howToUse : p.howToUse,
               mainImage: fields.mainImage || p.mainImage,
-              images: Array.isArray(fields.images) && fields.images.length > 0 ? fields.images : p.images
+              images: Array.isArray(fields.images) ? fields.images : p.images
             };
           }
           return p;
@@ -245,7 +246,7 @@ export function ProductsProvider({ children }) {
 
         try {
           if (typeof window !== 'undefined' && window.localStorage) {
-            localStorage.setItem('luna_viva_live_products_v4', JSON.stringify(next));
+            localStorage.setItem('luna_viva_live_products_v5', JSON.stringify(next));
           }
         } catch (e) {}
 
