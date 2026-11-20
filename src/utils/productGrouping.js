@@ -4,13 +4,62 @@
  */
 
 /**
+ * Formatea limpiamente nombres de extractos / variantes
+ */
+export function formatExtractName(raw) {
+  if (!raw) return '';
+  let str = raw.trim().replace(/^(?:de|con)\s+/i, '').trim();
+  const lower = str.toLowerCase();
+  if (lower.includes('hialur') && lower.includes('rosa')) return 'Rosas y Ácido Hialurónico';
+  if (lower.includes('hialur')) return 'Ácido Hialurónico';
+  if (lower.includes('vitamina c')) return 'Vitamina C';
+  if (lower.includes('arandano') || lower.includes('arándano')) return 'Arándanos';
+  if (lower.includes('durazno') || lower.includes('peach')) return 'Durazno';
+  if (lower.includes('aloe') || lower.includes('sabila')) return 'Aloe Vera';
+  if (lower.includes('arroz') || lower.includes('rice')) return 'Arroz';
+  if (lower.includes('pepino')) return 'Pepino';
+  if (lower.includes('aguacate') || lower.includes('avocado')) return 'Aguacate';
+  if (lower.includes('colageno') || lower.includes('colágeno')) return 'Colágeno';
+
+  return str.split(/\s+/).map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+}
+
+/**
  * Parsea el nombre del producto para separar el nombre base de la variante/tono
  */
 export function parseProductVariant(product) {
-  if (!product || !product.name) return { baseName: '', toneName: null };
+  if (!product || !product.name) return { baseName: '', toneName: null, isTone: true };
   const name = product.name.trim();
+  const brand = (product.brand || '').trim().toLowerCase();
 
-  // Coincide con patrones como:
+  // 1. Detección especial para Mascarillas en Velo (Bioaqua u otras marcas):
+  // "Mascarilla en velo de acido hialuronico" -> base: "Mascarilla en velo", tone: "Ácido Hialurónico"
+  // "Mascarilla en velo de vitamina C" -> base: "Mascarilla en velo", tone: "Vitamina C"
+  const veloMatch = name.match(/^(mascarilla\s*(?:facial)?\s*en\s*velo)(?:\s*(?:de|con|-|:)\s*(.+))?$/i);
+  if (veloMatch) {
+    const rawVariant = veloMatch[2] ? veloMatch[2].trim() : '';
+    return {
+      baseName: "Mascarilla en velo",
+      toneName: formatExtractName(rawVariant) || 'Original',
+      isTone: false
+    };
+  }
+
+  // Si es marca Bioaqua y comienza por "Mascarilla de..." o "Mascarilla con..." (excluyendo 3 pasos, labios, etc.)
+  if (brand.includes('bioaqua') && /^mascarilla\s*(?:de|con)\s*(.+)$/i.test(name)) {
+    const bMatch = name.match(/^mascarilla\s*(?:de|con)\s*(.+)$/i);
+    const rawVariant = bMatch ? bMatch[1].trim() : '';
+    const low = rawVariant.toLowerCase();
+    if (!low.includes('3 pasos') && !low.includes('labios') && !low.includes('puntos negros')) {
+      return {
+        baseName: "Mascarilla en velo",
+        toneName: formatExtractName(rawVariant) || 'Original',
+        isTone: false
+      };
+    }
+  }
+
+  // 2. Tonos de maquillaje estándar:
   // "Base my foundation tono 02" -> base: "Base my foundation", tone: "02"
   // "Polvo suelto mineral tono banana" -> base: "Polvo suelto mineral", tone: "banana"
   // "Corrector XL - tono 03" -> base: "Corrector XL", tone: "03"
@@ -22,18 +71,20 @@ export function parseProductVariant(product) {
     const toneName = match[1].trim();
     return {
       baseName: baseName || name,
-      toneName: toneName
+      toneName: toneName,
+      isTone: true
     };
   }
 
   return {
     baseName: name,
-    toneName: null
+    toneName: null,
+    isTone: true
   };
 }
 
 /**
- * Agrupa una lista de productos en tarjetas únicas con variantes de tono
+ * Agrupa una lista de productos en tarjetas únicas con variantes de tono / extracto
  */
 export function groupProducts(productsList, includeHidden = false) {
   if (!Array.isArray(productsList)) return [];
@@ -43,7 +94,7 @@ export function groupProducts(productsList, includeHidden = false) {
   const groupsMap = new Map();
 
   for (const product of filteredList) {
-    const { baseName, toneName } = parseProductVariant(product);
+    const { baseName, toneName, isTone } = parseProductVariant(product);
     const brand = (product.brand || 'Luna Viva').trim();
     const groupKey = `${brand.toLowerCase()}___${baseName.toLowerCase()}`;
 
@@ -64,6 +115,7 @@ export function groupProducts(productsList, includeHidden = false) {
         lunaRecommends: product.lunaRecommends,
         isNew: product.isNew,
         isBestseller: product.isBestseller,
+        isTone: isTone !== false,
         variants: []
       });
     }
@@ -72,8 +124,9 @@ export function groupProducts(productsList, includeHidden = false) {
 
     group.variants.push({
       ...product,
-      toneName: toneName || (group.variants.length > 0 ? `Tono ${group.variants.length + 1}` : 'Único'),
-      hasExplicitTone: Boolean(toneName)
+      toneName: toneName || (group.variants.length > 0 ? (isTone ? `Tono ${group.variants.length + 1}` : `Variante ${group.variants.length + 1}`) : 'Único'),
+      hasExplicitTone: Boolean(toneName),
+      isTone: isTone !== false
     });
   }
 
@@ -109,19 +162,25 @@ export function groupProducts(productsList, includeHidden = false) {
 
     group.images = cleanGroupImages.length > 0 ? cleanGroupImages : [group.mainImage || '/img/Logo luna sin fondo.png'];
 
-    // Unificar descripción para todo el producto (única para todos los tonos)
+    // Unificar descripción para todo el producto (única para todos los tonos/variantes)
     const isCustomDesc = (d) => Boolean(d && typeof d === 'string' && !d.includes('de la marca') && d.length > 20);
-    const unifiedDesc = group.variants.find(v => isCustomDesc(v.description))?.description
+    let unifiedDesc = group.variants.find(v => isCustomDesc(v.description))?.description
       || defaultVariant?.description
       || group.description;
 
-    const unifiedBenefits = group.variants.find(v => v.benefits && v.benefits.length > 15)?.benefits
+    let unifiedBenefits = group.variants.find(v => v.benefits && v.benefits.length > 15)?.benefits
       || defaultVariant?.benefits
       || group.benefits;
 
-    const unifiedHowToUse = group.variants.find(v => v.howToUse && v.howToUse.length > 15)?.howToUse
+    let unifiedHowToUse = group.variants.find(v => v.howToUse && v.howToUse.length > 15)?.howToUse
       || defaultVariant?.howToUse
       || group.howToUse;
+
+    if (group.name.toLowerCase().includes('mascarilla en velo') && (!unifiedDesc || unifiedDesc.includes('de la marca'))) {
+      unifiedDesc = "Mascarilla facial en velo hidratante de la marca Bioaqua. Formulada con extractos naturales para nutrir, hidratar a profundidad y revitalizar la piel del rostro. Selecciona tu extracto favorito según las necesidades de tu piel: Ácido Hialurónico, Vitamina C, Arándanos, Durazno, Aloe Vera, Arroz o Rosas.";
+      unifiedBenefits = "Hidratación profunda, luminosidad instantánea y frescura para tu piel. Producto 100% original.";
+      unifiedHowToUse = "Limpia y seca tu rostro. Aplica el velo ajustándolo a las facciones de tu rostro. Deja actuar de 15 a 20 minutos. Retira la mascarilla y masajea suavemente el sérum restante hasta su total absorción.";
+    }
 
     group.description = unifiedDesc;
     group.benefits = unifiedBenefits;
@@ -159,14 +218,14 @@ export function groupProducts(productsList, includeHidden = false) {
 }
 
 /**
- * Encuentra todas las variantes de tono de un producto específico por su ID
+ * Encuentra todas las variantes de tono o extracto de un producto específico por su ID
  */
 export function findProductVariants(productsList, targetProductId) {
   if (!Array.isArray(productsList) || !targetProductId) return null;
   const currentProduct = productsList.find(p => p.id === targetProductId);
   if (!currentProduct) return null;
 
-  const { baseName } = parseProductVariant(currentProduct);
+  const { baseName, isTone } = parseProductVariant(currentProduct);
   const brand = (currentProduct.brand || 'Luna Viva').trim().toLowerCase();
   const baseLower = baseName.toLowerCase();
 
@@ -182,11 +241,17 @@ export function findProductVariants(productsList, targetProductId) {
 
   // Determinar descripción unificada para todas las variantes hermanas
   const isCustomDesc = (d) => Boolean(d && typeof d === 'string' && !d.includes('de la marca') && d.length > 20);
-  const unifiedDesc = siblings.find(s => isCustomDesc(s.description))?.description || currentProduct.description;
-  const unifiedBenefits = siblings.find(s => s.benefits && s.benefits.length > 15)?.benefits || currentProduct.benefits;
-  const unifiedHowToUse = siblings.find(s => s.howToUse && s.howToUse.length > 15)?.howToUse || currentProduct.howToUse;
+  let unifiedDesc = siblings.find(s => isCustomDesc(s.description))?.description || currentProduct.description;
+  let unifiedBenefits = siblings.find(s => s.benefits && s.benefits.length > 15)?.benefits || currentProduct.benefits;
+  let unifiedHowToUse = siblings.find(s => s.howToUse && s.howToUse.length > 15)?.howToUse || currentProduct.howToUse;
 
-  // Determinar galería de fotos unificada (idéntica para todos los tonos)
+  if (baseName.toLowerCase().includes('mascarilla en velo') && (!unifiedDesc || unifiedDesc.includes('de la marca'))) {
+    unifiedDesc = "Mascarilla facial en velo hidratante de la marca Bioaqua. Formulada con extractos naturales para nutrir, hidratar a profundidad y revitalizar la piel del rostro. Selecciona tu extracto favorito según las necesidades de tu piel: Ácido Hialurónico, Vitamina C, Arándanos, Durazno, Aloe Vera, Arroz o Rosas.";
+    unifiedBenefits = "Hidratación profunda, luminosidad instantánea y frescura para tu piel. Producto 100% original.";
+    unifiedHowToUse = "Limpia y seca tu rostro. Aplica el velo ajustándolo a las facciones de tu rostro. Deja actuar de 15 a 20 minutos. Retira la mascarilla y masajea suavemente el sérum restante hasta su total absorción.";
+  }
+
+  // Determinar galería de fotos unificada (idéntica para todos los tonos/variantes)
   let bestGallery = [];
   const sortedByImages = [...siblings].sort((a, b) => (b.images?.length || 0) - (a.images?.length || 0));
   if (sortedByImages[0]?.images && Array.isArray(sortedByImages[0].images) && sortedByImages[0].images.length > 0) {
@@ -200,8 +265,15 @@ export function findProductVariants(productsList, targetProductId) {
     if (img && !cleanUnifiedImages.includes(img)) cleanUnifiedImages.push(img);
   });
 
+  // Agregar fotos principales únicas de otras variantes para que la galería esté completa
+  siblings.forEach(s => {
+    if (s.mainImage && !cleanUnifiedImages.includes(s.mainImage)) {
+      cleanUnifiedImages.push(s.mainImage);
+    }
+  });
+
   const variants = siblings.map(p => {
-    const { toneName } = parseProductVariant(p);
+    const { toneName, isTone: pIsTone } = parseProductVariant(p);
     return {
       ...p,
       description: unifiedDesc,
@@ -209,7 +281,8 @@ export function findProductVariants(productsList, targetProductId) {
       howToUse: unifiedHowToUse,
       images: cleanUnifiedImages,
       mainImage: cleanUnifiedImages[0] || p.mainImage,
-      toneName: toneName || 'Tono'
+      toneName: toneName || (pIsTone ? 'Tono' : 'Variante'),
+      isTone: pIsTone !== false
     };
   });
 
@@ -225,7 +298,7 @@ export function findProductVariants(productsList, targetProductId) {
     howToUse: unifiedHowToUse,
     images: cleanUnifiedImages,
     mainImage: cleanUnifiedImages[0] || currentProduct.mainImage,
+    isTone: isTone !== false,
     variants
   };
 }
-

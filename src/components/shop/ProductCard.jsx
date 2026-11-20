@@ -101,9 +101,11 @@ export function ProductCard({ product }) {
     setCurrentImgIndex(idx);
   };
 
-  // Mensaje de WhatsApp dinámico con el tono seleccionado
+  // Mensaje de WhatsApp dinámico con el tono o variante seleccionada
   const phoneNumber = "573218839425";
-  const toneText = hasMultipleTones && selectedVariant?.toneName ? ` - Tono: ${selectedVariant.toneName}` : '';
+  const isToneType = product.isTone !== false;
+  const toneLabel = isToneType ? 'Tono' : 'Variante';
+  const toneText = hasMultipleTones && selectedVariant?.toneName ? ` - ${toneLabel}: ${selectedVariant.toneName}` : '';
   const waMessage = encodeURIComponent(
     `¡Hola! Me interesa obtener información del producto: ${product.name}${toneText} (${product.brand})`
   );

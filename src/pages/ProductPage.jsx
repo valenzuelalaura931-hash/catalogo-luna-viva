@@ -90,12 +90,14 @@ export function ProductPage() {
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
   const touchStartX = useRef(null);
 
-  // Mantener el índice de foto seguro dentro de los límites de la galería sin saltar al cambiar de tono
+  // Mantener el índice de foto sincronizado y seguro dentro de los límites de la galería
   useEffect(() => {
-    if (currentImgIndex >= allImages.length) {
+    if (product?.mainImage && allImages.includes(product.mainImage)) {
+      setCurrentImgIndex(allImages.indexOf(product.mainImage));
+    } else if (currentImgIndex >= allImages.length) {
       setCurrentImgIndex(0);
     }
-  }, [allImages.length, currentImgIndex]);
+  }, [id, product?.mainImage, allImages]);
 
   const activeImage = allImages[currentImgIndex] || allImages[0] || product.mainImage;
   const hasMultipleImages = allImages.length > 1;
@@ -135,7 +137,9 @@ export function ProductPage() {
   }, [products, product, productVariantsInfo]);
 
   const phoneNumber = "573218839425"; // Número oficial
-  const toneSuffix = currentToneName ? ` (Tono: ${currentToneName})` : '';
+  const isToneType = productVariantsInfo?.isTone !== false;
+  const toneLabel = isToneType ? 'Tono' : 'Variante';
+  const toneSuffix = currentToneName ? ` (${toneLabel}: ${currentToneName})` : '';
   const waMessage = product.stock <= 0
     ? encodeURIComponent(`¡Hola Luna Viva! Me gustaría consultar cuándo vuelve a estar disponible: ${product.name}${toneSuffix} (SKU: ${product.sku})`)
     : encodeURIComponent(`¡Hola Luna Viva! Me gustaría comprar el producto: ${product.name}${toneSuffix} (SKU: ${product.sku})`);
@@ -407,7 +411,7 @@ export function ProductPage() {
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                   <label style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-primary)' }}>
-                    Tono seleccionado: <strong style={{ color: '#8A5B66' }}>{currentToneName || 'Original'}</strong>
+                    {productVariantsInfo?.isTone !== false ? 'Tono seleccionado:' : 'Variante / Extracto:'} <strong style={{ color: '#8A5B66' }}>{currentToneName || 'Original'}</strong>
                   </label>
                   <span style={{ fontSize: '11px', color: '#888' }}>
                     {productVariantsInfo.variants.filter(v => (v.stock || 0) > 0).length} de {productVariantsInfo.variants.length} disponibles
