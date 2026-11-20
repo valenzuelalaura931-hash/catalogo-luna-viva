@@ -287,12 +287,16 @@ export function AdminCatalogPage() {
       });
 
       // Si el producto tiene variantes de tono (mismo producto base), sincronizar también las fotos de la galería en sus variantes hermanas
+      // asegurando que si se eliminó una foto, ningún tono hermano la conserve como foto principal
       if (res.success && variantsInfo && variantsInfo.variants.length > 1) {
         for (const sibling of variantsInfo.variants) {
           if (sibling.id !== editingProduct.id) {
+            const siblingMain = (sibling.mainImage && cleanedImages.includes(sibling.mainImage))
+              ? sibling.mainImage
+              : cleanMain;
             await updateProductDetails(sibling.id, {
               description: editDescription.trim(),
-              mainImage: sibling.mainImage || cleanMain,
+              mainImage: siblingMain,
               images: cleanedImages
             });
           }

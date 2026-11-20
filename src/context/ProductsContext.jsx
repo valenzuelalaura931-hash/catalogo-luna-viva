@@ -183,35 +183,8 @@ export function ProductsProvider({ children }) {
               });
             }
 
-            // Unificar fotos y galería entre tonos hermanos (misma marca y producto base)
-            const imagesByGroup = new Map();
-            const mainImgByGroup = new Map();
-
-            updated.forEach(p => {
-              if (Array.isArray(p.images) && p.images.length > 0) {
-                const match = (p.name || '').match(toneRegex);
-                const baseName = match ? p.name.slice(0, match.index).trim() : (p.name || '').trim();
-                const key = `${(p.brand || '').toLowerCase().trim()}___${baseName.toLowerCase()}`;
-                if (!imagesByGroup.has(key) || p.images.length > imagesByGroup.get(key).length) {
-                  imagesByGroup.set(key, p.images);
-                  if (p.mainImage) mainImgByGroup.set(key, p.mainImage);
-                }
-              }
-            });
-
-            if (imagesByGroup.size > 0) {
-              updated.forEach(p => {
-                const match = (p.name || '').match(toneRegex);
-                const baseName = match ? p.name.slice(0, match.index).trim() : (p.name || '').trim();
-                const key = `${(p.brand || '').toLowerCase().trim()}___${baseName.toLowerCase()}`;
-                if (imagesByGroup.has(key)) {
-                  p.images = imagesByGroup.get(key);
-                  if (mainImgByGroup.has(key)) {
-                    p.mainImage = mainImgByGroup.get(key);
-                  }
-                }
-              });
-            }
+            // Las fotos de cada producto y sus variantes se preservan exactamente como fueron editadas o cargadas
+            // sin sobrescrituras destructivas entre tonos.
 
             try {
               if (typeof window !== 'undefined' && window.localStorage) {

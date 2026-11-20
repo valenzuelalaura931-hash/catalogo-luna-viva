@@ -251,25 +251,22 @@ export function findProductVariants(productsList, targetProductId) {
     unifiedHowToUse = "Limpia y seca tu rostro. Aplica el velo ajustándolo a las facciones de tu rostro. Deja actuar de 15 a 20 minutos. Retira la mascarilla y masajea suavemente el sérum restante hasta su total absorción.";
   }
 
-  // Determinar galería de fotos unificada (idéntica para todos los tonos/variantes)
+  // Determinar galería de fotos respetando las fotos editadas del producto actual
   let bestGallery = [];
-  const sortedByImages = [...siblings].sort((a, b) => (b.images?.length || 0) - (a.images?.length || 0));
-  if (sortedByImages[0]?.images && Array.isArray(sortedByImages[0].images) && sortedByImages[0].images.length > 0) {
-    bestGallery = sortedByImages[0].images;
-  } else if (currentProduct.mainImage) {
-    bestGallery = [currentProduct.mainImage];
+  if (Array.isArray(currentProduct.images) && currentProduct.images.length > 0) {
+    bestGallery = currentProduct.images;
+  } else {
+    const sortedByImages = [...siblings].sort((a, b) => (b.images?.length || 0) - (a.images?.length || 0));
+    if (sortedByImages[0]?.images && Array.isArray(sortedByImages[0].images) && sortedByImages[0].images.length > 0) {
+      bestGallery = sortedByImages[0].images;
+    } else if (currentProduct.mainImage) {
+      bestGallery = [currentProduct.mainImage];
+    }
   }
 
   const cleanUnifiedImages = [];
   bestGallery.forEach(img => {
     if (img && !cleanUnifiedImages.includes(img)) cleanUnifiedImages.push(img);
-  });
-
-  // Agregar fotos principales únicas de otras variantes para que la galería esté completa
-  siblings.forEach(s => {
-    if (s.mainImage && !cleanUnifiedImages.includes(s.mainImage)) {
-      cleanUnifiedImages.push(s.mainImage);
-    }
   });
 
   const variants = siblings.map(p => {
