@@ -276,8 +276,20 @@ export function AdminCatalogPage() {
 
     try {
       const variantsInfo = findProductVariants(products, editingProduct.id);
-      const cleanedImages = editImages.filter(Boolean);
-      const cleanMain = editMainImage.trim() || (cleanedImages.length > 0 ? cleanedImages[0] : '');
+      
+      const normalizeImgPath = (url) => {
+        if (!url || typeof url !== 'string') return '';
+        let u = url.trim();
+        if (u.startsWith('Bases/')) {
+          u = '/catalogo-img/Bloomshell/' + u;
+        } else if (u.startsWith('catalogo-img/')) {
+          u = '/' + u;
+        }
+        return u;
+      };
+
+      const cleanedImages = editImages.map(normalizeImgPath).filter(Boolean);
+      const cleanMain = normalizeImgPath(editMainImage) || (cleanedImages.length > 0 ? cleanedImages[0] : '');
 
       const res = await updateProductDetails(editingProduct.id, {
         description: editDescription.trim(),
@@ -304,7 +316,11 @@ export function AdminCatalogPage() {
       }
 
       if (res.success) {
-        showToast(editHidden ? '✓ Guardado: El producto ahora está OCULTO en la tienda.' : '✓ ¡Datos y fotos actualizados con éxito!', 'success');
+        if (res.warning) {
+          showToast(res.warning, 'info');
+        } else {
+          showToast(editHidden ? '✓ Guardado: El producto ahora está OCULTO en la tienda.' : '✓ ¡Datos y fotos actualizados con éxito!', 'success');
+        }
         setEditingProduct(null);
       } else {
         showToast(res.error || 'Error al guardar cambios.', 'error');

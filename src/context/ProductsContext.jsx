@@ -45,7 +45,7 @@ export function ProductsProvider({ children }) {
           }
         }
       }
-    } catch (e) {}
+    } catch (e) { }
     return initialProductsData;
   });
 
@@ -80,7 +80,7 @@ export function ProductsProvider({ children }) {
               if (remote?.notes && remote.notes.trim().startsWith('{')) {
                 try {
                   customMeta = JSON.parse(remote.notes);
-                } catch (e) {}
+                } catch (e) { }
               }
 
               const isHidden = customMeta?.hidden !== undefined
@@ -119,12 +119,12 @@ export function ProductsProvider({ children }) {
               if (!prevProducts.some(p => p.id === r.id)) {
                 const canon = canonicalMap.get(r.id);
                 const stock = Number(r.stock) || 0;
-                
+
                 let customMeta = null;
                 if (r?.notes && r.notes.trim().startsWith('{')) {
                   try {
                     customMeta = JSON.parse(r.notes);
-                  } catch (e) {}
+                  } catch (e) { }
                 }
 
                 const isHidden = customMeta?.hidden !== undefined
@@ -183,6 +183,9 @@ export function ProductsProvider({ children }) {
               });
             }
 
+            // Unificar fotos y galería entre tonos hermanos (misma marca y producto base)
+            const imagesByGroup = new Map();
+            const mainImgByGroup = new Map();
             // Las fotos de cada producto y sus variantes se preservan exactamente como fueron editadas o cargadas
             // sin sobrescrituras destructivas entre tonos.
 
@@ -190,7 +193,7 @@ export function ProductsProvider({ children }) {
               if (typeof window !== 'undefined' && window.localStorage) {
                 localStorage.setItem('luna_viva_live_products_v5', JSON.stringify(updated));
               }
-            } catch (e) {}
+            } catch (e) { }
 
             return updated;
           });
@@ -252,22 +255,36 @@ export function ProductsProvider({ children }) {
       if (fields.price !== undefined) patchPayload.price = Number(fields.price) || 0;
       if (fields.stock !== undefined) patchPayload.stock = Number(fields.stock) || 0;
 
-      const res = await fetch(`${SUPABASE_URL}/products?id=eq.${productId}`, {
-        method: 'PATCH',
-        headers: {
-          apikey: SUPABASE_KEY,
-          Authorization: `Bearer ${SUPABASE_KEY}`,
-          'Content-Type': 'application/json',
-          'Prefer': 'return=representation'
-        },
-        body: JSON.stringify(patchPayload)
-      });
+      let supabaseFailed = false;
+      let supabaseReason = '';
 
-      if (!res.ok) {
-        throw new Error('Error al actualizar en la base de datos Supabase.');
+      try {
+        const res = await fetch(`${SUPABASE_URL}/products?id=eq.${productId}`, {
+          method: 'PATCH',
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${SUPABASE_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=representation'
+          },
+          body: JSON.stringify(patchPayload)
+        });
+
+        if (!res.ok) {
+          supabaseFailed = true;
+          if (res.status === 402) {
+            supabaseReason = 'Límite de cuota mensual de Supabase alcanzado (HTTP 402: exceed_egress_quota).';
+          } else {
+            const errBody = await res.text().catch(() => '');
+            supabaseReason = `Supabase respondió con error (${res.status}): ${errBody.slice(0, 100)}`;
+          }
+        }
+      } catch (netErr) {
+        supabaseFailed = true;
+        supabaseReason = 'Sin conexión a Supabase o proyecto inaccesible.';
       }
 
-      // Actualizar estado local inmediatamente
+      // Actualizar estado local inmediatamente (Resiliente: nunca se pierde lo que edita el usuario)
       setProducts(prev => {
         const next = prev.map(p => {
           if (p.id === productId) {
@@ -294,10 +311,17 @@ export function ProductsProvider({ children }) {
           if (typeof window !== 'undefined' && window.localStorage) {
             localStorage.setItem('luna_viva_live_products_v5', JSON.stringify(next));
           }
-        } catch (e) {}
+        } catch (e) { }
 
         return next;
       });
+
+      if (supabaseFailed) {
+        return {
+          success: true,
+          warning: `Guardado en tu navegador localmente. Nota: ${supabaseReason}`
+        };
+      }
 
       return { success: true };
     } catch (err) {
