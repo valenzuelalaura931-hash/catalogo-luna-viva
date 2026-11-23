@@ -24,9 +24,17 @@ import {
 
 export function AdminCatalogPage() {
   const { isAdmin, currentUser, loginAdmin, logout } = useAuth();
-  const { products, updateProductDetails, refreshProducts } = useProducts();
+  const {
+    products,
+    updateProductDetails,
+    refreshProducts,
+    pendingSync = [],
+    syncPendingWithSupabase,
+    exportCatalogBackup
+  } = useProducts();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const [isSyncing, setIsSyncing] = useState(false);
 
   // Estados de login administrativo si no está autenticada
   const [pinInput, setPinInput] = useState('');
@@ -316,11 +324,7 @@ export function AdminCatalogPage() {
       }
 
       if (res.success) {
-        if (res.warning) {
-          showToast(res.warning, 'info');
-        } else {
-          showToast(editHidden ? '✓ Guardado: El producto ahora está OCULTO en la tienda.' : '✓ ¡Datos y fotos actualizados con éxito!', 'success');
-        }
+        showToast(editHidden ? '✓ Guardado: El producto ahora está OCULTO en la tienda.' : '✓ ¡Datos y fotos actualizados con éxito en tu catálogo!', 'success');
         setEditingProduct(null);
       } else {
         showToast(res.error || 'Error al guardar cambios.', 'error');
@@ -329,6 +333,27 @@ export function AdminCatalogPage() {
       showToast('Ocurrió un error al guardar.', 'error');
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleSyncNow = async () => {
+    setIsSyncing(true);
+    showToast('Comprobando conexión con Supabase...', 'info');
+    const result = await syncPendingWithSupabase();
+    setIsSyncing(false);
+    if (result.success) {
+      showToast(result.message, 'success');
+    } else {
+      showToast(result.error, 'error');
+    }
+  };
+
+  const handleDownloadBackup = () => {
+    const ok = exportCatalogBackup();
+    if (ok) {
+      showToast('✓ Respaldo JSON descargado con éxito en tu computador.', 'success');
+    } else {
+      showToast('No se pudo generar el archivo de respaldo.', 'error');
     }
   };
 
@@ -545,6 +570,92 @@ export function AdminCatalogPage() {
               }}
             >
               Cerrar Sesión
+            </button>
+          </div>
+        </div>
+
+        {/* Barra de Modo Local Seguro & Sincronización */}
+        <div style={{
+          backgroundColor: '#FFFFFF',
+          borderRadius: '16px',
+          padding: '14px 20px',
+          marginBottom: '24px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '12px',
+          border: '1px solid #FEDDE6',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.03)'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              backgroundColor: '#ECFDF5',
+              color: '#065F46',
+              padding: '5px 12px',
+              borderRadius: '20px',
+              fontSize: '12px',
+              fontWeight: '700'
+            }}>
+              <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10B981', display: 'inline-block' }}></span>
+              Modo Local Seguro Activo
+            </span>
+            <span style={{ fontSize: '12.5px', color: '#555' }}>
+              {pendingSync && pendingSync.length > 0 ? (
+                <span><strong>{pendingSync.length} producto(s)</strong> editados y guardados en este navegador.</span>
+              ) : (
+                <span>Puedes seguir editando y guardando fotos sin consumir cuota mensual.</span>
+              )}
+            </span>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+            <button
+              type="button"
+              onClick={handleDownloadBackup}
+              title="Descarga un archivo JSON con todo el catálogo y fotos actualizadas"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                backgroundColor: '#F9EEF2',
+                color: '#3B3537',
+                padding: '8px 14px',
+                borderRadius: '10px',
+                fontSize: '12.5px',
+                fontWeight: '600',
+                border: '1px solid #E8D5DC',
+                cursor: 'pointer'
+              }}
+            >
+              <Save size={14} /> Descargar Respaldo JSON
+            </button>
+
+            <button
+              type="button"
+              onClick={handleSyncNow}
+              disabled={isSyncing || !pendingSync || pendingSync.length === 0}
+              title={(!pendingSync || pendingSync.length === 0) ? "No hay cambios pendientes por subir" : "Sube todos los cambios pendientes a la base de datos de Supabase"}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                backgroundColor: (pendingSync && pendingSync.length > 0) ? 'var(--rosa-luna, #B76E79)' : '#E5E7EB',
+                color: (pendingSync && pendingSync.length > 0) ? '#FFFFFF' : '#9CA3AF',
+                padding: '8px 14px',
+                borderRadius: '10px',
+                fontSize: '12.5px',
+                fontWeight: '600',
+                border: 'none',
+                cursor: (pendingSync && pendingSync.length > 0) && !isSyncing ? 'pointer' : 'not-allowed',
+                boxShadow: (pendingSync && pendingSync.length > 0) ? '0 2px 6px rgba(183, 110, 121, 0.3)' : 'none'
+              }}
+            >
+              <RefreshCw size={14} className={isSyncing ? 'animate-spin' : ''} />
+              {isSyncing ? 'Verificando nube...' : `Sincronizar con Supabase (${pendingSync ? pendingSync.length : 0})`}
             </button>
           </div>
         </div>

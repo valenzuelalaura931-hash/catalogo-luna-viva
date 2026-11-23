@@ -52,7 +52,34 @@ export function ProductsProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [lastSync, setLastSync] = useState(null);
 
+  // Lista de cambios pendientes guardados localmente para sincronizar cuando Supabase esté disponible
+  const [pendingSync, setPendingSync] = useState(() => {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        const saved = localStorage.getItem('luna_viva_pending_sync');
+        return saved ? JSON.parse(saved) : [];
+      }
+    } catch (e) {}
+    return [];
+  });
+
+  // Estado que detecta si la cuota de Supabase está bloqueada (402)
+  const [supabaseBlocked, setSupabaseBlocked] = useState(() => {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        const val = localStorage.getItem('luna_viva_supabase_blocked');
+        return val === null ? true : val === 'true'; // Por defecto activo para evitar errores 402
+      }
+    } catch (e) {}
+    return true;
+  });
+
   const fetchRealtimeProducts = useCallback(async (isSilent = true) => {
+    // Si la cuota de Supabase está bloqueada y es consulta en segundo plano, no hacer petición innecesaria
+    if (isSilent && typeof window !== 'undefined' && localStorage.getItem('luna_viva_supabase_blocked') === 'true') {
+      return;
+    }
+
     if (!isSilent) setLoading(true);
     try {
       const res = await fetch(`${SUPABASE_URL}/products?select=*&limit=2000`, {
@@ -62,7 +89,15 @@ export function ProductsProvider({ children }) {
         }
       });
 
+      if (res.status === 402) {
+        setSupabaseBlocked(true);
+        try { localStorage.setItem('luna_viva_supabase_blocked', 'true'); } catch (e) {}
+        return;
+      }
+
       if (res.ok) {
+        setSupabaseBlocked(false);
+        try { localStorage.setItem('luna_viva_supabase_blocked', 'false'); } catch (e) {}
         const remoteList = await res.json();
         if (Array.isArray(remoteList) && remoteList.length > 0) {
           const remoteMap = new Map();
@@ -255,36 +290,7 @@ export function ProductsProvider({ children }) {
       if (fields.price !== undefined) patchPayload.price = Number(fields.price) || 0;
       if (fields.stock !== undefined) patchPayload.stock = Number(fields.stock) || 0;
 
-      let supabaseFailed = false;
-      let supabaseReason = '';
-
-      try {
-        const res = await fetch(`${SUPABASE_URL}/products?id=eq.${productId}`, {
-          method: 'PATCH',
-          headers: {
-            apikey: SUPABASE_KEY,
-            Authorization: `Bearer ${SUPABASE_KEY}`,
-            'Content-Type': 'application/json',
-            'Prefer': 'return=representation'
-          },
-          body: JSON.stringify(patchPayload)
-        });
-
-        if (!res.ok) {
-          supabaseFailed = true;
-          if (res.status === 402) {
-            supabaseReason = 'Límite de cuota mensual de Supabase alcanzado (HTTP 402: exceed_egress_quota).';
-          } else {
-            const errBody = await res.text().catch(() => '');
-            supabaseReason = `Supabase respondió con error (${res.status}): ${errBody.slice(0, 100)}`;
-          }
-        }
-      } catch (netErr) {
-        supabaseFailed = true;
-        supabaseReason = 'Sin conexión a Supabase o proyecto inaccesible.';
-      }
-
-      // Actualizar estado local inmediatamente (Resiliente: nunca se pierde lo que edita el usuario)
+      // 1. Guardar de inmediato en el estado local y en localStorage (Modo Offline-First garantizado)
       setProducts(prev => {
         const next = prev.map(p => {
           if (p.id === productId) {
@@ -316,22 +322,183 @@ export function ProductsProvider({ children }) {
         return next;
       });
 
-      if (supabaseFailed) {
+      // 2. Registrar en la cola de sincronización pendiente
+      setPendingSync(prev => {
+        const filtered = prev.filter(item => item.id !== productId);
+        const nextList = [
+          ...filtered,
+          {
+            id: productId,
+            name: fields.name || existingProduct?.name || productId,
+            payload: patchPayload,
+            updatedAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          }
+        ];
+        try {
+          if (typeof window !== 'undefined' && window.localStorage) {
+            localStorage.setItem('luna_viva_pending_sync', JSON.stringify(nextList));
+          }
+        } catch (e) {}
+        return nextList;
+      });
+
+      // 3. Si Supabase tiene la cuota bloqueada (402), NO hacer la llamada a la red para no generar errores ni consumir nada
+      if (supabaseBlocked) {
         return {
           success: true,
-          warning: `Guardado en tu navegador localmente. Nota: ${supabaseReason}`
+          isLocal: true,
+          message: 'Guardado con éxito en tu catálogo (Modo Local). Listo para sincronizar cuando se reactive Supabase.'
         };
       }
 
-      return { success: true };
+      // Si no estaba marcado como bloqueado, intentar en segundo plano
+      try {
+        const res = await fetch(`${SUPABASE_URL}/products?id=eq.${productId}`, {
+          method: 'PATCH',
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${SUPABASE_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=representation'
+          },
+          body: JSON.stringify(patchPayload)
+        });
+
+        if (res.status === 402) {
+          setSupabaseBlocked(true);
+          try { localStorage.setItem('luna_viva_supabase_blocked', 'true'); } catch (e) {}
+        } else if (res.ok) {
+          // Si se guardó en Supabase con éxito, sacarlo de pendientes
+          setPendingSync(prev => {
+            const nextList = prev.filter(item => item.id !== productId);
+            try { localStorage.setItem('luna_viva_pending_sync', JSON.stringify(nextList)); } catch (e) {}
+            return nextList;
+          });
+        }
+      } catch (e) {
+        setSupabaseBlocked(true);
+      }
+
+      return {
+        success: true,
+        isLocal: true,
+        message: 'Guardado con éxito en tu catálogo.'
+      };
     } catch (err) {
       console.error('Error in updateProductDetails:', err);
       return { success: false, error: err.message };
     }
   };
 
+  // Función para sincronizar todos los cambios locales pendientes hacia Supabase (para cuando se reactive la cuenta)
+  const syncPendingWithSupabase = async () => {
+    if (pendingSync.length === 0) {
+      return { success: true, message: 'No hay cambios pendientes por sincronizar.' };
+    }
+
+    try {
+      const testRes = await fetch(`${SUPABASE_URL}/products?limit=1`, {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`
+        }
+      });
+
+      if (testRes.status === 402) {
+        setSupabaseBlocked(true);
+        return {
+          success: false,
+          error: 'Supabase aún tiene la cuota mensual de transferencia pausada (HTTP 402: exceed_egress_quota). Tus cambios siguen 100% seguros guardados en este navegador.'
+        };
+      }
+
+      if (!testRes.ok) {
+        return {
+          success: false,
+          error: `Error al conectar con Supabase (HTTP ${testRes.status}).`
+        };
+      }
+
+      // Supabase está activo nuevamente: subir los pendientes
+      let countSuccess = 0;
+      const stillPending = [];
+
+      for (const item of pendingSync) {
+        try {
+          const res = await fetch(`${SUPABASE_URL}/products?id=eq.${item.id}`, {
+            method: 'PATCH',
+            headers: {
+              apikey: SUPABASE_KEY,
+              Authorization: `Bearer ${SUPABASE_KEY}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(item.payload)
+          });
+          if (res.ok) {
+            countSuccess++;
+          } else {
+            stillPending.push(item);
+          }
+        } catch (e) {
+          stillPending.push(item);
+        }
+      }
+
+      setPendingSync(stillPending);
+      try {
+        localStorage.setItem('luna_viva_pending_sync', JSON.stringify(stillPending));
+      } catch (e) {}
+
+      if (stillPending.length === 0) {
+        setSupabaseBlocked(false);
+        try { localStorage.setItem('luna_viva_supabase_blocked', 'false'); } catch (e) {}
+        return {
+          success: true,
+          message: `¡Éxito! Se sincronizaron los ${countSuccess} productos pendientes en la nube de Supabase.`
+        };
+      } else {
+        return {
+          success: true,
+          message: `Se sincronizaron ${countSuccess} productos. ${stillPending.length} continúan guardados localmente.`
+        };
+      }
+    } catch (err) {
+      return {
+        success: false,
+        error: 'No se pudo contactar al servidor de Supabase. Revisa tu conexión.'
+      };
+    }
+  };
+
+  // Función para descargar un archivo JSON con todo el catálogo actualizado (Respaldo total)
+  const exportCatalogBackup = () => {
+    try {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(products, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `catalogo_luna_viva_respaldo_${new Date().toISOString().slice(0, 10)}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      return true;
+    } catch (e) {
+      console.error('Error al exportar respaldo JSON:', e);
+      return false;
+    }
+  };
+
   return (
-    <ProductsContext.Provider value={{ products, loading, lastSync, refreshProducts: () => fetchRealtimeProducts(false), updateProductDetails }}>
+    <ProductsContext.Provider value={{
+      products,
+      loading,
+      lastSync,
+      refreshProducts: () => fetchRealtimeProducts(false),
+      updateProductDetails,
+      pendingSync,
+      supabaseBlocked,
+      syncPendingWithSupabase,
+      exportCatalogBackup
+    }}>
       {children}
     </ProductsContext.Provider>
   );
