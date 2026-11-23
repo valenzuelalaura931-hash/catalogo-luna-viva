@@ -314,7 +314,7 @@ export function ShopPage() {
               color: '#8A5B66',
               fontWeight: '500'
             }}>
-              Mostrando {filteredProducts.length} {filteredProducts.length === 1 ? 'card' : 'cards'} para "<strong>{searchQuery}</strong>" o relacionados
+              Mostrando {filteredProducts.length} {filteredProducts.length === 1 ? 'producto' : 'productos'} para "<strong>{searchQuery}</strong>"
             </div>
           )}
         </div>

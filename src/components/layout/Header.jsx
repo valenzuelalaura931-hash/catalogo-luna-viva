@@ -140,7 +140,7 @@ export function Header() {
             }
           }}
           className="header-icon-btn"
-          title={isSearchOpen && searchQuery.trim() ? "Ver cards en pantalla" : "Buscar productos"}
+          title={isSearchOpen && searchQuery.trim() ? "Ver productos en pantalla" : "Buscar productos"}
           style={{ cursor: 'pointer' }}
         >
           <img src="/img/buscador.png" alt="Buscar" className="header-search-icon" />
@@ -187,7 +187,7 @@ export function Header() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <Search size={15} color="#D9537F" />
                   <span style={{ fontSize: '13px', fontWeight: '700', color: '#D9537F' }}>
-                    Ver los cards en pantalla
+                    Ver resultados en pantalla
                   </span>
                 </div>
                 <span style={{
@@ -199,7 +199,7 @@ export function Header() {
                   borderRadius: '12px',
                   border: '1px solid #F3D2DF'
                 }}>
-                  {totalSearchMatches} {totalSearchMatches === 1 ? 'card' : 'cards'} ➔
+                  {totalSearchMatches} {totalSearchMatches === 1 ? 'producto' : 'productos'} ➔
                 </span>
               </div>
 
@@ -262,7 +262,7 @@ export function Header() {
                           letterSpacing: '0.05em'
                         }}
                       >
-                        VER CARD
+                        VER PRODUCTO
                       </Link>
                     </div>
                   </div>
@@ -288,7 +288,7 @@ export function Header() {
                   gap: '6px'
                 }}
               >
-                <span>Mostrar todos los cards para "{searchQuery}"</span>
+                <span>Ver todos los resultados para "{searchQuery}"</span>
                 <span>➔</span>
               </div>
             </motion.div>
