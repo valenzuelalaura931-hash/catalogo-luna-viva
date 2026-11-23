@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useProducts } from '../context/ProductsContext';
+import { matchProductSearch } from '../utils/searchUtils';
+import { Search } from 'lucide-react';
 import { ProductCard } from '../components/shop/ProductCard';
 import { FilterSidebar } from '../components/shop/FilterSidebar';
 import { Button } from '../components/ui/Button';
@@ -27,8 +29,8 @@ export function ShopPage() {
 
     if (hasUrlParams) {
       return {
-        category: urlCat || 'Todas',
-        brand: urlBrand || 'Todas',
+        category: urlSearch ? (urlCat || 'Todas') : (urlCat || 'Todas'),
+        brand: urlSearch ? (urlBrand || 'Todas') : (urlBrand || 'Todas'),
         search: urlSearch || '',
         limit: urlLimit ? parseInt(urlLimit, 10) : 24
       };
@@ -54,22 +56,33 @@ export function ShopPage() {
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const scrollRestoredRef = useRef(false);
 
-  // Sincronizar si cambian los parámetros en la URL (ej: clics en header nav)
+  // Sincronizar si cambian los parámetros en la URL (ej: clics en header nav o buscador)
   useEffect(() => {
     const urlCat = searchParams.get('category');
     const urlBrand = searchParams.get('brand');
     const urlSearch = searchParams.get('search');
     const urlLimit = searchParams.get('limit');
 
-    if (urlCat !== null && urlCat !== selectedCategory) {
-      setSelectedCategory(urlCat);
+    if (urlSearch !== null) {
+      if (urlSearch !== searchQuery) {
+        setSearchQuery(urlSearch);
+      }
+      // Cuando viene una búsqueda, si no se especificó categoría o marca en la URL, mostrar de todas las categorías
+      if (urlCat === null && selectedCategory !== 'Todas') {
+        setSelectedCategory('Todas');
+      }
+      if (urlBrand === null && selectedBrand !== 'Todas') {
+        setSelectedBrand('Todas');
+      }
+    } else {
+      if (urlCat !== null && urlCat !== selectedCategory) {
+        setSelectedCategory(urlCat);
+      }
+      if (urlBrand !== null && urlBrand !== selectedBrand) {
+        setSelectedBrand(urlBrand);
+      }
     }
-    if (urlBrand !== null && urlBrand !== selectedBrand) {
-      setSelectedBrand(urlBrand);
-    }
-    if (urlSearch !== null && urlSearch !== searchQuery) {
-      setSearchQuery(urlSearch);
-    }
+
     if (urlLimit && parseInt(urlLimit, 10) !== visibleLimit) {
       setVisibleLimit(parseInt(urlLimit, 10));
     }
@@ -145,33 +158,36 @@ export function ShopPage() {
     return [...new Set(activeCatalogProducts.map(p => p.brand))].filter(Boolean).sort();
   }, [activeCatalogProducts]);
 
-  // Filtrar productos agrupados (disponibles siempre primero, agotados de último)
+  // Filtrar productos agrupados con búsqueda inteligente (palabras clave, tonos, sinónimos y orden por relevancia)
   const filteredProducts = useMemo(() => {
-    const list = groupedProducts.filter(group => {
+    const list = [];
+    groupedProducts.forEach(group => {
       const matchesCategory = selectedCategory === 'Todas' ||
         group.category === selectedCategory ||
         (selectedCategory === 'Accesorios' && (group.category === 'Accesorios de Maquillaje' || group.category === 'Accesorios')) ||
         (selectedCategory === 'Accesorios de Maquillaje' && (group.category === 'Accesorios' || group.category === 'Accesorios de Maquillaje')) ||
         (selectedCategory === 'Cabello' && group.category === 'Capilar');
       const matchesBrand = selectedBrand === 'Todas' || group.brand === selectedBrand;
-      const q = searchQuery.toLowerCase().trim();
-      const matchesSearch = !q ||
-        group.name.toLowerCase().includes(q) ||
-        group.brand.toLowerCase().includes(q) ||
-        group.variants.some(v => (v.name && v.name.toLowerCase().includes(q)) || (v.toneName && v.toneName.toLowerCase().includes(q)));
-      return matchesCategory && matchesBrand && matchesSearch;
+
+      const searchRes = matchProductSearch(group, searchQuery);
+      if (matchesCategory && matchesBrand && searchRes.matches) {
+        list.push({ group, score: searchRes.score });
+      }
     });
 
-    // Ordenar de modo que los productos con stock disponible salgan arriba y los agotados de último
+    // Ordenar por relevancia de coincidencia si hay búsqueda activa, y siempre stock disponible arriba
     return list.slice().sort((a, b) => {
-      const aStock = Number(a.totalStock) || (a.available ? 1 : 0);
-      const bStock = Number(b.totalStock) || (b.available ? 1 : 0);
+      if (searchQuery.trim() && a.score !== b.score) {
+        return b.score - a.score;
+      }
+      const aStock = Number(a.group.totalStock) || (a.group.available ? 1 : 0);
+      const bStock = Number(b.group.totalStock) || (b.group.available ? 1 : 0);
       const aOut = aStock <= 0;
       const bOut = bStock <= 0;
       if (!aOut && bOut) return -1;
       if (aOut && !bOut) return 1;
       return 0;
-    });
+    }).map(item => item.group);
   }, [groupedProducts, selectedCategory, selectedBrand, searchQuery]);
 
   const visibleProducts = filteredProducts.slice(0, visibleLimit);
@@ -238,7 +254,72 @@ export function ShopPage() {
             {selectedCategory === 'Todas' ? 'TODOS LOS PRODUCTOS' : selectedCategory.toUpperCase()}
           </h2>
 
-          {/* Selector de Categorías (Pills) */}
+        {/* Barra de Búsqueda Inteligente Integrada en Catálogo */}
+        <div style={{
+          maxWidth: '600px',
+          margin: '0 auto var(--space-4) auto',
+          padding: '0 var(--space-4)'
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            backgroundColor: '#FFFFFF',
+            borderRadius: 'var(--radius-full)',
+            border: searchQuery ? '1.5px solid #F3B1D5' : '1px solid #E8DFE3',
+            padding: '9px 18px',
+            boxShadow: '0 3px 12px rgba(0,0,0,0.04)',
+            transition: 'all 0.25s ease'
+          }}>
+            <Search size={18} color="#D9537F" style={{ marginRight: '10px', flexShrink: 0 }} />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => updateFilters(undefined, undefined, e.target.value)}
+              placeholder="Buscar por producto, extracto (ej. centella), marca o relacionados..."
+              style={{
+                border: 'none',
+                outline: 'none',
+                width: '100%',
+                fontSize: '14px',
+                color: '#3B3537',
+                backgroundColor: 'transparent'
+              }}
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => updateFilters(undefined, undefined, '')}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#999',
+                  cursor: 'pointer',
+                  padding: '4px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  fontSize: '14px',
+                  marginLeft: '6px'
+                }}
+                title="Limpiar búsqueda"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+          {searchQuery && (
+            <div style={{
+              textAlign: 'center',
+              marginTop: '8px',
+              fontSize: '12px',
+              color: '#8A5B66',
+              fontWeight: '500'
+            }}>
+              Mostrando {filteredProducts.length} {filteredProducts.length === 1 ? 'card' : 'cards'} para "<strong>{searchQuery}</strong>" o relacionados
+            </div>
+          )}
+        </div>
+
+        {/* Selector de Categorías (Pills) */}
           <div className="category-chips-scroll" style={{
             display: 'flex',
             justifyContent: 'center',

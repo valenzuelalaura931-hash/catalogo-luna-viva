@@ -4,6 +4,7 @@ import { ShoppingBag, Search, Menu, X, User, LogOut, ShieldCheck, Sparkles } fro
 import { useCart } from '../../context/CartContext';
 import { useProducts } from '../../context/ProductsContext';
 import { useAuth } from '../../context/AuthContext';
+import { matchProductSearch } from '../../utils/searchUtils';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export function Header() {
@@ -26,11 +27,10 @@ export function Header() {
   }, []);
 
   const handleSearch = (e) => {
-    e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
     if (searchQuery.trim()) {
       navigate(`/shop?search=${encodeURIComponent(searchQuery.trim())}`);
       setIsSearchOpen(false);
-      setSearchQuery('');
     }
   };
 
@@ -65,14 +65,23 @@ export function Header() {
     cursor: 'pointer'
   };
 
-  const searchResults = searchQuery.trim()
-    ? products.filter(p =>
-      !p.hidden && (
-        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.brand.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    ).slice(0, 5)
-    : [];
+  const { searchResults, totalSearchMatches } = React.useMemo(() => {
+    const q = searchQuery.trim();
+    if (!q) return { searchResults: [], totalSearchMatches: 0 };
+    const matches = [];
+    (products || []).forEach(p => {
+      if (p.hidden) return;
+      const res = matchProductSearch(p, q);
+      if (res.matches) {
+        matches.push({ product: p, score: res.score });
+      }
+    });
+    matches.sort((a, b) => b.score - a.score);
+    return {
+      searchResults: matches.slice(0, 8).map(m => m.product),
+      totalSearchMatches: matches.length
+    };
+  }, [products, searchQuery]);
 
   const DesktopNav = () => (
     <nav className="desktop-only" style={{
@@ -96,7 +105,7 @@ export function Header() {
           {isSearchOpen && (
             <motion.form
               initial={{ width: 0, opacity: 0 }}
-              animate={{ width: 140, opacity: 1 }}
+              animate={{ width: 180, opacity: 1 }}
               exit={{ width: 0, opacity: 0 }}
               transition={{ duration: 0.25 }}
               onSubmit={handleSearch}
@@ -106,21 +115,34 @@ export function Header() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Buscar..."
+                placeholder="Buscar o relacionados..."
                 autoFocus
                 style={{
                   width: '100%',
-                  padding: '5px 10px',
+                  padding: '6px 12px',
                   borderRadius: 'var(--radius-full)',
-                  border: '1px solid #ddd',
+                  border: '1.5px solid #F3B1D5',
                   outline: 'none',
-                  fontSize: '12px'
+                  fontSize: '12px',
+                  backgroundColor: '#FFFFFF',
+                  boxShadow: '0 2px 8px rgba(243, 177, 213, 0.25)'
                 }}
               />
             </motion.form>
           )}
         </AnimatePresence>
-        <div onClick={() => setIsSearchOpen(!isSearchOpen)} className="header-icon-btn" style={{ cursor: 'pointer' }}>
+        <div
+          onClick={(e) => {
+            if (isSearchOpen && searchQuery.trim()) {
+              handleSearch(e);
+            } else {
+              setIsSearchOpen(!isSearchOpen);
+            }
+          }}
+          className="header-icon-btn"
+          title={isSearchOpen && searchQuery.trim() ? "Ver cards en pantalla" : "Buscar productos"}
+          style={{ cursor: 'pointer' }}
+        >
           <img src="/img/buscador.png" alt="Buscar" className="header-search-icon" />
         </div>
 
@@ -135,16 +157,52 @@ export function Header() {
                 position: 'absolute',
                 top: 'calc(100% + 12px)',
                 right: 0,
-                width: '320px',
+                width: '350px',
                 maxWidth: 'calc(100vw - 32px)',
                 backgroundColor: 'white',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
-                borderRadius: '8px',
-                maxHeight: '400px',
+                boxShadow: '0 8px 30px rgba(0,0,0,0.15)',
+                borderRadius: '12px',
+                maxHeight: '460px',
                 overflowY: 'auto',
-                zIndex: 99
+                zIndex: 99,
+                border: '1px solid #F3E5EB'
               }}
             >
+              {/* Botón superior directo para ver todos los cards en pantalla completa */}
+              <div
+                onClick={handleSearch}
+                style={{
+                  padding: '12px 16px',
+                  background: 'linear-gradient(135deg, #FFF0F5 0%, #FFE4EE 100%)',
+                  borderBottom: '1px solid #F3D2DF',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  cursor: 'pointer',
+                  borderRadius: '12px 12px 0 0',
+                  transition: 'background 0.2s ease'
+                }}
+                title="Ver todos los productos en tarjetas en la pantalla"
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Search size={15} color="#D9537F" />
+                  <span style={{ fontSize: '13px', fontWeight: '700', color: '#D9537F' }}>
+                    Ver los cards en pantalla
+                  </span>
+                </div>
+                <span style={{
+                  fontSize: '12px',
+                  fontWeight: '700',
+                  color: '#3B3537',
+                  backgroundColor: '#FFFFFF',
+                  padding: '3px 8px',
+                  borderRadius: '12px',
+                  border: '1px solid #F3D2DF'
+                }}>
+                  {totalSearchMatches} {totalSearchMatches === 1 ? 'card' : 'cards'} ➔
+                </span>
+              </div>
+
               <div style={{ padding: '0 16px' }}>
                 {searchResults.map((p, idx) => (
                   <div key={p.id} style={{
@@ -158,20 +216,20 @@ export function Header() {
                       <img
                         src={p.mainImage}
                         alt={p.name}
-                        style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px', flexShrink: 0 }}
+                        style={{ width: '48px', height: '48px', objectFit: 'cover', borderRadius: '6px', flexShrink: 0, border: '1px solid #F5EBF0' }}
                       />
                       <div style={{ minWidth: 0 }}>
                         <Link
                           to={`/product/${p.id}`}
-                          onClick={() => { setIsSearchOpen(false); setSearchQuery(''); }}
+                          onClick={() => { setIsSearchOpen(false); }}
                           style={{
-                            fontWeight: 'bold',
+                            fontWeight: '600',
                             color: 'var(--text-primary)',
                             textDecoration: 'none',
                             fontSize: '13px',
                             display: 'block',
-                            marginBottom: '2px',
-                            lineHeight: '1.2',
+                            marginBottom: '3px',
+                            lineHeight: '1.25',
                             whiteSpace: 'nowrap',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis'
@@ -179,19 +237,19 @@ export function Header() {
                         >
                           {p.name}
                         </Link>
-                        <div style={{ fontSize: '10px', color: '#999', textTransform: 'uppercase' }}>
-                          {p.category}{p.subcategory ? `, ${p.subcategory}` : ''}
+                        <div style={{ fontSize: '10px', color: '#888', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                          <span style={{ fontWeight: '700', color: '#D9537F' }}>{p.brand}</span> · {p.category}
                         </div>
                       </div>
                     </div>
 
-                    <div style={{ textAlign: 'right', flexShrink: 0, marginLeft: '8px' }}>
-                      <div style={{ fontWeight: 'bold', fontSize: '12px', marginBottom: '6px' }}>
+                    <div style={{ textAlign: 'right', flexShrink: 0, marginLeft: '10px' }}>
+                      <div style={{ fontWeight: '700', fontSize: '13px', marginBottom: '6px', color: '#3B3537' }}>
                         {p.price ? `$${p.price.toLocaleString()}` : 'Próximamente'}
                       </div>
                       <Link
                         to={`/product/${p.id}`}
-                        onClick={() => { setIsSearchOpen(false); setSearchQuery(''); }}
+                        onClick={() => { setIsSearchOpen(false); }}
                         style={{
                           display: 'inline-block',
                           backgroundColor: '#F3B1D5',
@@ -204,11 +262,34 @@ export function Header() {
                           letterSpacing: '0.05em'
                         }}
                       >
-                        LEER MÁS
+                        VER CARD
                       </Link>
                     </div>
                   </div>
                 ))}
+              </div>
+
+              {/* Botón inferior siempre accesible */}
+              <div
+                onClick={handleSearch}
+                style={{
+                  padding: '11px 16px',
+                  textAlign: 'center',
+                  backgroundColor: '#FAFAFA',
+                  borderTop: '1px solid #F0F0F0',
+                  cursor: 'pointer',
+                  fontSize: '12px',
+                  fontWeight: '700',
+                  color: '#D9537F',
+                  borderRadius: '0 0 12px 12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '6px'
+                }}
+              >
+                <span>Mostrar todos los cards para "{searchQuery}"</span>
+                <span>➔</span>
               </div>
             </motion.div>
           )}
