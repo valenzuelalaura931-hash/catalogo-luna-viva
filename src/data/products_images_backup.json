@@ -8141,13 +8141,15 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Contorno compacto en polvo Atenea (Contorno en polvo tono Clay). Tonalidades neutras diseñadas para crear sombras realistas en pómulos, frente y mandíbula, logrando un rostro perfectamente definido.",
+    "description": "Ideal para definir facciones, crear profundidad y aportar un efecto bronceado natural al rostro. Está diseñado para imitar la sombra real de la piel, ayudando a perfilar pómulos, mandíbula y nariz sin líneas marcadas.\n\nFunciona para sellar contornos en crema, aumentar duración y lograr un acabado tridimensional más definido y duradero. Perfecto para trabajar técnica de capas sobre contornos en crema, aporta estructura y mayor duración al maquillaje.",
     "benefits": "No deja parches, difuminado ultra fácil, acabado mate.",
     "howToUse": "Aplica debajo del pómulo y línea mandibular con brocha angular.",
-    "mainImage": "/catalogo-img/atenea/contronos/atenea - Contorno compacto.webp",
+    "mainImage": "/catalogo-img/atenea/contronos/atenea - Contorno compacto 1.webp",
     "images": [
-      "/catalogo-img/atenea/contronos/atenea - Contorno compacto.webp",
-      "/catalogo-img/atenea/contronos/atenea - Contorno compacto1.webp"
+      "/catalogo-img/atenea/contronos/atenea - Contorno compacto 1.webp",
+      "/catalogo-img/atenea/contronos/atenea - Contorno compacto texturas.jpg",
+      "/catalogo-img/atenea/contronos/atenea - Contorno compacto swatches.webp",
+      "/catalogo-img/atenea/contronos/atenea - Contorno compacto caja.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
@@ -8166,13 +8168,15 @@
     "stock": 0,
     "available": false,
     "isOut": true,
-    "description": "Contorno compacto en polvo Atenea (Contorno en polvo tono shade). Tonalidades neutras diseñadas para crear sombras realistas en pómulos, frente y mandíbula, logrando un rostro perfectamente definido.",
+    "description": "Ideal para definir facciones, crear profundidad y aportar un efecto bronceado natural al rostro. Está diseñado para imitar la sombra real de la piel, ayudando a perfilar pómulos, mandíbula y nariz sin líneas marcadas.\n\nFunciona para sellar contornos en crema, aumentar duración y lograr un acabado tridimensional más definido y duradero. Perfecto para trabajar técnica de capas sobre contornos en crema, aporta estructura y mayor duración al maquillaje.",
     "benefits": "Pigmentación regulable, textura aterciopelada de alta adherencia.",
     "howToUse": "Aplica en sienes, contorno de nariz y pómulos difuminando suavemente.",
-    "mainImage": "/catalogo-img/atenea/contronos/atenea - Contorno compacto.webp",
+    "mainImage": "/catalogo-img/atenea/contronos/atenea - Contorno compacto 1.webp",
     "images": [
-      "/catalogo-img/atenea/contronos/atenea - Contorno compacto.webp",
-      "/catalogo-img/atenea/contronos/atenea - Contorno compacto1.webp"
+      "/catalogo-img/atenea/contronos/atenea - Contorno compacto 1.webp",
+      "/catalogo-img/atenea/contronos/atenea - Contorno compacto texturas.jpg",
+      "/catalogo-img/atenea/contronos/atenea - Contorno compacto swatches.webp",
+      "/catalogo-img/atenea/contronos/atenea - Contorno compacto caja.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
