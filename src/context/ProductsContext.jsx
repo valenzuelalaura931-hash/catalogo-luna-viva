@@ -6,48 +6,60 @@ const ProductsContext = createContext();
 const SUPABASE_URL = "https://oytdvgeyvuxqafxmgtcp.supabase.co/rest/v1";
 const SUPABASE_KEY = "sb_publishable__oG8sW5N2U7Bg018wfPL3w_3xWijWth";
 
+// Clave para guardar únicamente los campos editados por la administradora (ultra liviano, nunca supera cuota de localStorage)
+const STORAGE_KEY_OVERRIDES = "luna_viva_custom_overrides_v1";
+
 // Mapa canónico de productos desde el JSON oficial (fotos y metadatos actualizados del build)
 const canonicalMap = new Map();
 initialProductsData.forEach(p => {
   canonicalMap.set(p.id, p);
 });
 
-// Función para asegurar que el producto use metadatos base si le faltan, pero respetando las fotos editadas
-function enrichWithCanonical(p) {
-  const canon = canonicalMap.get(p.id);
-  if (!canon) return p;
-  return {
-    ...canon,
-    ...p,
-    hidden: p.hidden !== undefined ? p.hidden : Boolean(canon.hidden),
-    mainImage: p.mainImage || canon.mainImage,
-    images: Array.isArray(p.images) ? p.images : (canon.images || [canon.mainImage]),
-    description: p.description || canon.description,
-    benefits: p.benefits || canon.benefits,
-    howToUse: p.howToUse || canon.howToUse
-  };
+// Función para aplicar personalizaciones de la administradora sobre la lista base de productos
+function applyCustomOverrides(baseList) {
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      // Liberar espacio de cachés masivas antiguas que excedían el límite de 5MB de localStorage
+      localStorage.removeItem('luna_viva_live_products_v1');
+      localStorage.removeItem('luna_viva_live_products_v2');
+      localStorage.removeItem('luna_viva_live_products_v3');
+      localStorage.removeItem('luna_viva_live_products_v4');
+      localStorage.removeItem('luna_viva_live_products_v5');
+
+      const saved = localStorage.getItem(STORAGE_KEY_OVERRIDES);
+      if (saved) {
+        const overrides = JSON.parse(saved);
+        if (overrides && typeof overrides === 'object') {
+          return baseList.map(p => {
+            const ovr = overrides[p.id];
+            if (!ovr) return p;
+            const nextStock = ovr.stock !== undefined ? Number(ovr.stock) : p.stock;
+            return {
+              ...p,
+              name: ovr.name || p.name,
+              price: ovr.price !== undefined ? Number(ovr.price) : p.price,
+              stock: nextStock,
+              available: nextStock > 0,
+              isOut: nextStock <= 0,
+              hidden: ovr.hidden !== undefined ? Boolean(ovr.hidden) : Boolean(p.hidden),
+              description: ovr.description !== undefined ? ovr.description : p.description,
+              benefits: ovr.benefits !== undefined ? ovr.benefits : p.benefits,
+              howToUse: ovr.howToUse !== undefined ? ovr.howToUse : p.howToUse,
+              mainImage: ovr.mainImage || p.mainImage,
+              images: Array.isArray(ovr.images) && ovr.images.length > 0 ? ovr.images : p.images
+            };
+          });
+        }
+      }
+    }
+  } catch (e) {
+    console.warn('Error aplicando personalizaciones locales:', e);
+  }
+  return baseList;
 }
 
 export function ProductsProvider({ children }) {
-  const [products, setProducts] = useState(() => {
-    try {
-      if (typeof window !== 'undefined' && window.localStorage) {
-        // Purgar versiones antiguas de caché para que ningún cliente quede con fotos viejas
-        localStorage.removeItem('luna_viva_live_products_v1');
-        localStorage.removeItem('luna_viva_live_products_v2');
-        localStorage.removeItem('luna_viva_live_products_v3');
-        localStorage.removeItem('luna_viva_live_products_v4');
-        const cached = localStorage.getItem('luna_viva_live_products_v5');
-        if (cached) {
-          const parsed = JSON.parse(cached);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            return parsed.map(enrichWithCanonical);
-          }
-        }
-      }
-    } catch (e) { }
-    return initialProductsData;
-  });
+  const [products, setProducts] = useState(() => applyCustomOverrides(initialProductsData));
 
   const [loading, setLoading] = useState(false);
   const [lastSync, setLastSync] = useState(null);
@@ -118,18 +130,34 @@ export function ProductsProvider({ children }) {
                 } catch (e) { }
               }
 
-              const isHidden = customMeta?.hidden !== undefined
-                ? Boolean(customMeta.hidden)
-                : Boolean(prod.hidden || canon?.hidden || false);
+              // Overrides locales del usuario (prioridad absoluta para que nunca se pierdan cambios)
+              let localOvr = null;
+              try {
+                if (typeof window !== 'undefined' && window.localStorage) {
+                  const ovrRaw = localStorage.getItem(STORAGE_KEY_OVERRIDES);
+                  if (ovrRaw) {
+                    const parsedOvr = JSON.parse(ovrRaw);
+                    localOvr = parsedOvr[prod.id] || null;
+                  }
+                }
+              } catch (e) {}
 
-              const resolvedMainImage = customMeta?.mainImage || prod.mainImage || canon?.mainImage;
-              const resolvedImages = (customMeta?.images && Array.isArray(customMeta.images))
-                ? customMeta.images
-                : (prod.images && Array.isArray(prod.images) ? prod.images : ((canon?.images && canon.images.length > 0) ? canon.images : [canon?.mainImage || prod.mainImage]));
+              const isHidden = localOvr?.hidden !== undefined
+                ? Boolean(localOvr.hidden)
+                : (customMeta?.hidden !== undefined
+                  ? Boolean(customMeta.hidden)
+                  : Boolean(prod.hidden || canon?.hidden || false));
 
-              const resolvedDesc = customMeta?.description || canon?.description || prod.description;
-              const resolvedBenefits = customMeta?.benefits || canon?.benefits || prod.benefits;
-              const resolvedHowToUse = customMeta?.howToUse || canon?.howToUse || prod.howToUse;
+              const resolvedMainImage = localOvr?.mainImage || customMeta?.mainImage || prod.mainImage || canon?.mainImage;
+              const resolvedImages = (localOvr?.images && Array.isArray(localOvr.images) && localOvr.images.length > 0)
+                ? localOvr.images
+                : ((customMeta?.images && Array.isArray(customMeta.images))
+                  ? customMeta.images
+                  : (prod.images && Array.isArray(prod.images) ? prod.images : ((canon?.images && canon.images.length > 0) ? canon.images : [canon?.mainImage || prod.mainImage])));
+
+              const resolvedDesc = localOvr?.description !== undefined ? localOvr.description : (customMeta?.description || canon?.description || prod.description);
+              const resolvedBenefits = localOvr?.benefits !== undefined ? localOvr.benefits : (customMeta?.benefits || canon?.benefits || prod.benefits);
+              const resolvedHowToUse = localOvr?.howToUse !== undefined ? localOvr.howToUse : (customMeta?.howToUse || canon?.howToUse || prod.howToUse);
 
               return {
                 ...prod,
@@ -290,9 +318,31 @@ export function ProductsProvider({ children }) {
       if (fields.price !== undefined) patchPayload.price = Number(fields.price) || 0;
       if (fields.stock !== undefined) patchPayload.stock = Number(fields.stock) || 0;
 
-      // 1. Guardar de inmediato en el estado local y en localStorage (Modo Offline-First garantizado)
+      // 1. Guardar de forma ultra-ligera en luna_viva_custom_overrides_v1 (Pesa pocos bytes, NUNCA falla por cuota de localStorage)
+      try {
+        if (typeof window !== 'undefined' && window.localStorage) {
+          const raw = localStorage.getItem(STORAGE_KEY_OVERRIDES);
+          const currentOverrides = raw ? JSON.parse(raw) : {};
+          currentOverrides[productId] = {
+            ...(currentOverrides[productId] || {}),
+            name: fields.name || existingProduct?.name,
+            description: fields.description !== undefined ? fields.description : existingProduct?.description,
+            benefits: fields.benefits !== undefined ? fields.benefits : existingProduct?.benefits,
+            howToUse: fields.howToUse !== undefined ? fields.howToUse : existingProduct?.howToUse,
+            mainImage: fields.mainImage || existingProduct?.mainImage,
+            images: Array.isArray(fields.images) ? fields.images : existingProduct?.images,
+            hidden: isHidden,
+            updatedAt: new Date().toISOString()
+          };
+          localStorage.setItem(STORAGE_KEY_OVERRIDES, JSON.stringify(currentOverrides));
+        }
+      } catch (errStorage) {
+        console.error('Error al persistir en almacenamiento local:', errStorage);
+      }
+
+      // 2. Actualizar estado local inmediatamente
       setProducts(prev => {
-        const next = prev.map(p => {
+        return prev.map(p => {
           if (p.id === productId) {
             const nextStock = fields.stock !== undefined ? Number(fields.stock) : p.stock;
             return {
@@ -312,14 +362,6 @@ export function ProductsProvider({ children }) {
           }
           return p;
         });
-
-        try {
-          if (typeof window !== 'undefined' && window.localStorage) {
-            localStorage.setItem('luna_viva_live_products_v5', JSON.stringify(next));
-          }
-        } catch (e) { }
-
-        return next;
       });
 
       // 2. Registrar en la cola de sincronización pendiente
