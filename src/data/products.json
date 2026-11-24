@@ -8322,18 +8322,25 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Sombra cremosa individual Atenea (Sombra cremosa individual  tono boreal). Pigmento ultra concentrado con destellos multidimensionales. Larga duración y fijación sin pliegues para miradas cautivadoras.",
+    "description": "Sombras individuales de textura cremosa, alta pigmentación y con acabado satinado.",
     "benefits": "Secado rápido que no se cuartea en el párpado.",
     "howToUse": "Aplica a toques con el dedo o brocha plana sobre el párpado móvil.",
-    "mainImage": "/catalogo-img/atenea/atenea - Paleta de sombras - art deco.webp",
+    "mainImage": "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - abierta.webp",
     "images": [
-      "/catalogo-img/atenea/atenea - Paleta de sombras - art deco.webp",
-      "/catalogo-img/atenea/atenea - Paleta de sombras - art deco1.webp"
+      "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - abierta.webp",
+      "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - swatches brazo.webp",
+      "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - pote cerrado.webp",
+      "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - tono boreal.webp",
+      "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - tono tropical beach.webp",
+      "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - tono nakedmind.webp",
+      "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - tono lilo.webp",
+      "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - tono lanai.webp"
     ],
     "lunaRecommends": true,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - abierta.webp"
   },
   {
     "id": "LV-1336",
@@ -15088,18 +15095,25 @@
     "stock": 0,
     "available": false,
     "isOut": true,
-    "description": "Sombra cremosa individual Atenea (Sombra cremosa individual tono nakedmind). Pigmento ultra concentrado con destellos multidimensionales. Larga duración y fijación sin pliegues para miradas cautivadoras.",
+    "description": "Sombras individuales de textura cremosa, alta pigmentación y con acabado satinado.",
     "benefits": "Brillo sofisticado para el día a día o eventos especiales.",
     "howToUse": "Difumina suavemente en el párpado para un brillo instantáneo.",
-    "mainImage": "/catalogo-img/atenea/atenea - Paleta de sombras - art deco.webp",
+    "mainImage": "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - abierta.webp",
     "images": [
-      "/catalogo-img/atenea/atenea - Paleta de sombras - art deco.webp",
-      "/catalogo-img/atenea/atenea - Paleta de sombras - art deco1.webp"
+      "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - abierta.webp",
+      "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - swatches brazo.webp",
+      "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - pote cerrado.webp",
+      "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - tono boreal.webp",
+      "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - tono tropical beach.webp",
+      "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - tono nakedmind.webp",
+      "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - tono lilo.webp",
+      "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - tono lanai.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - abierta.webp"
   },
   {
     "id": "LV-1606",
