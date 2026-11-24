@@ -8220,18 +8220,21 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Iluminador Sublime dorado Atenea (Iluminador sublime dorado tono afterglow). Destellos micro-perlas que capturan y reflejan la luz para un brillo radiante de impacto sin textura visible. Ideal para pómulos, puente de la nariz y arco de cupido.",
+    "description": "El iluminador compacto de la Línea Sublime, tiene un acabado luminoso que te da un glow natural gracias a su toque cremoso y efecto húmedo que se funde en tu piel.",
     "benefits": "Luminosidad dorada intensa y duradera.",
     "howToUse": "Aplica sobre mejillas, clavículas y hombros para un glow deslumbrante.",
-    "mainImage": "/catalogo-img/atenea/iluminadores/atenea - iluminador compacto - sublime1.webp",
+    "mainImage": "/catalogo-img/atenea/iluminadores/atenea - iluminador compacto - sublime dorado 1.webp",
     "images": [
-      "/catalogo-img/atenea/iluminadores/atenea - iluminador compacto - sublime1.webp",
-      "/catalogo-img/atenea/iluminadores/atenea - iluminador compacto - sublime2.webp"
+      "/catalogo-img/atenea/iluminadores/atenea - iluminador compacto - sublime dorado 1.webp",
+      "/catalogo-img/atenea/iluminadores/atenea - iluminador compacto - sublime dorado swatches.webp",
+      "/catalogo-img/atenea/iluminadores/atenea - iluminador compacto - sublime dorado duo.webp",
+      "/catalogo-img/atenea/iluminadores/atenea - iluminador compacto - sublime dorado tapa.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/atenea/iluminadores/atenea - iluminador compacto - sublime dorado 1.webp"
   },
   {
     "id": "LV-1332",
@@ -13452,18 +13455,21 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Iluminador Sublime dorado Atenea (Iluminador sublime dorado tono magnifisen). Destellos micro-perlas que capturan y reflejan la luz para un brillo radiante de impacto sin textura visible. Ideal para pómulos, puente de la nariz y arco de cupido.",
+    "description": "El iluminador compacto de la Línea Sublime, tiene un acabado luminoso que te da un glow natural gracias a su toque cremoso y efecto húmedo que se funde en tu piel.",
     "benefits": "Máximo impacto de luz, textura micronizada.",
     "howToUse": "Aplica a toques para concentrar la luz en los pómulos.",
-    "mainImage": "/catalogo-img/atenea/iluminadores/atenea - iluminador compacto - sublime1.webp",
+    "mainImage": "/catalogo-img/atenea/iluminadores/atenea - iluminador compacto - sublime dorado 1.webp",
     "images": [
-      "/catalogo-img/atenea/iluminadores/atenea - iluminador compacto - sublime1.webp",
-      "/catalogo-img/atenea/iluminadores/atenea - iluminador compacto - sublime2.webp"
+      "/catalogo-img/atenea/iluminadores/atenea - iluminador compacto - sublime dorado 1.webp",
+      "/catalogo-img/atenea/iluminadores/atenea - iluminador compacto - sublime dorado swatches.webp",
+      "/catalogo-img/atenea/iluminadores/atenea - iluminador compacto - sublime dorado duo.webp",
+      "/catalogo-img/atenea/iluminadores/atenea - iluminador compacto - sublime dorado tapa.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/atenea/iluminadores/atenea - iluminador compacto - sublime dorado 1.webp"
   },
   {
     "id": "LV-1541",
