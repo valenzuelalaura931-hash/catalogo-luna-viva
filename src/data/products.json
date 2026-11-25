@@ -14219,17 +14219,19 @@
     "stock": 5,
     "available": true,
     "isOut": false,
-    "description": "Limpiador facial espumoso de Centella Asiática Bioaqua. Calma pieles sensibles o con tendencia al enrojecimiento y acné, removiendo grasa e impurezas mientras repara la barrera cutánea.",
+    "description": "Transforma tu rutina de cuidado facial con el poder del extracto de centella asiática y limpia profundamente los poros de tu piel, previniendo brotes, resequedad y manchas por agentes contaminantes. Nuestro Jabón Facial Bioaqua es la clave para una piel radiante y saludable. ¡Experimenta la diferencia hoy!\n\nLimpieza Profunda: Este jabón facial elimina suavemente las impurezas y el exceso de grasa, dejando tu piel fresca y revitalizada.\nRejuvenecimiento Natural: El extracto de centella asiática estimula la producción de colágeno, reduciendo las arrugas y restaurando la elasticidad de la piel.\nControla el Acné: Sus propiedades antiinflamatorias ayudan a reducir el acné y a prevenir futuros brotes.\nHidratación Equilibrada: La fórmula de Bioaqua mantiene el equilibrio de humedad de tu piel para un cutis suave y terso.",
     "benefits": "Poder calmante y reparador, no reseca ni deja sensación tirante.",
     "howToUse": "Masajea suavemente sobre la piel húmeda y enjuaga con agua tibia.",
     "mainImage": "/catalogo-img/Bioaqua/centella asiatica/bioaqua - limpiador facial - centella asiatica.webp",
     "images": [
-      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - limpiador facial - centella asiatica.webp"
+      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - jabon facial centella asiatica tubo y caja.webp",
+      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - jabon facial centella asiatica en mano.webp"
     ],
     "lunaRecommends": true,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/centella asiatica/bioaqua - jabon facial centella asiatica tubo y caja.webp"
   },
   {
     "id": "LV-1568",
