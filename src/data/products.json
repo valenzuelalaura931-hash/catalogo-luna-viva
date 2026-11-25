@@ -12450,13 +12450,15 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Base de maquillaje líquida 1st Scene x30ml Atenea (Brocha doble para base y corrector DB04). Acabado mate sedoso, larga duración y resistencia al calor y la humedad. Ideal para lucir una piel uniforme, fresca y radiante durante todo el día.",
+    "description": "Descubre Duo Glam, las nuevas brochas diseñadas para una aplicación impecable y un difuminado profesional. Ideales para productos en polvo, crema o líquidos, garantizan un acabado uniforme y natural.",
     "benefits": "Herramienta 2 en 1 profesional, cero líneas y máxima cobertura.",
     "howToUse": "Usa el lado grande para la base y el pequeño para corrector e imperfecciones.",
-    "mainImage": "/catalogo-img/atenea/base/atenea - base liquida -1st scene  x30ml 1.webp",
+    "mainImage": "/catalogo-img/atenea/brochas/atenea - brocha doble - db04 base y corrector.webp",
     "images": [
-      "/catalogo-img/atenea/base/atenea - base liquida -1st scene  x30ml 1.webp",
-      "/catalogo-img/atenea/base/atenea - base liquida -1st scene  x30ml.webp"
+      "/catalogo-img/atenea/brochas/atenea - brocha doble - db04 base y corrector.webp",
+      "/catalogo-img/atenea/brochas/atenea - brocha doble - db04 empaque blister.webp",
+      "/catalogo-img/atenea/brochas/atenea - brocha doble - db04 kabuki base.webp",
+      "/catalogo-img/atenea/brochas/atenea - brocha doble - db04 gota corrector.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
