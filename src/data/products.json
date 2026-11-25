@@ -4811,17 +4811,19 @@
     "stock": 4,
     "available": true,
     "isOut": false,
-    "description": "Kit facial mini de Centella Asiática Bioaqua. Rutina calmante y reparadora con tónico, emulsión, crema y limpiador. Ideal para llevar de viaje o regalar.",
+    "description": "Rutina facial en formato mini con Centella Asiática, ideal para llevar de viaje, en la cosmetiquera o para probar una rutina completa de cuidado facial. Sus productos están diseñados para complementar la limpieza, hidratación y cuidado diario de la piel, ayudando a mantenerla con una apariencia suave, fresca y confortable.\n\nEl kit incluye 5 productos:\n\nLimpiador facial en espuma.\nTónico facial hidratante.\nLoción facial hidratante.\nSérum facial de Centella Asiática.\nCrema facial.\nIdeal para realizar una rutina completa desde la limpieza hasta la hidratación final, en presentaciones prácticas y fáciles de transportar.\n\nModo de uso: comienza con el limpiador facial y continúa con el tónico, loción, sérum y finaliza con la crema. Durante el día, complementa la rutina con protector solar.",
     "benefits": "Rutina integral de rescate facial en estuche de lujo.",
     "howToUse": "Aplica los productos en orden: limpiador, tónico, contorno, serum y crema.",
     "mainImage": "/catalogo-img/Bioaqua/centella asiatica/bioaqua - kit en caja - centella asiatica.webp",
     "images": [
-      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - kit en caja - centella asiatica.webp"
+      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - kit facial mini centella asiatica caja.webp",
+      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - kit facial mini centella asiatica 5 productos.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/centella asiatica/bioaqua - kit facial mini centella asiatica caja.webp"
   },
   {
     "id": "LV-1197",
