@@ -4321,17 +4321,19 @@
     "stock": 3,
     "available": true,
     "isOut": false,
-    "description": "Crema facial calmante de Centella Asiática Bioaqua. Regeneración celular intensiva que alivia irritaciones, rojeces y repara la barrera protectora de la piel dejándola suave y descansada.",
+    "description": "Transforma tu rutina de cuidado facial con la Crema Facial Centella Bioaqua, el secreto mejor guardado para una piel luminosa y saludable. Nuestra fórmula avanzada combina la ancestral sabiduría de la Centella Asiática con la innovación de la ciencia moderna para brindarte resultados sorprendentes.",
     "benefits": "Regeneración celular, hidratación balanceada para pieles mixtas a grasas.",
     "howToUse": "Aplica una cantidad adecuada sobre el rostro limpio hasta su completa absorción.",
     "mainImage": "/catalogo-img/Bioaqua/centella asiatica/bioaqua - crema hidratante - centella asiatica.webp",
     "images": [
-      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - crema hidratante - centella asiatica.webp"
+      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - crema hidratante centella asiatica pote y caja.webp",
+      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - crema hidratante centella asiatica en mano.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/centella asiatica/bioaqua - crema hidratante centella asiatica pote y caja.webp"
   },
   {
     "id": "LV-1177",
