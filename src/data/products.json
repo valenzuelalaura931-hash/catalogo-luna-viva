@@ -4399,17 +4399,19 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Tónico iluminador de Vitamina C Bioaqua. Purifica, refina la textura de los poros y deja la piel fresca, luminosa y con un aspecto rejuvenecido.",
+    "description": "El tónico de Bioaqua ayudara a hidratar y blanquear la piel , además tiene vitamina C y reduce los poros. Te ayuda a preparar tu piel antes de aplicar suero o crema facial, Repara y Purifica los poros. Limpia Impurezas.\n\nEl tónico facial es un tratamiento fundamental para el bienestar de tu rostro, este tónico es fundamental para el cuidado del rostro, ya que contribuye a restablecer el pH. La vitamina C es un antioxidante que protege contra el daño celular de los radicales libres al preservar el colágeno de la piel, una proteína importante para la integridad de la piel que puede disminuir con la edad.",
     "benefits": "Refresca y equilibra el cutis con antioxidantes activos.",
     "howToUse": "Aplica con un algodón sobre la piel limpia.",
     "mainImage": "/catalogo-img/Bioaqua/Vitamina c/bioaqua - tonico facial - Vitamina c.webp",
     "images": [
-      "/catalogo-img/Bioaqua/Vitamina c/bioaqua - tonico facial - Vitamina c.webp"
+      "/catalogo-img/Bioaqua/Vitamina c/bioaqua - tonico vitamina c frasco y caja.webp",
+      "/catalogo-img/Bioaqua/Vitamina c/bioaqua - tonico vitamina c en mano.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/Vitamina c/bioaqua - tonico vitamina c frasco y caja.webp"
   },
   {
     "id": "LV-1180",
