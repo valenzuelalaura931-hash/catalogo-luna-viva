@@ -4243,17 +4243,20 @@
     "stock": 5,
     "available": true,
     "isOut": false,
-    "description": "Contorno de ojos de Centella Asiática Bioaqua. Descongestiona bolsas y calma la mirada cansada con propiedades drenantes y regeneradoras para una apariencia descansada.",
+    "description": "¡Olvídate de las ojeras y bolsas bajo tus ojos con nuestro Contorno de Ojos de Bioaqua enriquecido con extracto de centella asiática! Experimenta la sensación de una piel tersa y uniforme, sin líneas de expresión o marcas que opacan tu mirada.\n\nRejuvenece tu mirada: El extracto de centella asiática estimula la producción de colágeno, reduciendo las arrugas y líneas finas alrededor de tus ojos.\nElimina ojeras y bolsas: Las propiedades antiinflamatorias de la centella reducen la hinchazón y decoloración, revelando una piel más uniforme.\nHidratación profunda: La fórmula de Bioaqua proporciona una hidratación intensa, manteniendo la piel suave y flexible",
     "benefits": "Reduce hinchazón y ojeras, textura fresca.",
     "howToUse": "Aplica a toquecitos en el hueso orbital día y noche.",
     "mainImage": "/catalogo-img/Bioaqua/centella asiatica/bioaqua - contorno de ojos - centella asiatica.webp",
     "images": [
-      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - contorno de ojos - centella asiatica.webp"
+      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - contorno de ojos - centella asiatica caja y tubo.webp",
+      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - contorno de ojos - centella asiatica tubo.webp",
+      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - contorno de ojos - centella asiatica en mano.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/centella asiatica/bioaqua - contorno de ojos - centella asiatica caja y tubo.webp"
   },
   {
     "id": "LV-1174",
