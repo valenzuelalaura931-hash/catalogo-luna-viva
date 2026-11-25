@@ -12477,14 +12477,15 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Rubor compacto Sublime Atenea (Brocha doble para polvo y rubor DB01). Tono radiante con textura suave que realza el color natural de las mejillas aportando vitalidad y luminosidad al rostro.",
+    "description": "Las brochas Atenea de maquillaje son herramientas versátiles y profesionales, perfectas para quienes buscan practicidad y precisión en un solo producto.\n\nUno de sus extremos cuenta con una brocha para base grande y suave, ideal para aplicar y difuminar polvo compacto o suelto. Sus cerdas sueltas ayudan a retirar el exceso de producto, dejando un acabado limpio, natural y sin apelmazar. Esta brocha también es perfecta como brocha para rubor en polvo, logrando una aplicación difuminada y ligera.\n\nEl otro extremo está diseñado para productos en crema y funciona como brocha para contorno o rubor en crema. Gracias a sus cerdas más cortas y tupidas, permite una difuminación precisa y uniforme, ideal para definir el rostro sin dejar marcas ni líneas duras.",
     "benefits": "Ahorra espacio en tu cosmetiquera con cerdas de calidad profesional.",
     "howToUse": "Sella con el extremo grande y aplica color con el extremo angular.",
-    "mainImage": "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime.webp",
+    "mainImage": "/catalogo-img/atenea/brochas/atenea - brocha doble - db01 polvo y rubor.webp",
     "images": [
-      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime.webp",
-      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime1.webp",
-      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime2.webp"
+      "/catalogo-img/atenea/brochas/atenea - brocha doble - db01 polvo y rubor.webp",
+      "/catalogo-img/atenea/brochas/atenea - brocha doble - db01 empaque blister.webp",
+      "/catalogo-img/atenea/brochas/atenea - brocha doble - db01 redonda rubor.webp",
+      "/catalogo-img/atenea/brochas/atenea - brocha doble - db01 redonda polvo.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
