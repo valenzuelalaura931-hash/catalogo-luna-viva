@@ -12424,14 +12424,15 @@
     "stock": 0,
     "available": false,
     "isOut": true,
-    "description": "Rubor compacto Sublime Atenea (Brocha mini para rubor). Tono radiante con textura suave que realza el color natural de las mejillas aportando vitalidad y luminosidad al rostro.",
+    "description": "Las nuevas Brochas Minis de la línea Sublime te acompañan a donde sea que vayas. Su tamaño compacto cabe fácilmente en cualquier cosmetiquera, mientras sus cerdas y diseños especializados permiten aplicar, difuminar y retocar el maquillaje con precisión y acabado profesional.",
     "benefits": "Difuminado perfecto de rubor en polvo o crema.",
     "howToUse": "Aplica el rubor en las mejillas difuminando hacia arriba.",
-    "mainImage": "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime.webp",
+    "mainImage": "/catalogo-img/atenea/brochas/atenea - brocha mini para rubor - individual.webp",
     "images": [
-      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime.webp",
-      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime1.webp",
-      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime2.webp"
+      "/catalogo-img/atenea/brochas/atenea - brocha mini para rubor - individual.webp",
+      "/catalogo-img/atenea/brochas/atenea - brocha mini para rubor - cerdas detalle.webp",
+      "/catalogo-img/atenea/brochas/atenea - brocha mini para rubor - bs07 descripcion.jpg",
+      "/catalogo-img/atenea/brochas/atenea - brocha mini para rubor - estuche rosa.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
