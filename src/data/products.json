@@ -4347,17 +4347,19 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Tónico calmante de Centella Asiática Bioaqua. Refresca al instante, equilibra la producción sebácea y descongestiona la piel sensible tras la limpieza diaria.",
+    "description": "Tónico hidratante y calmante ayuda a calmar y reparar la piel contien aloe vera, acido hialuronico y hammamelis para hidratar y equilibrar el nivel del ph de la piel repara y regenra las celulas reduce la inflamacion y el enrojecimiento cierra los poros es apto para todo tipo de piel.",
     "benefits": "Control de sebo y reducción de enrojecimiento facial.",
     "howToUse": "Aplica en rostro y cuello con toques suaves.",
     "mainImage": "/catalogo-img/Bioaqua/centella asiatica/bioaqua - tonico de centella asiatica.webp",
     "images": [
-      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - tonico de centella asiatica.webp"
+      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - tonico centella asiatica frasco y caja.webp",
+      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - tonico centella asiatica en mano.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/centella asiatica/bioaqua - tonico centella asiatica frasco y caja.webp"
   },
   {
     "id": "LV-1178",
