@@ -4373,17 +4373,19 @@
     "stock": 4,
     "available": true,
     "isOut": false,
-    "description": "Crema hidratante facial de Vitamina C Bioaqua. Estimula la formación de colágeno, combate radicales libres y protege la piel contra el estrés ambiental, unificando el tono.",
+    "description": "Ilumina y revitaliza tu piel con la crema de vitamina C de Bioaqua. Su fórmula enriquecida con antioxidantes ayuda a reducir manchas, unificar el tono y aportar una hidratación profunda. Ideal para combatir los signos de la edad y devolverle a tu piel un aspecto fresco, radiante y saludable. ¡Cuida tu rostro con los beneficios de la vitamina C!",
     "benefits": "Efecto glow, atenúa manchas de sol y signos de fatiga.",
     "howToUse": "Aplica por la mañana y noche con suaves masajes.",
     "mainImage": "/catalogo-img/Bioaqua/Vitamina c/bioaqua - crema hidratante facial - Vitamina c.webp",
     "images": [
-      "/catalogo-img/Bioaqua/Vitamina c/bioaqua - crema hidratante facial - Vitamina c.webp"
+      "/catalogo-img/Bioaqua/Vitamina c/bioaqua - crema hidratante vitamina c pote y caja.webp",
+      "/catalogo-img/Bioaqua/Vitamina c/bioaqua - crema hidratante vitamina c en mano.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/Vitamina c/bioaqua - crema hidratante vitamina c pote y caja.webp"
   },
   {
     "id": "LV-1179",
