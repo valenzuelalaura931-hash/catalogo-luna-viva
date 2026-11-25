@@ -4295,17 +4295,19 @@
     "stock": 3,
     "available": true,
     "isOut": false,
-    "description": "Serum hidratante regenerador de Centella Asiática Bioaqua. Concentrado antioxidante y cicatrizante que fortalece la piel, combate imperfecciones y previene brotes.",
+    "description": "Este suero contiene propiedades calmantes y regenerativas, ayuda a tener una piel más suave y tersa, estimula la renovación celular, ayudando a reducir las arrugas y líneas finas para una apariencia más juvenil y radiante.\n\nLa centella asiática contiene Vitamina C, vitamina E, vitamina B1, Vitamina B2, niacinamida.\nContiene antioxidantes que la hacen muy poderosa para producir colágeno de manera de manera natural.\nAyuda a corregir las afecciones de la piel como quemaduras o cicatrices",
     "benefits": "Calma brotes de acné y unifica la textura del rostro.",
     "howToUse": "Aplica 3 a 5 gotas en todo el rostro después del tónico.",
     "mainImage": "/catalogo-img/Bioaqua/centella asiatica/bioaqua - serum hidratante - centella asiatica.webp",
     "images": [
-      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - serum hidratante - centella asiatica.webp"
+      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - serum centella asiatica frasco y caja.webp",
+      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - serum centella asiatica en mano.webp"
     ],
     "lunaRecommends": true,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/centella asiatica/bioaqua - serum centella asiatica frasco y caja.webp"
   },
   {
     "id": "LV-1176",
