@@ -11534,17 +11534,21 @@
     "stock": 2,
     "available": true,
     "isOut": false,
-    "description": "Delineador de labios de precisión Atenea (Delineador de labios tono pale pink). Fórmula en gel de deslizamiento suave y alta fijación. Define el contorno de los labios y previene el desvanecimiento del labial.",
+    "description": "El Color Pencil es un lápiz de labios y ojos que sirve para marcar y mapear líneas en esta zona del rostro, te permite realizar trazos finos, precisos y un cubrimiento perfecto, tiene una textura suave, cremosa y alta pigmentación, con el fin de darle un acabado más completo en tus looks de maquillaje.",
     "benefits": "Evita que el labial se desborde, trazo suave sin tirones.",
     "howToUse": "Bordea la línea de los labios antes de aplicar el color.",
-    "mainImage": "/catalogo-img/atenea/atenea - Color pencil.webp",
+    "mainImage": "/catalogo-img/atenea/labios/atenea - delineador de labios - lapiz pale pink.webp",
     "images": [
-      "/catalogo-img/atenea/atenea - Color pencil.webp"
+      "/catalogo-img/atenea/labios/atenea - delineador de labios - lapiz pale pink.webp",
+      "/catalogo-img/atenea/labios/atenea - delineador de labios - puntas tonos.webp",
+      "/catalogo-img/atenea/labios/atenea - delineador de labios - swatches brazo.webp",
+      "/catalogo-img/atenea/labios/atenea - delineador de labios - trio puntas.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/atenea/labios/atenea - delineador de labios - lapiz pale pink.webp"
   },
   {
     "id": "LV-1462",
@@ -11558,17 +11562,21 @@
     "stock": 0,
     "available": false,
     "isOut": true,
-    "description": "Delineador de labios de precisión Atenea (Delineador de labios tono clear wine). Fórmula en gel de deslizamiento suave y alta fijación. Define el contorno de los labios y previene el desvanecimiento del labial.",
+    "description": "El Color Pencil es un lápiz de labios y ojos que sirve para marcar y mapear líneas en esta zona del rostro, te permite realizar trazos finos, precisos y un cubrimiento perfecto, tiene una textura suave, cremosa y alta pigmentación, con el fin de darle un acabado más completo en tus looks de maquillaje.",
     "benefits": "Pigmentación intensa, resistente a la fricción.",
     "howToUse": "Delinea y rellena suavemente los labios.",
-    "mainImage": "/catalogo-img/atenea/atenea - Color pencil.webp",
+    "mainImage": "/catalogo-img/atenea/labios/atenea - delineador de labios - lapiz pale pink.webp",
     "images": [
-      "/catalogo-img/atenea/atenea - Color pencil.webp"
+      "/catalogo-img/atenea/labios/atenea - delineador de labios - lapiz pale pink.webp",
+      "/catalogo-img/atenea/labios/atenea - delineador de labios - puntas tonos.webp",
+      "/catalogo-img/atenea/labios/atenea - delineador de labios - swatches brazo.webp",
+      "/catalogo-img/atenea/labios/atenea - delineador de labios - trio puntas.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/atenea/labios/atenea - delineador de labios - lapiz pale pink.webp"
   },
   {
     "id": "LV-1463",
