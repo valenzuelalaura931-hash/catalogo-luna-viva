@@ -11755,17 +11755,19 @@
     "stock": 12,
     "available": true,
     "isOut": false,
-    "description": "Borla triangular de la marca Beauty tool. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "Borla suave y aterciopelada diseñada para aplicar, sellar y retocar el maquillaje de forma cómoda y precisa. Su formato con punta facilita llegar a zonas más pequeñas del rostro, como el contorno de ojos y los laterales de la nariz, mientras que su parte redondeada permite trabajar áreas más amplias.\n\nCuenta con cinta de sujeción para los dedos, proporcionando mayor control durante la aplicación. Ideal para utilizar con polvos sueltos o compactos.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
     "mainImage": "/img/beauty blender.webp",
     "images": [
-      "/img/beauty blender.webp"
+      "/catalogo-img/Beauty Tool/beauty tool - borla triangular individual.webp",
+      "/catalogo-img/Beauty Tool/beauty tool - borla triangular 3 colores.jpg"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": true,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Beauty Tool/beauty tool - borla triangular individual.webp"
   },
   {
     "id": "LV-1470",
