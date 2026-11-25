@@ -12396,19 +12396,21 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Brocha profesional Atenea (Brocha mini para polvo). Cerdas sintéticas ultra suaves de alta densidad para una aplicación precisa y uniforme de maquillaje líquido, en crema o en polvo.",
+    "description": "Las nuevas Brochas Minis de la línea Sublime te acompañan a donde sea que vayas. Su tamaño compacto cabe fácilmente en cualquier cosmetiquera, mientras sus cerdas y diseños especializados permiten aplicar, difuminar y retocar el maquillaje con precisión y acabado profesional.",
     "benefits": "Distribución ligera y uniforme de polvos sin recargar la piel.",
     "howToUse": "Toma polvo, sacude el exceso y aplica a toques por el rostro.",
-    "mainImage": "/catalogo-img/atenea/brochas/atenea - brocha doble - base-productos en crema.webp",
+    "mainImage": "/catalogo-img/atenea/brochas/atenea - brocha mini para polvo - individual.webp",
     "images": [
-      "/catalogo-img/atenea/brochas/atenea - brocha doble - base-productos en crema.webp",
-      "/catalogo-img/atenea/brochas/atenea - brocha doble - base-productos en crema1.webp",
-      "/catalogo-img/atenea/brochas/atenea - brocha doble - base-productos en crema2.webp"
+      "/catalogo-img/atenea/brochas/atenea - brocha mini para polvo - individual.webp",
+      "/catalogo-img/atenea/brochas/atenea - brocha mini para polvo - cerdas detalle.webp",
+      "/catalogo-img/atenea/brochas/atenea - brocha mini para polvo - bs03 descripcion.jpg",
+      "/catalogo-img/atenea/brochas/atenea - brocha mini para polvo - estuche rosa.webp"
     ],
     "lunaRecommends": true,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/atenea/brochas/atenea - brocha mini para polvo - individual.webp"
   },
   {
     "id": "LV-1496",
