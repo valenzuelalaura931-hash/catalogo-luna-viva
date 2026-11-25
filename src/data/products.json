@@ -8799,19 +8799,22 @@
     "stock": 0,
     "available": false,
     "isOut": true,
-    "description": "Dúo de rubor Allure Atenea (Duo rubor allure tono pink crush). Armonía de dos tonalidades complementarias que permiten modular desde un rubor sutil diario hasta un look de mejillas vibrante y dimensional.",
+    "description": "Sabemos que el toque final siempre vale x2.\nNuevos rubores dúo: 3 tonos versátiles y atemporales pensados para crear maquillajes clásicos, glamurosos y muy frescos.\nCon textura suave, cremosa y sedosa. Fáciles de difuminar y de larga duración. Aplica hasta obtener la intensidad del color deseada.",
     "benefits": "Fórmula 2 en 1, alta pigmentación y fijación todo el día.",
     "howToUse": "Sonríe y aplica en las manzanas de las mejillas difuminando hacia las sienes.",
-    "mainImage": "/catalogo-img/atenea/rubores/atenea - rubor duo - allure.webp",
+    "mainImage": "/catalogo-img/atenea/rubores/atenea - rubor duo - allure - pink crush.webp",
     "images": [
-      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure.webp",
-      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure1.webp",
-      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure2.webp"
+      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure - pink crush.webp",
+      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure - trio swatches.webp",
+      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure - night cherry.webp",
+      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure - orange weekend.webp",
+      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure - cerrado.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/atenea/rubores/atenea - rubor duo - allure - pink crush.webp"
   },
   {
     "id": "LV-1355",
@@ -8825,19 +8828,22 @@
     "stock": 2,
     "available": true,
     "isOut": false,
-    "description": "Dúo de rubor Allure Atenea (Duo rubor allure tono night cherry). Armonía de dos tonalidades complementarias que permiten modular desde un rubor sutil diario hasta un look de mejillas vibrante y dimensional.",
+    "description": "Sabemos que el toque final siempre vale x2.\nNuevos rubores dúo: 3 tonos versátiles y atemporales pensados para crear maquillajes clásicos, glamurosos y muy frescos.\nCon textura suave, cremosa y sedosa. Fáciles de difuminar y de larga duración. Aplica hasta obtener la intensidad del color deseada.",
     "benefits": "Color construible, acabado satinado aterciopelado.",
     "howToUse": "Aplica con brocha de rubor a toquecitos.",
-    "mainImage": "/catalogo-img/atenea/rubores/atenea - rubor duo - allure.webp",
+    "mainImage": "/catalogo-img/atenea/rubores/atenea - rubor duo - allure - night cherry.webp",
     "images": [
-      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure.webp",
-      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure1.webp",
-      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure2.webp"
+      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure - night cherry.webp",
+      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure - trio swatches.webp",
+      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure - pink crush.webp",
+      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure - orange weekend.webp",
+      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure - cerrado.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/atenea/rubores/atenea - rubor duo - allure - night cherry.webp"
   },
   {
     "id": "LV-1356",
@@ -8851,19 +8857,22 @@
     "stock": 2,
     "available": true,
     "isOut": false,
-    "description": "Dúo de rubor Allure Atenea (Duo rubor allure tono orange weekend). Armonía de dos tonalidades complementarias que permiten modular desde un rubor sutil diario hasta un look de mejillas vibrante y dimensional.",
+    "description": "Sabemos que el toque final siempre vale x2.\nNuevos rubores dúo: 3 tonos versátiles y atemporales pensados para crear maquillajes clásicos, glamurosos y muy frescos.\nCon textura suave, cremosa y sedosa. Fáciles de difuminar y de larga duración. Aplica hasta obtener la intensidad del color deseada.",
     "benefits": "Realza el tono cálido de la piel, color modulable.",
     "howToUse": "Aplica mezclando ambos tonos con la brocha sobre las mejillas.",
-    "mainImage": "/catalogo-img/atenea/rubores/atenea - rubor duo - allure.webp",
+    "mainImage": "/catalogo-img/atenea/rubores/atenea - rubor duo - allure - orange weekend.webp",
     "images": [
-      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure.webp",
-      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure1.webp",
-      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure2.webp"
+      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure - orange weekend.webp",
+      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure - trio swatches.webp",
+      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure - night cherry.webp",
+      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure - pink crush.webp",
+      "/catalogo-img/atenea/rubores/atenea - rubor duo - allure - cerrado.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/atenea/rubores/atenea - rubor duo - allure - orange weekend.webp"
   },
   {
     "id": "LV-1357",
