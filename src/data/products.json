@@ -9116,19 +9116,21 @@
     "stock": 3,
     "available": true,
     "isOut": false,
-    "description": "Rubor compacto Sublime Atenea (Rubor cuadrado sublime tono sundown). Tono radiante con textura suave que realza el color natural de las mejillas aportando vitalidad y luminosidad al rostro.",
+    "description": "El Rubor Compacto Sublime aporta color, frescura y dimensión con una textura sedosa que se integra perfectamente a la piel. Su fórmula de alta calidad permite construir intensidad sin efecto parchoso, logrando desde un acabado natural hasta un look vibrante y sofisticado.\n\nDiseñado para trabajar en capas (crema + polvo), este blush en polvo sella el maquillaje, prolonga la duración y aporta un acabado profesional con efecto piel real.",
     "benefits": "Alta duración y adherencia en la piel.",
     "howToUse": "Aplica con brocha difuminando hacia la parte alta del pómulo.",
-    "mainImage": "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime.webp",
+    "mainImage": "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime cuadrado 1.webp",
     "images": [
-      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime.webp",
-      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime1.webp",
-      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime2.webp"
+      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime cuadrado 1.webp",
+      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime cuadrado swatches.webp",
+      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime cuadrado texturas.webp",
+      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime cuadrado empaque.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime cuadrado 1.webp"
   },
   {
     "id": "LV-1367",
@@ -9142,19 +9144,21 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Rubor compacto Sublime Atenea (Rubor cuadrado sublime tono radiant). Tono radiante con textura suave que realza el color natural de las mejillas aportando vitalidad y luminosidad al rostro.",
+    "description": "El Rubor Compacto Sublime aporta color, frescura y dimensión con una textura sedosa que se integra perfectamente a la piel. Su fórmula de alta calidad permite construir intensidad sin efecto parchoso, logrando desde un acabado natural hasta un look vibrante y sofisticado.\n\nDiseñado para trabajar en capas (crema + polvo), este blush en polvo sella el maquillaje, prolonga la duración y aporta un acabado profesional con efecto piel real.",
     "benefits": "Acabado radiante natural.",
     "howToUse": "Aplica ligeramente sobre las mejillas.",
-    "mainImage": "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime.webp",
+    "mainImage": "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime cuadrado 1.webp",
     "images": [
-      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime.webp",
-      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime1.webp",
-      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime2.webp"
+      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime cuadrado 1.webp",
+      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime cuadrado swatches.webp",
+      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime cuadrado texturas.webp",
+      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime cuadrado empaque.webp"
     ],
     "lunaRecommends": true,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime cuadrado 1.webp"
   },
   {
     "id": "LV-1368",
@@ -13452,18 +13456,21 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Rubor compacto 1st Scene Atenea (Rubor cuadrado tono sunset). Pigmentación de alto impacto y difuminado sedoso. Deja en las mejillas un velo de color saludable que dura intacto muchas horas.",
+    "description": "El Rubor Compacto Sublime aporta color, frescura y dimensión con una textura sedosa que se integra perfectamente a la piel. Su fórmula de alta calidad permite construir intensidad sin efecto parchoso, logrando desde un acabado natural hasta un look vibrante y sofisticado.\n\nDiseñado para trabajar en capas (crema + polvo), este blush en polvo sella el maquillaje, prolonga la duración y aporta un acabado profesional con efecto piel real.",
     "benefits": "Resistente a la transferencia, no reseca.",
     "howToUse": "Aplica con brocha a toques.",
-    "mainImage": "/catalogo-img/atenea/rubores/atenea - rubor compacto - 1st scene.webp",
+    "mainImage": "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime cuadrado 1.webp",
     "images": [
-      "/catalogo-img/atenea/rubores/atenea - rubor compacto - 1st scene.webp",
-      "/catalogo-img/atenea/rubores/atenea - rubor compacto - 1st scene1.webp"
+      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime cuadrado 1.webp",
+      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime cuadrado swatches.webp",
+      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime cuadrado texturas.webp",
+      "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime cuadrado empaque.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/atenea/rubores/atenea - rubor compacto - sublime cuadrado 1.webp"
   },
   {
     "id": "LV-1540",
