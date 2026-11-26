@@ -4503,17 +4503,19 @@
     "stock": 3,
     "available": true,
     "isOut": false,
-    "description": "Contorno de ojos de arroz Bioaqua Rice Raw Pulp Eye Cream 20g. Fórmula ligera diseñada para atenuar ojeras, desinflamar bolsas matutinas y difuminar líneas de expresión finas en la delicada zona periocular.",
+    "description": "El contorno de ojos de arroz de bioaqua, es una crema para el cuidado de la piel que se utiliza en el área alrededor de los ojos para hidratar, suavizar y proteger la piel. Contiene arroz como ingrediente activo, que es conocido por sus propiedades antioxidantes y antiinflamatorias.\n\nPara aplicar el contorno de ojos de arroz, se debe limpiar y secar el área alrededor de los ojos antes de aplicar una pequeña cantidad de crema con movimientos suaves en la piel. Se recomienda utilizar el dedo anular o meñique para el masaje y su uso por la mañana y por la noche para obtener los mejores resultados.",
     "benefits": "Mirada descansada y luminosa, fórmula ligera que no irrita.",
     "howToUse": "Aplica pequeñas gotas alrededor del ojo y da toques suaves con el dedo anular.",
     "mainImage": "/catalogo-img/Bioaqua/arroz/bioaqua - Contorno de ojos - Arroz.webp",
     "images": [
-      "/catalogo-img/Bioaqua/arroz/bioaqua - Contorno de ojos - Arroz.webp"
+      "/catalogo-img/Bioaqua/arroz/bioaqua - contorno de ojos arroz tubo y caja.webp",
+      "/catalogo-img/Bioaqua/arroz/bioaqua - contorno de ojos arroz en mano.webp"
     ],
     "lunaRecommends": true,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/arroz/bioaqua - contorno de ojos arroz tubo y caja.webp"
   },
   {
     "id": "LV-1184",
