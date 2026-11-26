@@ -4425,17 +4425,19 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Limpiador facial espumoso de Vitamina C Bioaqua. Elimina impurezas y células muertas mientras reactiva la luminosidad de la piel con poder antioxidante.",
+    "description": "Jabon Facial Vitamina C de Bioaqua es un jabón facial que contiene vitamina C como uno de sus principales ingredientes. Este jabón está diseñado para proporcionar una experiencia de limpieza suave y efectiva para el rostro, al tiempo que ayuda a iluminar y nivelar el tono de la piel.\nLa vitamina C es conocida por sus poderosas propiedades antioxidantes, que pueden ayudar a proteger la piel de los factores ambientales y el daño de los radicales libres. También desempeña un papel clave en la producción de colágeno, lo que puede ayudar a mejorar la elasticidad y firmeza de la piel.\n\nEl jabón facial Bioaqua está formulado para ser lo suficientemente suave para su uso diario y adecuado para todo tipo de piel. Funciona haciendo espuma para eliminar la suciedad, el aceite y las impurezas de la piel, dejándola fresca, limpia y rejuvenecida",
     "benefits": "Piel más radiante y limpia desde la primera aplicación.",
     "howToUse": "Humedecer el rostro, frotar hasta generar espuma y enjuagar.",
     "mainImage": "/catalogo-img/Bioaqua/Vitamina c/bioaqua - Limpiador facial - Vitamina c.webp",
     "images": [
-      "/catalogo-img/Bioaqua/Vitamina c/bioaqua - Limpiador facial - Vitamina c.webp"
+      "/catalogo-img/Bioaqua/Vitamina c/bioaqua - limpiador facial vitamina c tubo y caja.webp",
+      "/catalogo-img/Bioaqua/Vitamina c/bioaqua - limpiador facial vitamina c en mano.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/Vitamina c/bioaqua - limpiador facial vitamina c tubo y caja.webp"
   },
   {
     "id": "LV-1181",
