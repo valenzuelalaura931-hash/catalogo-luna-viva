@@ -4875,18 +4875,19 @@
     "stock": 3,
     "available": true,
     "isOut": false,
-    "description": "Kit facial completo de arroz Bioaqua Rice Raw Pulp en caja de regalo. Rutina integral de skincare con limpiador, tónico, serum, contorno de ojos y crema hidratante para una transformación total de la piel.",
+    "description": "El Kit Mini de Cuidado Facial Bioaqua es ideal para llevar en viajes o probar la línea completa sin ocupar espacio. Formulado con extracto de arroz, conocido por sus propiedades iluminadoras, suavizantes y equilibrantes.\n\nIncluye:\n✔️ Limpiador facial 30 gr\n\n✔️ Tónico hidratante 30 ml\n\n✔️ Emulsión ligera 30 ml\n\n✔️ Crema nutritiva 15 gr\n\n✔️ Serum 10 ml\n\nBeneficios:\n🔹 Ideal para todo tipo de piel\n🔹 Presentación portátil, perfecta para viajar\n🔹 Fórmulas suaves con efecto calmante y revitalizante",
     "benefits": "Práctico, completo y fácil de transportar.",
     "howToUse": "Usa día y noche en tu rutina diaria.",
     "mainImage": "/catalogo-img/Bioaqua/arroz/bioaqua - Kit en caja - Arroz.webp",
     "images": [
-      "/catalogo-img/Bioaqua/arroz/bioaqua - Kit en caja - Arroz.webp",
-      "/catalogo-img/Bioaqua/arroz/bioaqua - Kit en caja - Arroz.webp"
+      "/catalogo-img/Bioaqua/arroz/bioaqua - kit facial mini arroz caja.webp",
+      "/catalogo-img/Bioaqua/arroz/bioaqua - kit facial mini arroz 5 productos.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/arroz/bioaqua - kit facial mini arroz caja.webp"
   },
   {
     "id": "LV-1199",
