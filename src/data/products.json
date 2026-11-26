@@ -4529,17 +4529,19 @@
     "stock": 2,
     "available": true,
     "isOut": false,
-    "description": "Serum facial concentrado de arroz Bioaqua Rice Raw Pulp. Potente elixir iluminador que atenúa manchas oscuras, hidrata en capas profundas y devuelve la lozanía y luminosidad a la piel opaca.",
+    "description": "El serum facial de arroz de Bioaqua, es un producto cosmético diseñado para hidratar y nutrir la piel base de arroz y acido hialurónico . El arroz es un ingrediente común en la cosmética asiática debido a sus propiedades antioxidantes, antiinflamatorias y blanqueadoras, mientras que el ácido hialurónico es un ingrediente popular en la industria de la belleza por su capacidad para retener la humedad y mejorar la apariencia de la piel.",
     "benefits": "Efecto piel de porcelana, rápido poder de absorción.",
     "howToUse": "Aplica 3-4 gotas en el rostro limpio antes de la crema hidratante.",
     "mainImage": "/catalogo-img/Bioaqua/arroz/bioaqua - serum facial - Arroz.webp",
     "images": [
-      "/catalogo-img/Bioaqua/arroz/bioaqua - serum facial - Arroz.webp"
+      "/catalogo-img/Bioaqua/arroz/bioaqua - serum arroz pequeño frasco y caja.webp",
+      "/catalogo-img/Bioaqua/arroz/bioaqua - serum arroz pequeño en mano.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/arroz/bioaqua - serum arroz pequeño frasco y caja.webp"
   },
   {
     "id": "LV-1185",
