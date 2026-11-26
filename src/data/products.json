@@ -14110,23 +14110,25 @@
     "barcode": "6942349741005",
     "name": "Jabon de arroz",
     "brand": "Bioaqua",
-    "category": "Maquillaje",
+    "category": "Skincare",
     "subcategory": "Maquillaje",
     "price": 14000,
     "stock": 5,
     "available": true,
     "isOut": false,
-    "description": "Jabón limpiador facial de arroz Bioaqua Rice Raw Pulp. Limpieza profunda y delicada que remueve impurezas y exceso de grasa sin resecar. El extracto de fermento de arroz ilumina, unifica el tono y suaviza la textura de la piel.",
+    "description": "Beneficios de lavarse la piel en la noche: esta comprobado que lavarse la cara por la noche es el mejor tratamiento de belleza, ya que de esta forma garantizamos que los poros de nuestra piel descansen ocho horas de la contaminación e impurezas que agreden nuestro cutis a diario, aparte ayuda a tener una piel mas sana y brillante.\n\nEspuma suave y limpiadora.\nRefresca la piel y la hidrata.\nAyuda a aclarar y dar más brillo a la piel.\nRemueve la piel muerta",
     "benefits": "Aclara suavemente el tono de la piel, control de grasa y textura ultra suave.",
     "howToUse": "Humedecer el rostro, masajear en círculos y enjuagar con abundante agua.",
     "mainImage": "/catalogo-img/Bioaqua/arroz/bioaqua - Limpiador facial - Arroz.webp",
     "images": [
-      "/catalogo-img/Bioaqua/arroz/bioaqua - Limpiador facial - Arroz.webp"
+      "/catalogo-img/Bioaqua/arroz/bioaqua - jabon arroz tubo y caja.webp",
+      "/catalogo-img/Bioaqua/arroz/bioaqua - jabon arroz en mano.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/arroz/bioaqua - jabon arroz tubo y caja.webp"
   },
   {
     "id": "LV-1563",
