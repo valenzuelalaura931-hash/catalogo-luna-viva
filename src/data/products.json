@@ -4451,17 +4451,19 @@
     "stock": 3,
     "available": true,
     "isOut": false,
-    "description": "Jabón limpiador facial de arroz Bioaqua Rice Raw Pulp. Limpieza profunda y delicada que remueve impurezas y exceso de grasa sin resecar. El extracto de fermento de arroz ilumina, unifica el tono y suaviza la textura de la piel.",
+    "description": "Beneficios de lavarse la piel en la noche: esta comprobado que lavarse la cara por la noche es el mejor tratamiento de belleza, ya que de esta forma garantizamos que los poros de nuestra piel descansen ocho horas de la contaminación e impurezas que agreden nuestro cutis a diario, aparte ayuda a tener una piel mas sana y brillante.\n\nRefresca la piel y la hidrata.\nAyuda a aclarar y dar más brillo a la piel.\nRemueve la piel muerta.",
     "benefits": "Cepillo masajeador que activa la circulación y retira puntos negros.",
     "howToUse": "Presiona el dosificador para obtener espuma y masajea suavemente con el cepillo de silicona.",
     "mainImage": "/catalogo-img/Bioaqua/arroz/bioaqua - Limpiador facial - Arroz.webp",
     "images": [
-      "/catalogo-img/Bioaqua/arroz/bioaqua - Limpiador facial - Arroz.webp"
+      "/catalogo-img/Bioaqua/arroz/bioaqua - espuma con cepillo arroz frasco en mano.webp",
+      "/catalogo-img/Bioaqua/arroz/bioaqua - espuma con cepillo arroz detalle cepillo.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/arroz/bioaqua - espuma con cepillo arroz frasco en mano.webp"
   },
   {
     "id": "LV-1182",
