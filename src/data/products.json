@@ -4477,17 +4477,19 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Tónico facial de arroz Bioaqua Rice Raw Pulp. Restaura el pH cutáneo, purifica los poros dilatados e hidrata a profundidad preparando el rostro para la absorción de serums y cremas.",
+    "description": "- Cuidado hidratante de piel áspera y seca.\n- Contiene extracto de arroz.\n- Humecta la piel.\n- Controla la grasa de la piel.\n- Cuidado hidratante, elástico y húmedo.\n- Mejora el cutis de la piel y la cuida.",
     "benefits": "Prepara la piel para absorber mejor los serums y cremas.",
     "howToUse": "Aplica con un pomo de algodón o a toquecitos con las manos sobre el rostro limpio.",
     "mainImage": "/catalogo-img/Bioaqua/arroz/bioaqua - tonico facial - Arroz.webp",
     "images": [
-      "/catalogo-img/Bioaqua/arroz/bioaqua - tonico facial - Arroz.webp"
+      "/catalogo-img/Bioaqua/arroz/bioaqua - tonico arroz frasco y caja.webp",
+      "/catalogo-img/Bioaqua/arroz/bioaqua - tonico arroz en mano.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/arroz/bioaqua - tonico arroz frasco y caja.webp"
   },
   {
     "id": "LV-1183",
