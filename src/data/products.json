@@ -14142,17 +14142,19 @@
     "stock": 3,
     "available": true,
     "isOut": false,
-    "description": "Crema facial hidratante de arroz Bioaqua Rice Raw Pulp. Nutrición intensiva enriquecida con extracto de arroz. Refuerza la elasticidad de la piel, aclara manchas y deja el cutis terso, radiante y visiblemente rejuvenecido.",
+    "description": "El utilizar una crema hidratante diariamente en las noche en el rostro, ayuda a darle un aspecto mas brillante y sano a la piel ya que proporciona agua a las células de la piel, nutriéndola en profundidad y protegiéndola de los agentes externos como los cambios de temperatura, el viento o la contaminación.\n\nCuidado de agua de la piel.\nHidrata profundamente.\nLa espuma le da más suavidad a la piel.\nEl extracto de arroz le brinda a la piel un brillo natural",
     "benefits": "Nutrición profunda, atenúa manchitas, absorción rápida sin brillo graso.",
     "howToUse": "Aplicar en rostro y cuello mañana y noche después de la limpieza.",
     "mainImage": "/catalogo-img/Bioaqua/arroz/bioaqua - crema facial - Arroz.webp",
     "images": [
-      "/catalogo-img/Bioaqua/arroz/bioaqua - crema facial - Arroz.webp"
+      "/catalogo-img/Bioaqua/arroz/bioaqua - crema arroz tarro y caja.webp",
+      "/catalogo-img/Bioaqua/arroz/bioaqua - crema arroz en mano.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/arroz/bioaqua - crema arroz tarro y caja.webp"
   },
   {
     "id": "LV-1564",
