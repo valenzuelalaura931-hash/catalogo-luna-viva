@@ -4270,18 +4270,20 @@
     "stock": 0,
     "available": false,
     "isOut": true,
-    "description": "Parches de colágeno para el contorno de ojos Bioaqua. Mascarillas de hidrogel que descongestionan bolsas y suavizan ojeras con efecto lifting refrescante.",
+    "description": "Parches para el contorno de ojos con centella asiática y colágeno, diseñados para aportar hidratación y cuidado intensivo a esta delicada zona. Su textura en gel ayuda a refrescar, suavizar y mejorar la apariencia de la piel alrededor de los ojos.\n\nIdeales para complementar la rutina de skincare y darle al contorno una apariencia más fresca, hidratada y revitalizada.\n\nBeneficios:\n\nAportan hidratación al contorno de ojos.\nAyudan a suavizar la apariencia de la piel.\nBrindan una sensación refrescante y confortable.\nAyudan a mejorar la apariencia de cansancio del contorno.\nFórmula con centella asiática y colágeno.\nContiene 80 parches / 100 g.",
     "benefits": "Disminuye la inflamación, aclara ojeras y aporta frescura.",
     "howToUse": "Coloca un parche bajo cada ojo por 15-20 minutos y retira.",
-    "mainImage": "/catalogo-img/Bioaqua/centella asiatica/bioaqua - contorno de ojos - centella asiatica.webp",
+    "mainImage": "/catalogo-img/Bioaqua/ojeras/bioaqua - colageno ojeras cajita centella caja.webp",
     "images": [
-      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - contorno de ojos - centella asiatica.webp",
-      "/catalogo-img/Bioaqua/Rosas y acido hialuronico/bioaqua - Contorno de ojos - rosas y acido hialuronico1.webp"
+      "/catalogo-img/Bioaqua/ojeras/bioaqua - colageno ojeras cajita centella caja.webp",
+      "/catalogo-img/Bioaqua/ojeras/bioaqua - colageno ojeras cajita centella tarro.webp",
+      "/catalogo-img/Bioaqua/ojeras/bioaqua - colageno ojeras cajita centella modelo.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/ojeras/bioaqua - colageno ojeras cajita centella caja.webp"
   },
   {
     "id": "LV-1175",
@@ -15210,24 +15212,26 @@
     "barcode": "6973098893462",
     "name": "Colageno de ojeras en cajita",
     "brand": "Bioaqua",
-    "category": "Maquillaje",
-    "subcategory": "Maquillaje",
+    "category": "Skincare",
+    "subcategory": "Skincare",
     "price": 16000,
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Parches de colágeno para el contorno de ojos Bioaqua. Mascarillas de hidrogel que descongestionan bolsas y suavizan ojeras con efecto lifting refrescante.",
+    "description": "Parches para el contorno de ojos con centella asiática y colágeno, diseñados para aportar hidratación y cuidado intensivo a esta delicada zona. Su textura en gel ayuda a refrescar, suavizar y mejorar la apariencia de la piel alrededor de los ojos.\n\nIdeales para complementar la rutina de skincare y darle al contorno una apariencia más fresca, hidratada y revitalizada.\n\nBeneficios:\n\nAportan hidratación al contorno de ojos.\nAyudan a suavizar la apariencia de la piel.\nBrindan una sensación refrescante y confortable.\nAyudan a mejorar la apariencia de cansancio del contorno.\nFórmula con centella asiática y colágeno.\nContiene 80 parches / 100 g.",
     "benefits": "Máxima hidratación y efecto lifting inmediato.",
     "howToUse": "Usa en tu rutina de skincare antes de maquillarte.",
-    "mainImage": "/catalogo-img/Bioaqua/centella asiatica/bioaqua - contorno de ojos - centella asiatica.webp",
+    "mainImage": "/catalogo-img/Bioaqua/ojeras/bioaqua - colageno ojeras cajita centella caja.webp",
     "images": [
-      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - contorno de ojos - centella asiatica.webp",
-      "/catalogo-img/Bioaqua/Rosas y acido hialuronico/bioaqua - Contorno de ojos - rosas y acido hialuronico1.webp"
+      "/catalogo-img/Bioaqua/ojeras/bioaqua - colageno ojeras cajita centella caja.webp",
+      "/catalogo-img/Bioaqua/ojeras/bioaqua - colageno ojeras cajita centella tarro.webp",
+      "/catalogo-img/Bioaqua/ojeras/bioaqua - colageno ojeras cajita centella modelo.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/ojeras/bioaqua - colageno ojeras cajita centella caja.webp"
   },
   {
     "id": "LV-1605",
