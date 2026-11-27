@@ -3417,7 +3417,7 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Primer neutralizante bloom cream purple de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "Primer morado en textura crema que prepara y suaviza la piel y aporta luminosidad, unifica el tono en pieles amarillas y mejora la duración del maquillaje.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
     "mainImage": "/catalogo-img/Bloomshell/primer/bloomshell - primer en crema- bloomcream purple.webp",
@@ -3428,7 +3428,8 @@
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/primer/bloomshell - primer en crema- bloomcream purple.webp"
   },
   {
     "id": "LV-1140",
