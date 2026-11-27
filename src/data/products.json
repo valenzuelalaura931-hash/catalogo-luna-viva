@@ -14186,17 +14186,19 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Bálsamo hidratante para labios con extracto de Durazno Bioaqua. Hidratación reconfortante, previene labios agrietados y aporta un aroma dulce y agradable.",
+    "description": "Hidratante de labios de durazno Bioaqua: suaviza y humecta profundamente, brindando un acabado sedoso y protección duradera. Su aroma fresco a durazno revitaliza, ideal para labios suaves, hidratados y saludables en todo momento.",
     "benefits": "Aroma dulce a durazno, acabado transparente natural.",
     "howToUse": "Aplica directamente sobre los labios tantas veces como desees.",
     "mainImage": "/catalogo-img/anik/labios/anik - lip balm.webp",
     "images": [
-      "/catalogo-img/anik/labios/anik - lip balm.webp"
+      "/catalogo-img/Bioaqua/labios/bioaqua - hidratante labios durazno blister.webp",
+      "/catalogo-img/Bioaqua/labios/bioaqua - hidratante labios durazno barra.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/labios/bioaqua - hidratante labios durazno blister.webp"
   },
   {
     "id": "LV-1565",
