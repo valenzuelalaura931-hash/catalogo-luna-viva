@@ -7150,7 +7150,7 @@
     "stock": 39,
     "available": true,
     "isOut": false,
-    "description": "Gel de cejas bloom lamination de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "Laminador de cejas con aceite de ricino, de Bloomshell, para dar forma y fijar tus cejas.\n\nSu fórmula no deja residuos, así que puedes usarlo antes del maquillaje. Con este laminador, peinar tus cejas es sencillo y logras un acabado limpio y ordenado.\n\nMantiene tus cejas en su lugar durante todo el día. Es perfecto si buscas un look pulido y natural.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
     "mainImage": "/catalogo-img/Bloomshell/gel de cejas/bloomshell-laminadordecejas-pequeño.webp",
@@ -7160,7 +7160,8 @@
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": true,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/gel de cejas/bloomshell-laminadordecejas-pequeño.webp"
   },
   {
     "id": "LV-1289",
