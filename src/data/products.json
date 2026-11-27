@@ -6180,19 +6180,18 @@
     "stock": 2,
     "available": true,
     "isOut": false,
-    "description": "Base en barra de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "Fórmula cremosa ligera y moldeable que se derrite y se difumina con facilidad en tu piel. Es multiusos 2 en 1: corrector y base, aportando alta cobertura.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
-    "mainImage": "/catalogo-img/Bloomshell/Bases/bloomshell- base en barra - bloom full cover tono 3.webp",
+    "mainImage": "/catalogo-img/Bloomshell/Bases/bloomshell- base en barra - bloom full cover tono 5.webp",
     "images": [
-      "/catalogo-img/Bloomshell/Bases/bloomshell- base en barra - bloom full cover tono 3.webp",
-      "/catalogo-img/Bloomshell/Bases/bloomshell- base en barra - bloom full cover tono 4.webp",
       "/catalogo-img/Bloomshell/Bases/bloomshell- base en barra - bloom full cover tono 5.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/Bases/bloomshell- base en barra - bloom full cover tono 5.webp"
   },
   {
     "id": "LV-1251",
