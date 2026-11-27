@@ -3074,18 +3074,19 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Bloom essential cream de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "La Bloom Essential Cream de Bloomshell es una gel-crema facial de textura ligera diseñada para hidratar, calmar y fortalecer la piel sin sensación pesada. Su fórmula equilibrada ayuda a mantener el pH natural del rostro, dejando la piel fresca, suave y confortable durante todo el día.\nUnifica el tono de piel, textura de rápida absorción.\nIdeal como crema diaria para quienes buscan hidratación efectiva, rápida absorción y cuidado suave, incluso en pieles sensibles.\nContenido 50 ml",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
-    "mainImage": "/catalogo-img/Bloomshell/primer/bloomshell - primer en crema- bloomcream pinky.webp",
+    "mainImage": "/catalogo-img/Bloomshell/skin care/bloomshell - crema bloom essential pote y caja.webp",
     "images": [
-      "/catalogo-img/Bloomshell/primer/bloomshell - primer en crema- bloomcream pinky.webp",
-      "/catalogo-img/Bloomshell/primer/bloomshell - primer en crema- bloomcream pinky1.webp"
+      "/catalogo-img/Bloomshell/skin care/bloomshell - crema bloom essential pote y caja.webp",
+      "/catalogo-img/Bloomshell/skin care/bloomshell - crema bloom essential ingredientes.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/skin care/bloomshell - crema bloom essential pote y caja.webp"
   },
   {
     "id": "LV-1126",
