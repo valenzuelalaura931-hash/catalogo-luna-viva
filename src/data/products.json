@@ -4579,17 +4579,18 @@
     "stock": 2,
     "available": true,
     "isOut": false,
-    "description": "Serum facial de Rosas y Ácido Hialurónico Bioaqua. Concentrado ultrahidratante que aporta jugosidad, firmeza y un resplandor saludable a pieles secas o desvitalizadas.",
+    "description": "El Serum de Rosas con Ácido Hialurónico de Bioaqua es un producto de cuidado de la piel que combina los beneficios del extracto de rosas y el ácido hialurónico.",
     "benefits": "Alta concentración de ácido hialurónico puro y extracto de pétalos de rosa.",
     "howToUse": "Aplica 3-4 gotas antes de la crema hidratante.",
     "mainImage": "/catalogo-img/Bioaqua/Rosas y acido hialuronico/bioaqua - serum facial - rosas y acido hialuronico.webp",
     "images": [
-      "/catalogo-img/Bioaqua/Rosas y acido hialuronico/bioaqua - serum facial - rosas y acido hialuronico.webp"
+      "/catalogo-img/Bioaqua/Rosas y acido hialuronico/bioaqua - serum rosas frasco y caja.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/Rosas y acido hialuronico/bioaqua - serum rosas frasco y caja.webp"
   },
   {
     "id": "LV-1187",
