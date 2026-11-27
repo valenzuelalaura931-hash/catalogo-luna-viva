@@ -14556,17 +14556,19 @@
     "stock": 2,
     "available": true,
     "isOut": false,
-    "description": "Crema de manos nutritiva e hidratante Bioaqua. Rápida absorción con delicioso aroma que deja las manos suaves, protegidas y sin sensación grasa.",
+    "description": "Crema para manos con durazno y hexapéptidos, diseñada para brindar hidratación y ayudar a mantener la piel suave, tersa y con una apariencia cuidada.\n\nSu práctico formato es ideal para llevar en la cartera o cosmetiquera y aplicarla durante el día cuando las manos necesiten un extra de hidratación. Su presentación con durazno le da un toque fresco y delicado a tu rutina de cuidado.\n\nBeneficios:\n\nAyuda a hidratar y suavizar las manos.\nCon hexapéptidos.\nAyuda a mantener la piel tersa y acondicionada.\nIdeal para el cuidado diario.\nPráctica para llevar a todas partes.",
     "benefits": "Absorción rápida sin dejar sensación pegajosa ni grasa.",
     "howToUse": "Aplica en las manos y masajea suavemente las cutículas.",
-    "mainImage": "/catalogo-img/Bioaqua/arroz/bioaqua - crema facial - Arroz.webp",
+    "mainImage": "/catalogo-img/Bioaqua/corporal/bioaqua - crema manos durazno producto.webp",
     "images": [
-      "/catalogo-img/Bioaqua/arroz/bioaqua - crema facial - Arroz.webp"
+      "/catalogo-img/Bioaqua/corporal/bioaqua - crema manos durazno producto.webp",
+      "/catalogo-img/Bioaqua/corporal/bioaqua - crema manos durazno uso modelo.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/corporal/bioaqua - crema manos durazno producto.webp"
   },
   {
     "id": "LV-1580",
