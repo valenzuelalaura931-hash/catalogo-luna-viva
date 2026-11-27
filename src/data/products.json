@@ -6004,17 +6004,18 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Polvo 4 tonos grande de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "Fórmula a base de agua: Polvo suelto premium con 4 tonos correctivos: rosado, lila, blanco y amarillo que equilibran el tono, sellan el maquillaje y dejan un efecto filtro en la piel. Acabado suave, luminoso y de alta duración.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
-    "mainImage": "/catalogo-img/Bloomshell/polvos/bloomshell - polvo 2 en 1 - traslucent matte grande tono natural.webp",
+    "mainImage": "/catalogo-img/Bloomshell/polvos/bloomshell - polvo suelto 4 tonos - bloom filter big.webp",
     "images": [
-      "/catalogo-img/Bloomshell/polvos/bloomshell - polvo 2 en 1 - traslucent matte grande tono natural.webp"
+      "/catalogo-img/Bloomshell/polvos/bloomshell - polvo suelto 4 tonos - bloom filter big.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/polvos/bloomshell - polvo suelto 4 tonos - bloom filter big.webp"
   },
   {
     "id": "LV-1244",
