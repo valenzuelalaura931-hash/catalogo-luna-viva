@@ -10024,23 +10024,25 @@
     "barcode": "6975239993390",
     "name": "Colageno de labios por unidad",
     "brand": "Bioaqua",
-    "category": "Maquillaje",
+    "category": "Skincare",
     "subcategory": "Maquillaje",
     "price": 2500,
     "stock": 12,
     "available": true,
     "isOut": false,
-    "description": "Parche de colágeno para labios Bioaqua. Mascarilla de hidrogel para hidratar, dar volumen y rellenar líneas finas de los labios.",
+    "description": "Adiós a los labios resecos y con pellejitos. Estos colágenos te ayudarán a tener unos labios hidratados y hermosos",
     "benefits": "Efecto labios carnosos e hidratados sin esfuerzo.",
     "howToUse": "Coloca el parche sobre los labios limpios durante 15-20 minutos y masajea el residuo.",
     "mainImage": "/catalogo-img/anik/labios/anik - lip balm.webp",
     "images": [
-      "/catalogo-img/anik/labios/anik - lip balm.webp"
+      "/catalogo-img/Bioaqua/labios/bioaqua - colageno de labios unidad sobre rosado.webp",
+      "/catalogo-img/Bioaqua/labios/bioaqua - colageno de labios uso modelo.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": true,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/labios/bioaqua - colageno de labios unidad sobre rosado.webp"
   },
   {
     "id": "LV-1401",
