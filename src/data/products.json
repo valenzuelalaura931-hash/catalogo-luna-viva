@@ -4905,17 +4905,19 @@
     "stock": 4,
     "available": true,
     "isOut": false,
-    "description": "Kit facial de Vitamina C Bioaqua. Rutina completa antimanchas y energizante para lucir una piel clara, protegida y radiante todos los días.",
+    "description": "Es un set práctico que ofrece una rutina completa de cuidado facial en formato compacto, ideal para viajes o para llevar en el día a día. Incluye productos formulados con vitamina C que ayudan a revitalizar la piel, aportando luminosidad y una apariencia más uniforme.",
     "benefits": "Rutina completa de vitamina C en presentación especial.",
     "howToUse": "Sigue los pasos habituales de limpieza, tonificación e hidratación.",
     "mainImage": "/catalogo-img/Bioaqua/Vitamina c/bioaqua - Kit en caja - Vitamina c.webp",
     "images": [
-      "/catalogo-img/Bioaqua/Vitamina c/bioaqua - Kit en caja - Vitamina c.webp"
+      "/catalogo-img/Bioaqua/Vitamina c/bioaqua - kit facial mini vitamina c 5 productos.webp",
+      "/catalogo-img/Bioaqua/Vitamina c/bioaqua - kit facial mini vitamina c bandeja.webp"
     ],
     "lunaRecommends": true,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/Vitamina c/bioaqua - kit facial mini vitamina c 5 productos.webp"
   },
   {
     "id": "LV-1200",
