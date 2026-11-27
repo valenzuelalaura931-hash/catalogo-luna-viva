@@ -6925,17 +6925,20 @@
     "stock": 2,
     "available": true,
     "isOut": false,
-    "description": "Rubor liquido bloom floral tono 01 de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "Si buscas un acabado fresco y natural en tus mejillas, el Rubor Floral Liquid Bloomshell es el aliado perfecto. Pasarás de un rostro apagado a lucir un color radiante, juvenil y de larga duración con solo unas gotas.\nSu fórmula líquida se difumina fácilmente, integrándose con la piel para un acabado uniforme sin dejar marcas. Enriquecido con extractos florales, aporta suavidad y ligereza, brindando un efecto saludable que realza tu maquillaje diario o de ocasión especial.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
     "mainImage": "/catalogo-img/Bloomshell/Rubores/bloomshell - rubor liquido - Bloom floral liquid tono2.webp",
     "images": [
-      "/catalogo-img/Bloomshell/Rubores/bloomshell - rubor liquido - Bloom floral liquid tono2.webp"
+      "/catalogo-img/Bloomshell/Rubores/bloomshell - rubor liquido - Bloom floral liquid tono2.webp",
+      "/catalogo-img/Bloomshell/Rubores/bloomshell - rubor liquido - bloom floral liquid trio.webp",
+      "/catalogo-img/Bloomshell/Rubores/bloomshell - rubor liquido - bloom floral liquid swatches.webp"
     ],
     "lunaRecommends": true,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/Rubores/bloomshell - rubor liquido - Bloom floral liquid tono2.webp"
   },
   {
     "id": "LV-1280",
