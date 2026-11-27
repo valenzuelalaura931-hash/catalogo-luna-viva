@@ -5447,17 +5447,19 @@
     "stock": 0,
     "available": false,
     "isOut": true,
-    "description": "Serum fortalecedor de pestañas y cejas Bioaqua. Estimula el crecimiento, aporta densidad y previene la caída de las pestañas.",
+    "description": "Los extractos de plantas nutren las pestañas, haciéndolas elásticas, hermosas y gruesas.\nAyuda a mejorar la apariencia de las pestañas, cejas, barba y bigote.\nEstimula los folículos pilosos para el crecimiento.\nFortalece las pestañas.\n\nModo de uso:\n\nAplique 2 3 veces al día.\nAplique el líquido en las raíces de las pestañas a lo largo de la línea de las pestañas, Aplicar el producto sobre las pestañas secas y limpias\nLas personas que usan lentes de contacto deben quitárselos primero y esperar 15 minutos",
     "benefits": "Fortalece desde la raíz evitando la caída de las pestañas.",
     "howToUse": "Aplica con cuidado en la raíz de las pestañas limpias cada noche.",
-    "mainImage": "/catalogo-img/Bioaqua/arroz/bioaqua - serum facial - Arroz.webp",
+    "mainImage": "/catalogo-img/Bioaqua/pestanas/bioaqua - serum pestanas frasco y caja.webp",
     "images": [
-      "/catalogo-img/Bioaqua/arroz/bioaqua - serum facial - Arroz.webp"
+      "/catalogo-img/Bioaqua/pestanas/bioaqua - serum pestanas frasco y caja.webp",
+      "/catalogo-img/Bioaqua/pestanas/bioaqua - serum pestanas aplicador.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/pestanas/bioaqua - serum pestanas frasco y caja.webp"
   },
   {
     "id": "LV-1222",
