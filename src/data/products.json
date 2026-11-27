@@ -4701,17 +4701,19 @@
     "stock": 5,
     "available": true,
     "isOut": false,
-    "description": "Crema de arándanos Bioaqua. Crema facial nutritiva con antioxidantes de arándano silvestre que protegen la piel contra el envejecimiento.",
+    "description": "- Mejora la aspereza e ilumina la piel.\n•Hace que el contenido nutricional penetre en la piel de manera eficiente.\n•Suaviza instantáneamente las cutículas y la piel circundante.\n•Adecuado para todo tipo de pieles, especialmente aquellas con piel seca, amarilla o áspera",
     "benefits": "Firmeza, elasticidad y protección antioxidante.",
     "howToUse": "Aplicar en rostro y cuello con suaves masajes.",
     "mainImage": "/catalogo-img/Bioaqua/arroz/bioaqua - crema facial - Arroz.webp",
     "images": [
-      "/catalogo-img/Bioaqua/arroz/bioaqua - crema facial - Arroz.webp"
+      "/catalogo-img/Bioaqua/arandanos/bioaqua - crema arandanos tarro.jpg",
+      "/catalogo-img/Bioaqua/arandanos/bioaqua - crema arandanos caja.jpg"
     ],
     "lunaRecommends": true,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/arandanos/bioaqua - crema arandanos tarro.jpg"
   },
   {
     "id": "LV-1192",
