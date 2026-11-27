@@ -14083,18 +14083,19 @@
     "stock": 0,
     "available": false,
     "isOut": true,
-    "description": "Parches de colágeno para el contorno de ojos Bioaqua. Mascarillas de hidrogel que descongestionan bolsas y suavizan ojeras con efecto lifting refrescante.",
+    "description": "Este colágeno te ayudará a hidratar la zona de la ojera, lo que permite disminuir las líneas de expresión y la apariencia de ojos cansados por las llamadas bolsas que se forman cuando estamos inflamadas.",
     "benefits": "Aclara y tonifica la piel delicada de la ojera.",
     "howToUse": "Aplica sobre la zona limpia durante 15 a 20 minutos.",
     "mainImage": "/catalogo-img/Bioaqua/centella asiatica/bioaqua - contorno de ojos - centella asiatica.webp",
     "images": [
-      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - contorno de ojos - centella asiatica.webp",
-      "/catalogo-img/Bioaqua/Rosas y acido hialuronico/bioaqua - Contorno de ojos - rosas y acido hialuronico1.webp"
+      "/catalogo-img/Bioaqua/ojeras/bioaqua - colageno ojeras cajita durazno pote y caja.webp",
+      "/catalogo-img/Bioaqua/ojeras/bioaqua - colageno ojeras cajita durazno pote abierto.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/ojeras/bioaqua - colageno ojeras cajita durazno pote y caja.webp"
   },
   {
     "id": "LV-1561",
