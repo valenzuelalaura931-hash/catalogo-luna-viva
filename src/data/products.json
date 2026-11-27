@@ -5879,17 +5879,18 @@
     "stock": 6,
     "available": true,
     "isOut": false,
-    "description": "Polvo suelto x2 tono 03 de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "Set de 2 polvos sueltos Bloomshell en un solo empaque. Disponible en 3 combinaciones:  02 Peach/Pink, 03 White/Natural y 04 Matte Pink/Luminoso Pink.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
-    "mainImage": "/catalogo-img/Bloomshell/polvos/bloomshell - polvo suelto - traslucent matte big tono natural.webp",
+    "mainImage": "/catalogo-img/Bloomshell/polvos/bloomshell - polvo suelto x2 - set powder tono 03.webp",
     "images": [
-      "/catalogo-img/Bloomshell/polvos/bloomshell - polvo suelto - traslucent matte big tono natural.webp"
+      "/catalogo-img/Bloomshell/polvos/bloomshell - polvo suelto x2 - set powder tono 03.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/polvos/bloomshell - polvo suelto x2 - set powder tono 03.webp"
   },
   {
     "id": "LV-1239",
@@ -5900,20 +5901,21 @@
     "category": "Maquillaje",
     "subcategory": "Maquillaje",
     "price": 42000,
-    "stock": 2,
+    "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Polvo suelto x2 tono 02 de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "Set de 2 polvos sueltos Bloomshell en un solo empaque. Disponible en 3 combinaciones:  02 Peach/Pink, 03 White/Natural y 04 Matte Pink/Luminoso Pink.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
-    "mainImage": "/catalogo-img/Bloomshell/polvos/bloomshell - polvo suelto - traslucent matte big tono natural.webp",
+    "mainImage": "/catalogo-img/Bloomshell/polvos/bloomshell - polvo suelto x2 - set powder tono 02.webp",
     "images": [
-      "/catalogo-img/Bloomshell/polvos/bloomshell - polvo suelto - traslucent matte big tono natural.webp"
+      "/catalogo-img/Bloomshell/polvos/bloomshell - polvo suelto x2 - set powder tono 02.webp"
     ],
     "lunaRecommends": true,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/polvos/bloomshell - polvo suelto x2 - set powder tono 02.webp"
   },
   {
     "id": "LV-1240",
@@ -15654,5 +15656,30 @@
       "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - tono lanai.webp"
     ],
     "image": "/catalogo-img/atenea/sombras/atenea - sombras cremosas individuales - abierta.webp"
+  },
+  {
+    "id": "LV-1646",
+    "sku": "LV-1646",
+    "barcode": "6974482527277",
+    "name": "Polvo suelto x2 tono 04 rosado mate y luminoso",
+    "brand": "Bloomshell",
+    "category": "Maquillaje",
+    "subcategory": "Maquillaje",
+    "price": 42000,
+    "stock": 0,
+    "available": false,
+    "isOut": true,
+    "description": "Set de 2 polvos sueltos Bloomshell en un solo empaque. Disponible en 3 combinaciones:  02 Peach/Pink, 03 White/Natural y 04 Matte Pink/Luminoso Pink.",
+    "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
+    "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
+    "image": "/catalogo-img/Bloomshell/polvos/bloomshell - polvo suelto x2 - set powder tono 04.webp",
+    "mainImage": "/catalogo-img/Bloomshell/polvos/bloomshell - polvo suelto x2 - set powder tono 04.webp",
+    "images": [
+      "/catalogo-img/Bloomshell/polvos/bloomshell - polvo suelto x2 - set powder tono 04.webp"
+    ],
+    "lunaRecommends": false,
+    "isNew": true,
+    "isBestseller": false,
+    "hidden": false
   }
 ]
