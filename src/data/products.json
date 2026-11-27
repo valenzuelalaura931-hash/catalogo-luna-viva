@@ -12862,17 +12862,19 @@
     "stock": 10,
     "available": true,
     "isOut": false,
-    "description": "Sistema 3 Pasos para remover puntos negros Bioaqua. Elimina espinillas, limpia los poros profundamente y los sella dejando la nariz suave y despejada.",
+    "description": "Mascarillas para el rostro en forma de velo\nModo de uso: con el rostro limpio aplica la mascarilla, idealmente guárdala en la nevera para que esté fría al momento de utilizarla, déjala aplicada durante 15 a 20 minutos, retira y lava el rostro con agua",
     "benefits": "Limpieza profunda de la zona T en 3 sencillos pasos.",
     "howToUse": "Sigue los pasos 1, 2 y 3 en la nariz limpia según las indicaciones del empaque.",
     "mainImage": "/catalogo-img/recuperados/bioaqua_LV-1507_Mascarilla_en_velo_de_acido_hialuronico.webp",
     "images": [
-      "/catalogo-img/recuperados/bioaqua_LV-1507_Mascarilla_en_velo_de_acido_hialuronico.webp"
+      "/catalogo-img/Bioaqua/mascarillas/bioaqua - mascarilla 3 pasos puntos negros frontal.webp",
+      "/catalogo-img/Bioaqua/mascarillas/bioaqua - mascarilla 3 pasos puntos negros mano.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": true,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/mascarillas/bioaqua - mascarilla 3 pasos puntos negros frontal.webp"
   },
   {
     "id": "LV-1513",
