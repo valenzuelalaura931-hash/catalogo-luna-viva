@@ -3023,7 +3023,7 @@
     "stock": 2,
     "available": true,
     "isOut": false,
-    "description": "Bloom serum balance de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "Está formulado para ayudar a equilibrar, hidratar y mejorar la apariencia de la piel, aportando frescura y luminosidad. Inspirado en la rutina de cuidado coreana, su textura ligera de rápida absorción ayuda a mantener la piel con aspecto uniforme, suave y revitalizado sin dejar sensación pegajosa.\n\nBeneficios\nAyuda a equilibrar la piel.\nAporta hidratación ligera y duradera.\nContribuye a mejorar la apariencia de la textura cutánea.\nFavorece un aspecto más uniforme y luminoso.\nTextura ligera y de rápida absorción.\nNo deja sensación pesada.\nApto para todo tipo de piel.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
     "mainImage": "/catalogo-img/Bloomshell/skin care/bloomshell-serum-bloombalance.webp",
@@ -3033,7 +3033,8 @@
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/skin care/bloomshell-serum-bloombalance.webp"
   },
   {
     "id": "LV-1124",
