@@ -7750,21 +7750,20 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Corrector mini tono 01 de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "My Concealer es un producto pensado en las necesidades que debe cumplir un corrector pero también con el extra de cuidar la piel, haciéndola lucir sana y sin imperfecciones a la vista. Maneja una cobertura media/alta, dando la posibilidad de poder aplicar las capas que se considere necesario.\n\nDermatologicamente probado, contiene Vitamina E y Ácido hialurónico, esto hace que no sea un producto denso, seco o pesado para utilizar durante el día, por el contrario, te dará un efecto hidratante y de excelente cubrimiento.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
-    "mainImage": "/catalogo-img/Bloomshell/Correctores mini/bloomshell-correctormini-tono0,5.webp",
+    "mainImage": "/catalogo-img/Bloomshell/Correctores mini/bloomshell-correctormini-tono1.webp",
     "images": [
-      "/catalogo-img/Bloomshell/Correctores mini/bloomshell-correctormini-tono0,5.webp",
       "/catalogo-img/Bloomshell/Correctores mini/bloomshell-correctormini-tono1.webp",
-      "/catalogo-img/Bloomshell/Correctores mini/bloomshell-correctormini-tono2.webp",
       "/catalogo-img/Bloomshell/Correctores mini/bloomshell-correctormini-tono3.webp",
-      "/catalogo-img/Bloomshell/Correctores mini/bloomshell-correctormini-tono4.webp"
+      "/catalogo-img/Bloomshell/Correctores mini/bloomshell-correctormini-swatches.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/Correctores mini/bloomshell-correctormini-tono1.webp"
   },
   {
     "id": "LV-1313",
@@ -9223,24 +9222,23 @@
     "category": "Maquillaje",
     "subcategory": "Maquillaje",
     "price": 14000,
-    "stock": 5,
+    "stock": 4,
     "available": true,
     "isOut": false,
-    "description": "Corrector mini tono 03 de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "My Concealer es un producto pensado en las necesidades que debe cumplir un corrector pero también con el extra de cuidar la piel, haciéndola lucir sana y sin imperfecciones a la vista. Maneja una cobertura media/alta, dando la posibilidad de poder aplicar las capas que se considere necesario.\n\nDermatologicamente probado, contiene Vitamina E y Ácido hialurónico, esto hace que no sea un producto denso, seco o pesado para utilizar durante el día, por el contrario, te dará un efecto hidratante y de excelente cubrimiento.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
-    "mainImage": "/catalogo-img/Bloomshell/Correctores mini/bloomshell-correctormini-tono0,5.webp",
+    "mainImage": "/catalogo-img/Bloomshell/Correctores mini/bloomshell-correctormini-tono3.webp",
     "images": [
-      "/catalogo-img/Bloomshell/Correctores mini/bloomshell-correctormini-tono0,5.webp",
-      "/catalogo-img/Bloomshell/Correctores mini/bloomshell-correctormini-tono1.webp",
-      "/catalogo-img/Bloomshell/Correctores mini/bloomshell-correctormini-tono2.webp",
       "/catalogo-img/Bloomshell/Correctores mini/bloomshell-correctormini-tono3.webp",
-      "/catalogo-img/Bloomshell/Correctores mini/bloomshell-correctormini-tono4.webp"
+      "/catalogo-img/Bloomshell/Correctores mini/bloomshell-correctormini-tono1.webp",
+      "/catalogo-img/Bloomshell/Correctores mini/bloomshell-correctormini-swatches.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/Correctores mini/bloomshell-correctormini-tono3.webp"
   },
   {
     "id": "LV-1369",
