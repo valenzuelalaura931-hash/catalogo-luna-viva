@@ -5505,17 +5505,18 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Bloom black eye liner pencil de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "Lápiz Delineador de Ojos Negro Bloom Black Bloomshell con color negro carbón, textura cremosa, alta pigmentación y fórmula a prueba de agua. Su deslizamiento suave permite realizar delineados definidos o difuminados, usarlo en la línea del agua o sobre el párpado, y crear delineados tradicionales o smokey eyes.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
-    "mainImage": "/catalogo-img/Bloomshell/encrespadores/bloomshell-encrespador de pestañas - bloom black curl.webp",
+    "mainImage": "/catalogo-img/Bloomshell/lapices/bloomshell - lapiz de ojos - bloom black.webp",
     "images": [
-      "/catalogo-img/Bloomshell/encrespadores/bloomshell-encrespador de pestañas - bloom black curl.webp"
+      "/catalogo-img/Bloomshell/lapices/bloomshell - lapiz de ojos - bloom black.webp"
     ],
     "lunaRecommends": true,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/lapices/bloomshell - lapiz de ojos - bloom black.webp"
   },
   {
     "id": "LV-1224",
