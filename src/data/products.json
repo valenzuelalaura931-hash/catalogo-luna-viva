@@ -5530,7 +5530,7 @@
     "stock": 2,
     "available": true,
     "isOut": false,
-    "description": "Bloom beige eye liner pencil de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "Lápiz Beige a prueba de agua, de textura suave, alta pigmentación, fijación duradera y fácil de deslizar.\n\nSe puede utilizar tanto en línea de agua, como en el párpado para realizar un delineado difuminado.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
     "mainImage": "/catalogo-img/Bloomshell/lapices/bloomshell- lapiz de ojos- bloom beige.webp",
@@ -5541,7 +5541,8 @@
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/lapices/bloomshell- lapiz de ojos- bloom beige.webp"
   },
   {
     "id": "LV-1225",
