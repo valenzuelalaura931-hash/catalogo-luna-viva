@@ -6205,19 +6205,18 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Base cushion tono 03 de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "Con un 60% de ingredientes de cuidado facial, que incluyen centella asiática y colágeno, y un 40% de maquillaje, esta base no solo unifica el tono de tu piel, sino que también la nutre y rejuvenece. ¡Logra un acabado luminoso que resalta tu belleza natural!",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
     "mainImage": "/catalogo-img/Bloomshell/Bases/bloomshell- base cushion - bloomcushion tono 3.webp",
     "images": [
-      "/catalogo-img/Bloomshell/Bases/bloomshell- base cushion - bloomcushion tono 3.webp",
-      "/catalogo-img/Bloomshell/Bases/bloomshell- base cushion - bloomcushion tono 4.webp",
-      "/catalogo-img/Bloomshell/Bases/bloomshell- base cushion - bloomcushion tono 5.webp"
+      "/catalogo-img/Bloomshell/Bases/bloomshell- base cushion - bloomcushion tono 3.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/Bases/bloomshell- base cushion - bloomcushion tono 3.webp"
   },
   {
     "id": "LV-1252",
