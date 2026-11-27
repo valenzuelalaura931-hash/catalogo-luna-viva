@@ -3445,17 +3445,20 @@
     "stock": 5,
     "available": true,
     "isOut": false,
-    "description": "Primer y fijador Bloom jelly fusion de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "Su innovadora fórmula de textura ligera ayuda a fijar el maquillaje, prolongando su duración mientras aporta una sensación refrescante y un acabado natural. Se absorbe rápidamente sin dejar sensación pegajosa, permitiendo que el maquillaje luzca fresco durante más tiempo.\n\nIdeal para utilizar al finalizar tu rutina de maquillaje o para refrescar el rostro a lo largo del día.\n\n✨ Beneficios\n\nAyuda a prolongar la duración del maquillaje\nAporta una sensación refrescante\nAcabado natural y ligero\nSecado rápido\nNo deja sensación pegajosa\nIdeal para todo tipo de maquillaje",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
-    "mainImage": "/catalogo-img/Bloomshell/fijadores/bloomshell-fijador de maquillaje en aerosol - grande.webp",
+    "mainImage": "/catalogo-img/Bloomshell/fijadores/bloomshell - primer fijador jelly fusion presentacion.webp",
     "images": [
-      "/catalogo-img/Bloomshell/fijadores/bloomshell-fijador de maquillaje en aerosol - grande.webp"
+      "/catalogo-img/Bloomshell/fijadores/bloomshell - primer fijador jelly fusion presentacion.webp",
+      "/catalogo-img/Bloomshell/fijadores/bloomshell - primer fijador jelly fusion caja.webp",
+      "/catalogo-img/Bloomshell/fijadores/bloomshell - primer fijador jelly fusion textura.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/fijadores/bloomshell - primer fijador jelly fusion presentacion.webp"
   },
   {
     "id": "LV-1141",
