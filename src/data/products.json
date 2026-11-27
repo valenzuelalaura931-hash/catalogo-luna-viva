@@ -14570,23 +14570,26 @@
     "barcode": "6976623804971",
     "name": "Kit de labios mascarilla + lip balm de fresa",
     "brand": "Bioaqua",
-    "category": "Maquillaje",
+    "category": "Skincare",
     "subcategory": "Maquillaje",
     "price": 11000,
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Bálsamo hidratante para labios con extracto de Fresa Bioaqua. Repara, nutre intensamente y deja los labios suaves con un brillo saludable.",
+    "description": "Kit de cuidado labial con aroma/referencia de fresa, ideal para mantener los labios hidratados, suaves y con una apariencia más lisa y cuidada. Combina dos productos para complementar la rutina diaria y ayudar a combatir la sensación de resequedad.\n\nIncluye:\n\nLip Mask de Fresa 10 ml: mascarilla hidratante que ayuda a suavizar y acondicionar los labios.\nHidratante labial en barra: práctico formato para aplicar durante el día y mantener los labios humectados.\nIdeal para llevar en la cosmetiquera y utilizar cuando los labios necesiten un extra de hidratación.",
     "benefits": "Dúo completo de hidratación y exfoliación labial.",
     "howToUse": "Usa el bálsamo durante el día y la mascarilla por la noche.",
     "mainImage": "/catalogo-img/anik/labios/anik - lip balm1.webp",
     "images": [
-      "/catalogo-img/anik/labios/anik - lip balm1.webp"
+      "/catalogo-img/Bioaqua/labios/bioaqua - kit labios fresa caja.webp",
+      "/catalogo-img/Bioaqua/labios/bioaqua - kit labios fresa productos.webp",
+      "/catalogo-img/Bioaqua/labios/bioaqua - kit labios fresa uso modelo.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/labios/bioaqua - kit labios fresa caja.webp"
   },
   {
     "id": "LV-1581",
