@@ -9999,24 +9999,24 @@
     "barcode": "6975239993147",
     "name": "Colageno de ojeras por unidad",
     "brand": "Bioaqua",
-    "category": "Maquillaje",
+    "category": "Skincare",
     "subcategory": "Maquillaje",
     "price": 2500,
     "stock": 12,
     "available": true,
     "isOut": false,
-    "description": "Parches de colágeno para el contorno de ojos Bioaqua. Mascarillas de hidrogel que descongestionan bolsas y suavizan ojeras con efecto lifting refrescante.",
+    "description": "Estos parches ayudan a hidratar la zona de la ojera, disminuir lineas de expresión, resequedad y bolsas",
     "benefits": "Efecto descongestionante inmediato.",
     "howToUse": "Aplica bajo los ojos limpios por 15 minutos.",
     "mainImage": "/catalogo-img/Bioaqua/centella asiatica/bioaqua - contorno de ojos - centella asiatica.webp",
     "images": [
-      "/catalogo-img/Bioaqua/centella asiatica/bioaqua - contorno de ojos - centella asiatica.webp",
-      "/catalogo-img/Bioaqua/Rosas y acido hialuronico/bioaqua - Contorno de ojos - rosas y acido hialuronico1.webp"
+      "/catalogo-img/Bioaqua/ojeras/bioaqua - colageno de ojeras unidad sobres.webp"
     ],
     "lunaRecommends": true,
     "isNew": false,
     "isBestseller": true,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/ojeras/bioaqua - colageno de ojeras unidad sobres.webp"
   },
   {
     "id": "LV-1400",
