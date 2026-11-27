@@ -14109,17 +14109,19 @@
     "stock": 3,
     "available": true,
     "isOut": false,
-    "description": "Serum de Vitamina C Bioaqua. Alta concentración antioxidante para corregir manchas oscuras, aportar un brillo natural instantáneo y retrasar el envejecimiento cutáneo.",
+    "description": "Es un suero con funciones antioxidantes que disminuye los daños generados por los radicales libres de oxigeno producidos por el sol, la radiación, la contaminación, el humo de tabaco y otros contaminantes; lo que mejora el aspecto de la piel, disminuye signos de envejecimiento prematuro y da luminosidad al rostro. Modo de uso: con el rostro limpio aplicar 3 a 4 gotas y esparcir por el rostro y cuello y dejar absorber. Se recomienda utilizar en el día y en la noche. No olvidar usar siempre protector solar en el día.",
     "benefits": "Piel luminosa, previene el envejecimiento prematuro.",
     "howToUse": "Aplica 3 a 4 gotas antes de la crema y finaliza siempre con bloqueador solar.",
     "mainImage": "/catalogo-img/Bioaqua/Vitamina c/bioaqua - serum facial - Vitamina c.webp",
     "images": [
-      "/catalogo-img/Bioaqua/Vitamina c/bioaqua - serum facial - Vitamina c.webp"
+      "/catalogo-img/Bioaqua/Vitamina c/bioaqua - serum vitamina c frasco y caja.webp",
+      "/catalogo-img/Bioaqua/Vitamina c/bioaqua - serum vitamina c con gotero.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/Vitamina c/bioaqua - serum vitamina c frasco y caja.webp"
   },
   {
     "id": "LV-1562",
