@@ -4652,17 +4652,18 @@
     "stock": 2,
     "available": true,
     "isOut": false,
-    "description": "Tónico facial de Rosas y Ácido Hialurónico Bioaqua. Agua de rosas enriquecida con ácido hialurónico que tonifica, hidrata y calma la tez de inmediato.",
+    "description": "Tónico de rosas con ácido hialurónico: antioxidante y antiarrugas, hidrata, minimiza poros y repara la piel, proporcionando un efecto tensor para un cutis rejuvenecido.",
     "benefits": "Sensación calmante inmediata con fragancia natural.",
     "howToUse": "Rocía o aplica con algodón sobre el rostro y cuello.",
     "mainImage": "/catalogo-img/Bioaqua/Rosas y acido hialuronico/bioaqua - tonico facial - rosas y acido hialuronico.webp",
     "images": [
-      "/catalogo-img/Bioaqua/Rosas y acido hialuronico/bioaqua - tonico facial - rosas y acido hialuronico.webp"
+      "/catalogo-img/Bioaqua/Rosas y acido hialuronico/bioaqua - tonico rosas frasco y caja.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/Rosas y acido hialuronico/bioaqua - tonico rosas frasco y caja.webp"
   },
   {
     "id": "LV-1190",
