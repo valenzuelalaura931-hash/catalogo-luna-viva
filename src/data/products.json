@@ -3048,18 +3048,19 @@
     "stock": 3,
     "available": true,
     "isOut": false,
-    "description": "Bloom repair cream de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "Está formulada para ayudar a reparar, hidratar y fortalecer la barrera cutánea, mejorando la apariencia de la piel opaca o fatigada. Inspirada en el cuidado facial coreano, su textura nutritiva de rápida absorción aporta confort, suavidad y una sensación prolongada de hidratación sin dejar efecto pesado.\n\nBeneficios\nAyuda a fortalecer la barrera natural de la piel.\nAporta hidratación profunda y duradera.\nContribuye a mejorar la apariencia de la piel opaca.\nFavorece una textura más suave y uniforme.\nBrinda sensación de confort inmediato.\nIdeal para piel seca, deshidratada o sensibilizada.\nApta para uso diario.\n\nModo de uso\nAplicar una cantidad adecuada sobre el rostro limpio, después del tónico o sérum. Masajear suavemente con movimientos ascendentes hasta su completa absorción. Usar en la mañana y en la noche como parte de la rutina facial. Durante el día complementar con protector solar.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
-    "mainImage": "/catalogo-img/Bloomshell/primer/bloomshell - primer en crema- bloomcream pinky.webp",
+    "mainImage": "/catalogo-img/Bloomshell/skin care/bloomshell - crema bloom repair pote y caja.webp",
     "images": [
-      "/catalogo-img/Bloomshell/primer/bloomshell - primer en crema- bloomcream pinky.webp",
-      "/catalogo-img/Bloomshell/primer/bloomshell - primer en crema- bloomcream pinky1.webp"
+      "/catalogo-img/Bloomshell/skin care/bloomshell - crema bloom repair pote y caja.webp",
+      "/catalogo-img/Bloomshell/skin care/bloomshell - crema bloom repair ingredientes.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/skin care/bloomshell - crema bloom repair pote y caja.webp"
   },
   {
     "id": "LV-1125",
