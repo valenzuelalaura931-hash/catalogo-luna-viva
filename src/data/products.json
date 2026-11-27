@@ -3271,7 +3271,7 @@
     "stock": 3,
     "available": true,
     "isOut": false,
-    "description": "Primer bloom poros invisibles de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "Bloom Poros Invisibles suaviza la textura de la piel y minimiza visualmente los poros con un efecto difuminado inmediato. Su fórmula ligera controla el brillo y ayuda a prolongar la duración del maquillaje sin sensación pesada.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
     "mainImage": "/catalogo-img/Bloomshell/primer/bloomshell - primer en gel- bloom poros invisibles.webp",
@@ -3281,7 +3281,8 @@
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/primer/bloomshell - primer en gel- bloom poros invisibles.webp"
   },
   {
     "id": "LV-1134",
