@@ -14213,17 +14213,19 @@
     "stock": 2,
     "available": true,
     "isOut": false,
-    "description": "Bálsamo hidratante para labios con extracto de Fresa Bioaqua. Repara, nutre intensamente y deja los labios suaves con un brillo saludable.",
+    "description": "Enriquecido con extracto de fresa, este bálsamo aporta una hidratación prolongada, reparando y suavizando los labios secos y agrietados. Su fórmula ligera y de rápida absorción crea una barrera protectora que mantiene los labios hidratados y protegidos durante todo el día. Además, el delicioso aroma a fresa convierte cada aplicación en una experiencia agradable y refrescante.",
     "benefits": "Hidratación duradera y exquisito sabor a fresa.",
     "howToUse": "Aplica suavemente sobre los labios secos o agrietados.",
-    "mainImage": "/catalogo-img/anik/labios/anik - lip balm1.webp",
+    "mainImage": "/catalogo-img/Bioaqua/labios/bioaqua - hidratante labios fresa blister.webp",
     "images": [
-      "/catalogo-img/anik/labios/anik - lip balm1.webp"
+      "/catalogo-img/Bioaqua/labios/bioaqua - hidratante labios fresa blister.webp",
+      "/catalogo-img/Bioaqua/labios/bioaqua - hidratante labios fresa barra.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/labios/bioaqua - hidratante labios fresa blister.webp"
   },
   {
     "id": "LV-1566",
