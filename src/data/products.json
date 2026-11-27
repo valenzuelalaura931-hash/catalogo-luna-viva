@@ -5581,7 +5581,7 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Polvo 2 en 1 purple grande de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "Polvo suelto translúcido con subtono purple para sellar y matificar; ideal para retoques. El matiz lila ayuda a equilibrar sutilmente tonos amarillos y a dar un acabado más luminoso y ligero",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
     "mainImage": "/catalogo-img/Bloomshell/polvos/bloomshell - polvo 2 en 1 - traslucent matte grande tono purple.webp",
@@ -5591,7 +5591,8 @@
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/polvos/bloomshell - polvo 2 en 1 - traslucent matte grande tono purple.webp"
   },
   {
     "id": "LV-1227",
