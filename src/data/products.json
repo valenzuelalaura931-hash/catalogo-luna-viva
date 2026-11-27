@@ -14522,23 +14522,25 @@
     "barcode": "6976623804940",
     "name": "Mascarilla de labios de uva",
     "brand": "Bioaqua",
-    "category": "Maquillaje",
+    "category": "Skincare",
     "subcategory": "Maquillaje",
     "price": 7000,
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Mascarilla hidratante de labios noche extracto de Uva Bioaqua. Tratamiento nocturno intensivo para regenerar los labios mientras descansas.",
+    "description": "Mascarilla labial hidratante con referencia de uva, diseñada para cuidar los labios secos y ayudar a mantenerlos suaves, lisos y con una apariencia saludable. Su textura aporta hidratación y ayuda a mejorar la sensación de resequedad, dejando un acabado suave y confortable.\n\nIdeal para complementar la rutina diaria de cuidado de labios o utilizar como tratamiento hidratante cuando necesiten un extra de humectación.\n\nBeneficios:\n\nAyuda a hidratar y suavizar los labios.\nMejora la apariencia de labios secos y ásperos.\nDeja una sensación confortable y humectada.\nAyuda a mantener los labios con aspecto liso y cuidado.\nContenido: 10 ml.",
     "benefits": "Elimina células muertas y combate la sequedad extrema.",
     "howToUse": "Aplica una capa generosa antes de dormir.",
     "mainImage": "/catalogo-img/anik/labios/anik - lip balm2.webp",
     "images": [
-      "/catalogo-img/anik/labios/anik - lip balm2.webp"
+      "/catalogo-img/Bioaqua/labios/bioaqua - mascarilla labios uva blister.webp",
+      "/catalogo-img/Bioaqua/labios/bioaqua - mascarilla labios uva uso modelo.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/labios/bioaqua - mascarilla labios uva blister.webp"
   },
   {
     "id": "LV-1579",
