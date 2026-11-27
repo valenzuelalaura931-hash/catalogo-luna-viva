@@ -4851,8 +4851,8 @@
     "barcode": "6942581709580",
     "name": "Kit facial mini de rosas y acido hialuronico",
     "brand": "Bioaqua",
-    "category": "Corporal",
-    "subcategory": "Corporal",
+    "category": "Skincare",
+    "subcategory": "Skincare",
     "price": 26000,
     "stock": 0,
     "available": false,
@@ -4860,14 +4860,15 @@
     "description": "Kit facial de Rosas y Ácido Hialurónico Bioaqua en caja. Tratamiento completo rejuvenecedor y ultra hidratante con la delicada esencia de rosas.",
     "benefits": "Cuidado intensivo anti-edad y humectante.",
     "howToUse": "Aplica los productos en tu rutina matutina y nocturna.",
-    "mainImage": "/catalogo-img/Bioaqua/Rosas y acido hialuronico/bioaqua - kit en caja - rosas y acido hialuronico.webp",
+    "mainImage": "/catalogo-img/Bioaqua/Rosas y acido hialuronico/bioaqua - kit facial mini rosas productos.webp",
     "images": [
-      "/catalogo-img/Bioaqua/Rosas y acido hialuronico/bioaqua - kit en caja - rosas y acido hialuronico.webp"
+      "/catalogo-img/Bioaqua/Rosas y acido hialuronico/bioaqua - kit facial mini rosas productos.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bioaqua/Rosas y acido hialuronico/bioaqua - kit facial mini rosas productos.webp"
   },
   {
     "id": "LV-1198",
