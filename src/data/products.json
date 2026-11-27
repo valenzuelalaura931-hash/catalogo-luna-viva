@@ -3100,17 +3100,19 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Bloom cleanser lumi gel de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "El Bloom Cleanser Lumi de Bloomshell es un limpiador facial hidratante para todo tipo de piel, con textura en gel que te deja sensación de calma e hidratación.\nLimpia a profundidad tu piel y hazlo parte de tu rutina de cuidado.\nÚsalo en el día y en la noche.\nNo deja sensación tirante",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
-    "mainImage": "/catalogo-img/Bloomshell/bloomshell-iluminador en crema-bloom cosmic.webp",
+    "mainImage": "/catalogo-img/Bloomshell/skin care/bloomshell - limpiador bloom lumi gel frasco y caja.webp",
     "images": [
-      "/catalogo-img/Bloomshell/bloomshell-iluminador en crema-bloom cosmic.webp"
+      "/catalogo-img/Bloomshell/skin care/bloomshell - limpiador bloom lumi gel frasco y caja.webp",
+      "/catalogo-img/Bloomshell/skin care/bloomshell - limpiador bloom lumi gel ingredientes.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/skin care/bloomshell - limpiador bloom lumi gel frasco y caja.webp"
   },
   {
     "id": "LV-1127",
