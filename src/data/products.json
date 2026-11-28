@@ -12033,17 +12033,18 @@
     "name": "Lip gloss magico bloom meow",
     "brand": "Bloomshell",
     "category": "Maquillaje",
-    "subcategory": "Maquillaje",
+    "subcategory": "Labios",
     "price": 18000,
     "stock": 4,
     "available": true,
     "isOut": false,
-    "description": "Lip gloss magico bloom meow de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "El Bloom Meow Lip Gloss de Bloomshell es un brillo labial de acabado traslúcido en tono natural, pensado para aportar un efecto de labios más luminosos y con aspecto jugoso sin cubrir por completo el tono real del labio. Tiene textura suave y ligera, y contiene agentes humectantes que pueden contribuir a una sensación de comodidad e hidratación mientras lo usas.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
     "mainImage": "/catalogo-img/Bloomshell/labios/bloomshell - lip gloss magico - Bloom meow.webp",
     "images": [
-      "/catalogo-img/Bloomshell/labios/bloomshell - lip gloss magico - Bloom meow.webp"
+      "/catalogo-img/Bloomshell/labios/bloomshell - lip gloss magico - Bloom meow.webp",
+      "/catalogo-img/Bloomshell/labios/bloomshell - lip gloss magico - Bloom meow abierto.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
