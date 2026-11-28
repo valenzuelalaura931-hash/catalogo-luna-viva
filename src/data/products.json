@@ -8344,7 +8344,7 @@
     "stock": 9,
     "available": true,
     "isOut": false,
-    "description": "Iluminador cosmic de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "Iluminador en polvo con textura cremosa, alta pigmentación y efecto duocromático en tonos rosa y lila, ideal para rostro, ojos y labios.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
     "mainImage": "/catalogo-img/Bloomshell/bloomshell-iluminador en crema-bloom cosmic.webp",
@@ -8354,7 +8354,8 @@
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/bloomshell-iluminador en crema-bloom cosmic.webp"
   },
   {
     "id": "LV-1335",
