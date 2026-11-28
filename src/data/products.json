@@ -8771,18 +8771,19 @@
     "stock": 1,
     "available": true,
     "isOut": false,
-    "description": "Velvet crush x3 tono 07 de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "Descubre el Velvet Rubor X3 Bloomshell, un rubor innovador diseñado para lograr un acabado natural, radiante y de larga duración.\n\nSu fórmula única combina tres texturas en un solo producto: crema, polvo mate y polvo luminoso, que se fusionan perfectamente en la piel para aportar color, dimensión y un efecto glowy elegante.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
-    "mainImage": "/catalogo-img/Bloomshell/Rubores/bloomshell- rubor en crema - bloom crush amuse tonos.webp",
+    "mainImage": "/catalogo-img/Bloomshell/Rubores/bloomshell - rubor velvet crush x3 tono 07 lavanda purple.webp",
     "images": [
-      "/catalogo-img/Bloomshell/Rubores/bloomshell- rubor en crema - bloom crush amuse tonos.webp",
-      "/catalogo-img/Bloomshell/Rubores/bloomshell- rubor en crema - bloom crush amuse.webp"
+      "/catalogo-img/Bloomshell/Rubores/bloomshell - rubor velvet crush x3 tono 07 lavanda purple.webp",
+      "/catalogo-img/Bloomshell/Rubores/bloomshell - rubor velvet crush x3 tonos collage.webp"
     ],
     "lunaRecommends": true,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/Rubores/bloomshell - rubor velvet crush x3 tono 07 lavanda purple.webp"
   },
   {
     "id": "LV-1352",
@@ -8930,21 +8931,22 @@
     "category": "Maquillaje",
     "subcategory": "Maquillaje",
     "price": 39000,
-    "stock": 6,
+    "stock": 5,
     "available": true,
     "isOut": false,
-    "description": "Velvet crush x3 tono 03 de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "Descubre el Velvet Rubor X3 Bloomshell, un rubor innovador diseñado para lograr un acabado natural, radiante y de larga duración.\n\nSu fórmula única combina tres texturas en un solo producto: crema, polvo mate y polvo luminoso, que se fusionan perfectamente en la piel para aportar color, dimensión y un efecto glowy elegante.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
-    "mainImage": "/catalogo-img/Bloomshell/Rubores/bloomshell- rubor en crema - bloom crush amuse tonos.webp",
+    "mainImage": "/catalogo-img/Bloomshell/Rubores/bloomshell - rubor velvet crush x3 tono 03 warm terracota.webp",
     "images": [
-      "/catalogo-img/Bloomshell/Rubores/bloomshell- rubor en crema - bloom crush amuse tonos.webp",
-      "/catalogo-img/Bloomshell/Rubores/bloomshell- rubor en crema - bloom crush amuse.webp"
+      "/catalogo-img/Bloomshell/Rubores/bloomshell - rubor velvet crush x3 tono 03 warm terracota.webp",
+      "/catalogo-img/Bloomshell/Rubores/bloomshell - rubor velvet crush x3 tonos collage.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/Rubores/bloomshell - rubor velvet crush x3 tono 03 warm terracota.webp"
   },
   {
     "id": "LV-1358",
