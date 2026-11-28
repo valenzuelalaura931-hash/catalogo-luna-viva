@@ -9694,23 +9694,24 @@
     "name": "Llavero bloom mocha espejo",
     "brand": "Bloomshell",
     "category": "Maquillaje",
-    "subcategory": "Maquillaje",
+    "subcategory": "Labios",
     "price": 30000,
     "stock": 5,
     "available": true,
     "isOut": false,
-    "description": "Llavero bloom mocha espejo de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "El Bloom Espejo de Bloomshell es un brillo labial hidratante con acabado tipo espejo que deja los labios luminosos y con reflejo intenso. Viene en formato llavero para llevarlo en las llaves o el bolso, con ácido hialurónico y aceite de jojoba en su fórmula, y está disponible en dos tonos: Mocha y Me.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
-    "mainImage": "/catalogo-img/Bloomshell/labios/bloomshell - Llavero gloss y espejo - bloom me.webp",
+    "mainImage": "/catalogo-img/Bloomshell/labios/bloomshell - Llavero gloss y espejo - bloom mocca.webp",
     "images": [
-      "/catalogo-img/Bloomshell/labios/bloomshell - Llavero gloss y espejo - bloom me.webp",
-      "/catalogo-img/Bloomshell/labios/bloomshell - Llavero gloss y espejo - bloom me1.webp"
+      "/catalogo-img/Bloomshell/labios/bloomshell - Llavero gloss y espejo - bloom mocca.webp",
+      "/catalogo-img/Bloomshell/labios/bloomshell - Llavero gloss y espejo - bloom mocca1.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/labios/bloomshell - Llavero gloss y espejo - bloom mocca.webp"
   },
   {
     "id": "LV-1387",
@@ -9719,12 +9720,12 @@
     "name": "Llavero bloom me espejo",
     "brand": "Bloomshell",
     "category": "Maquillaje",
-    "subcategory": "Maquillaje",
+    "subcategory": "Labios",
     "price": 30000,
     "stock": 3,
     "available": true,
     "isOut": false,
-    "description": "Llavero bloom me espejo de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "El Bloom Espejo de Bloomshell es un brillo labial hidratante con acabado tipo espejo que deja los labios luminosos y con reflejo intenso. Viene en formato llavero para llevarlo en las llaves o el bolso, con ácido hialurónico y aceite de jojoba en su fórmula, y está disponible en dos tonos: Mocha y Me.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
     "mainImage": "/catalogo-img/Bloomshell/labios/bloomshell - Llavero gloss y espejo - bloom me.webp",
@@ -9735,7 +9736,8 @@
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/labios/bloomshell - Llavero gloss y espejo - bloom me.webp"
   },
   {
     "id": "LV-1388",
