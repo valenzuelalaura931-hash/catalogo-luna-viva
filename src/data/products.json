@@ -10198,22 +10198,24 @@
     "name": "Tinta bloom bombon",
     "brand": "Bloomshell",
     "category": "Maquillaje",
-    "subcategory": "Maquillaje",
+    "subcategory": "Labios",
     "price": 18000,
     "stock": 4,
     "available": true,
     "isOut": false,
-    "description": "Tinta bloom bombon de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "Un toque de color intenso para unos labios que se roban todas las miradas. La Tinta de Labios Bloom Bonbón Rojo de Bloomshell aporta un tono rojo vibrante que realza los labios y permite construir la intensidad según el acabado que quieras lograr.\n\nCuenta con un práctico aplicador que facilita distribuir el producto y definir los labios. Su presentación inspirada en un bonbón le da un diseño coqueto y diferente, perfecto para llevar en la cosmetiquera.\n\nModo de uso: Aplica directamente sobre los labios y difumina para un efecto más suave, o agrega más capas para conseguir un color más intenso",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
-    "mainImage": "/catalogo-img/Bloomshell/labios/bloomshell - Llavero gloss y tinta - duo bloom bow.webp",
+    "mainImage": "/catalogo-img/Bloomshell/labios/bloomshell - tinta de labios - bloom bombon.webp",
     "images": [
-      "/catalogo-img/Bloomshell/labios/bloomshell - Llavero gloss y tinta - duo bloom bow.webp"
+      "/catalogo-img/Bloomshell/labios/bloomshell - tinta de labios - bloom bombon.webp",
+      "/catalogo-img/Bloomshell/labios/bloomshell - tinta de labios - bloom bombon info.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
     "isBestseller": false,
-    "hidden": false
+    "hidden": false,
+    "image": "/catalogo-img/Bloomshell/labios/bloomshell - tinta de labios - bloom bombon.webp"
   },
   {
     "id": "LV-1407",
