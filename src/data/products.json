@@ -10702,17 +10702,18 @@
     "name": "Lip oil XL mimosa",
     "brand": "Bloomshell",
     "category": "Maquillaje",
-    "subcategory": "Maquillaje",
+    "subcategory": "Labios",
     "price": 26000,
     "stock": 2,
     "available": true,
     "isOut": false,
-    "description": "Lip oil XL mimosa de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "Más tamaño, más brillo y más cuidado para tus labios. El Lip Oil Mimosa Gigante XL de Bloomshell combina el efecto brillante de un gloss con el cuidado de un aceite labial, dejando los labios con una apariencia jugosa, suave y luminosa.\n\nSu fórmula enriquecida con aceites esenciales ayuda a nutrir, hidratar y proteger los labios, aportando suavidad y confort durante el día. Su presentación Gigante XL es ideal para quienes aman tener su lip oil favorito siempre a la mano.\n\nModo de uso: Aplica directamente sobre los labios tantas veces como desees para mantenerlos hidratados y con un acabado brillante.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
     "mainImage": "/catalogo-img/Bloomshell/labios/bloomshell - lip oil - bloom mimosa.webp",
     "images": [
-      "/catalogo-img/Bloomshell/labios/bloomshell - lip oil - bloom mimosa.webp"
+      "/catalogo-img/Bloomshell/labios/bloomshell - lip oil xl mimosa.webp",
+      "/catalogo-img/Bloomshell/labios/bloomshell - lip oil xl mimosa modelo.webp"
     ],
     "lunaRecommends": false,
     "isNew": false,
