@@ -11988,12 +11988,13 @@
     "stock": 11,
     "available": true,
     "isOut": false,
-    "description": "Borla triangular de la marca Bloomshell. Producto 100% original garantizado por Luna Viva Boutique Calarcá.",
+    "description": "La Borla de Terciopelo Bloomshell es un accesorio de maquillaje en forma de gota, diseñado para facilitar la aplicación y el difuminado de productos en diferentes zonas del rostro.\n\nSu diseño combina una base ancha y redondeada, perfecta para trabajar áreas amplias, con una punta de precisión que permite alcanzar fácilmente zonas pequeñas y de difícil acceso, como el contorno de los ojos, los laterales de la nariz y áreas específicas que requieren mayor detalle.\n\nDisponible en dos presentaciones: Pink y Negro, es una herramienta práctica para complementar tu rutina de maquillaje y conseguir un acabado más uniforme.",
     "benefits": "Fórmula de alta fijación y calidad certificada. Ideal para tu rutina diaria de belleza y cuidado.",
     "howToUse": "Aplicar suavemente según necesidad. Conservar en un lugar fresco y protegido de la luz directa.",
-    "mainImage": "/img/beauty blender.webp",
+    "mainImage": "/catalogo-img/Bloomshell/accesorios/bloomshell - borla triangular pink.webp",
     "images": [
-      "/img/beauty blender.webp"
+      "/catalogo-img/Bloomshell/accesorios/bloomshell - borla triangular pink.webp",
+      "/catalogo-img/Bloomshell/accesorios/bloomshell - borla triangular duo tonos.jpg"
     ],
     "lunaRecommends": false,
     "isNew": false,
